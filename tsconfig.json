@@ -6,7 +6,10 @@
         "target": "ES2018",
         "declaration": true,
         "declarationMap": true,
-        "baseUrl": "."
+        "baseUrl": ".",
+        "lib": [
+            "ES2022"
+        ]
     },
     "include": [
         "src/**/*.ts"

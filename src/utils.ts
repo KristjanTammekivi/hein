@@ -7,10 +7,14 @@ export const stringify = (value: any) => {
     if (value instanceof RegExp) {
         return value.toString();
     }
+    if (value instanceof Error) {
+        return `${ value.name }: ${ value.message }`;
+    }
     return inspect(value);
 };
 
-export class SameButDifferentAssertionError extends Error {
+// TODO: use assertion-error module
+export class AssertionError extends Error {
     constructor(public actual: any, public expected: any, message: string) {
         super(message);
     }

@@ -1,74 +1,84 @@
-import { doesNotThrow, throws } from 'node:assert';
-import { equal, notEqual, deepStrictEqual, notDeepStrictEqual, ok } from 'node:assert/strict';
+import { eql, equal, throws } from './assert';
+import { isThrowsCallback, ThrowsCallback } from './assert/throws';
 
-type ThrowCallback = () => unknown;
-
-const isThrowFunction = (fn: any): fn is ThrowCallback => {
-    ok(typeof fn === 'function');
-    return true;
-};
-
-class Expect<T> {
-    private inverted = false;
-
-    constructor(public actual: T) {}
-
-    get to() {
-        return this;
-    }
-
-    get not() {
-        this.inverted = !this.inverted;
-        return this;
-    }
-
-    get be() {
-        return this;
-    }
-
-    throw() {
-        if (isThrowFunction(this.actual)) {
-            if (!this.inverted) {
-                throws(this.actual);
-            } else {
-                doesNotThrow(this.actual);
-            }
-        }
-    }
-
-    equal(expected: T) {
-        if (!this.inverted) {
-            equal(this.actual, expected);
-        } else {
-            notEqual(this.actual, expected);
-        }
-    }
-
-    eql(expected: T) {
-        if (!this.inverted) {
-            deepStrictEqual(this.actual, expected);
-        } else {
-            notDeepStrictEqual(this.actual, expected);
-        }
-    }
-
-    greaterThan(expected: T) {
-        if (!this.inverted) {
-            ok(this.actual > expected);
-        } else {
-            ok(this.actual <= expected);
-        }
-    }
-
-    gt(expected: T) {
-        if (!this.inverted) {
-            ok(this.actual > expected);
-        } else {
-            ok(this.actual <= expected);
-        }
-    }
+interface ValueExpect<T> {
+    to: this;
+    be: this;
+    not: this;
+    and: this;
+    equal(value: T): this;
+    eql(value: T): this;
 }
 
-export const expect = <T>(actual: T) => {
-    return new Expect(actual);
+interface FunctionExpect<T> extends ValueExpect<T> {
+    throw(): this;
+}
+
+const valueExpect = <T>(value: T, inverted: boolean): ValueExpect<T> => {
+    const noop = (i = inverted) => valueExpect(value, i);
+    return {
+        get to() {
+            return noop(inverted);
+        },
+        get be() {
+            console.log('been');
+            return noop(inverted);
+        },
+        get not() {
+            return noop(!inverted);
+        },
+        get and() {
+            return noop(inverted);
+        },
+        equal: (other: T) => {
+            equal(value, other);
+            return valueExpect(value, inverted);
+        },
+        eql: (other: T) => {
+            eql(value, other);
+            return valueExpect(value, inverted);
+        }
+    };
 };
+
+const functionExpect = <T extends ThrowsCallback>(callback: T, inverted: boolean): FunctionExpect<T> => {
+    const noop = (i = inverted) => functionExpect(callback, i);
+    return {
+        get to() {
+            return noop();
+        },
+        get be() {
+            return noop();
+        },
+        get not() {
+            return noop(!inverted);
+        },
+        get and() {
+            return noop(inverted);
+        },
+        throw: () => {
+            throws(callback);
+            return functionExpect(callback, inverted);
+        },
+        equal: (other: T) => {
+            equal(callback, other);
+            return functionExpect(callback, inverted);
+        },
+        eql: (other: T) => {
+            equal(callback, other);
+            return functionExpect(callback, inverted);
+        }
+    };
+};
+
+interface Expect {
+    <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
+    <T>(actual: T): ValueExpect<T>;
+}
+
+export const expect = (<T>(actual: T) => {
+    if (isThrowsCallback(actual)) {
+        return functionExpect(actual, false);
+    }
+    return valueExpect(actual, false);
+}) as Expect;

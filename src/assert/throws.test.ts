@@ -7,7 +7,6 @@ describe('throws', () => {
         } catch {
             return;
         }
-        throw new Error('Expected function to throw');
     });
     it('should not throw if callback throws', () => {
         throws(() => {
@@ -23,7 +22,6 @@ describe('throws', () => {
             }
             return;
         }
-        throw new Error('Expected function to throw');
     });
     it(`should not throw if error message matches the provided RegExp`, () => {
         throws(() => {
@@ -41,5 +39,34 @@ describe('throws', () => {
                 throw new Error(`Expected "${ e.message }" to equal "${ expectedMessage }"`);
             }
         }
+    });
+    it(`should throw with the provide message if error message doesn't match the provided RegExp`, () => {
+        throws(() => {
+            throws(() => {
+                throw new Error('Things are bad');
+            }, /Things are good/, 'Damn');
+        }, /Damn/);
+    });
+    it(`should throw if error isn't an instance of the provided constructor`, () => {
+        class CustomError extends Error { }
+        throws(() => {
+            throws(() => { throw new Error(); }, CustomError);
+        }, /Expected Error to be an instance of \[class CustomError extends Error\]/);
+    });
+    it(`should throw with the provided message if error isn't an instance of the provided constructor`, () => {
+        class CustomError extends Error { }
+        throws(() => {
+            throws(() => { throw new Error(); }, CustomError, 'Damn');
+        }, /Damn/);
+    });
+    it('should throw if error predicate function returns false for the thrown error', () => {
+        throws(() => {
+            throws(() => { throw new Error('oops'); }, () => false);
+        }, /Expected Error: oops to match predicate function/);
+    });
+    it('should throw with the provided message if error predicate function returns false for the thrown error', () => {
+        throws(() => {
+            throws(() => { throw new Error('oops'); }, () => false, 'Damn');
+        }, /Damn/);
     });
 });

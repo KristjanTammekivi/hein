@@ -1,6 +1,9 @@
 {
   "name": "same-but-different",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "description": "",
   "main": "dist/index.js",
   "scripts": {
