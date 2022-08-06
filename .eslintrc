@@ -64,7 +64,15 @@
         "@typescript-eslint/space-before-blocks": "error",
         "@typescript-eslint/type-annotation-spacing": "error",
         "arrow-spacing": "error",
-        "@typescript-eslint/quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }]
+        "@typescript-eslint/quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "@typescript-eslint/no-floating-promises": "error"
     },
     "overrides": [
         {

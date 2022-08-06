@@ -1,5 +1,5 @@
+import { throws } from './assert';
 import { expect } from './expect';
-import { throws } from 'node:assert/strict';
 
 describe('expect', () => {
     describe('throw', () => {
@@ -10,6 +10,11 @@ describe('expect', () => {
             expect(() => {
                 throw new Error('Things are bad');
             }).to.throw();
+        });
+        it('should accept arguments', () => {
+            class CustomError extends Error { }
+            const cb = () => { throw new Error(); };
+            throws(() => expect(cb).to.throw(CustomError), /Expected function to throw CustomError/);
         });
         describe('not', () => {
             it(`should not throw if callback doesn't throw and it's inverted`, () => {
@@ -69,7 +74,13 @@ describe('expect', () => {
         });
     });
 
-    describe('greaterThan', () => {
+    describe('rejects', () => {
+        it('should not reject if promise rejects', async () => {
+            await expect(Promise.reject(new Error())).to.reject();
+        });
+    });
+
+    describe.skip('greaterThan', () => {
         it('should not throw when expectation is smaller than actual', () => {
             expect(1).to.be.greaterThan(0);
         });

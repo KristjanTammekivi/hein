@@ -1,7 +1,14 @@
-import { AssertionError, stringify } from '../utils';
+import { createAssertion } from '../utils';
 
-export const equal = <T>(actual: T, expected: T, message?: string) => {
-    if (actual !== expected) {
-        throw new AssertionError(actual, expected, message || `Expected ${ stringify(actual) } to equal ${ stringify(expected) }`);
+export const [equal, notEqual] = createAssertion({
+    messages: {
+        equal: 'Expected {{actual}} to equal {{expected}}',
+        not: 'Expected {{actual}} to not equal {{expected}}'
+    },
+    test: (report) => <T>(a: T, b: T, message?: string) => {
+        if (a !== b) {
+            return report({ status: 'notok', messageId: 'equal', actual: a, expected: b, message });
+        }
+        return report({ status: 'ok', expected: a, actual: b });
     }
-};
+});
