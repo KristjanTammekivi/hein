@@ -185,5 +185,26 @@ describe('utils/match', () => {
         it('should match partial objects', () => {
             equal(match({ a: 1, b: 2 }, { a: 1 }, { partial: true }), true);
         });
+        it('should match partial arrays', () => {
+            equal(match([1, 2], [1], { partial: true }), true);
+        });
+        it('should match partial Maps', () => {
+            const obj = [{}, {}];
+            const map1 = new Map([[obj[0], 1], [obj[1], 2]]);
+            const map2 = new Map([[obj[0], 1]]);
+            equal(match(map1, map2, { partial: true }), true);
+        });
+        it('should return false for partial Maps if expected has more keys', () => {
+            const key1 = {};
+            const key2 = {};
+            const map = new Map([[key1, 1]]);
+            const map2 = new Map([[key1, 1], [key2, 3]]);
+            equal(match(map, map2, { partial: true }), false);
+        });
+        it('should match partial Sets', () => {
+            const set1 = new Set([1, 2]);
+            const set2 = new Set([1]);
+            equal(match(set1, set2, { partial: true }), true);
+        });
     });
 });

@@ -38,15 +38,15 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         if (xor(actual instanceof Map, expected instanceof Map)) {
             return false;
         }
-        if ((actual as any as Map<any, any>).size !== (expected as any as Map<any, any>).size) {
+        if ((actual as any as Map<any, any>).size !== (expected as any as Map<any, any>).size && !partial) {
             return false;
         }
-        return [...(actual as any as Map<any, any>).entries()]
+        return [...(expected as any as Map<any, any>).entries()]
             .every(([key, value]) => {
-                if (!(expected as any as Map<any, any>).has(key)) {
+                if (!(actual as any as Map<any, any>).has(key)) {
                     return false;
                 }
-                return match(value, (expected as any as Map<any, any>).get(key), { mutate, partial });
+                return match(value, (actual as any as Map<any, any>).get(key), { mutate, partial });
             });
     }
     if (actual instanceof WeakMap || expected instanceof WeakMap) {
@@ -56,12 +56,12 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         if (xor(actual instanceof Set, expected instanceof Set)) {
             return false;
         }
-        if ((actual as any as Set<any>).size !== (expected as any as Set<any>).size) {
+        if ((actual as any as Set<any>).size !== (expected as any as Set<any>).size && !partial) {
             return false;
         }
-        return [...(actual as any as Set<any>).values()]
+        return [...(expected as any as Set<any>).values()]
             .every(value => {
-                return (expected as any as Set<any>).has(value);
+                return (actual as any as Set<any>).has(value);
             });
     }
     if (actual instanceof WeakSet || expected instanceof WeakSet) {
@@ -80,10 +80,15 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         if (xor(Array.isArray(actual), Array.isArray(expected))) {
             return false;
         }
-        if ((actual as any as any[]).length !== (expected as any as any[]).length) {
+        if ((actual as any as any[]).length !== (expected as any as any[]).length && !partial) {
             return false;
         }
-        return (actual as any as any[]).every((value, index) => match(value, expected[index], { mutate, partial }));
+        return (actual as any as any[]).every((value, index) => {
+            if (index >= (expected as any).length) {
+                return true;
+            }
+            return match(value, expected[index], { mutate, partial });
+        });
     }
     if (Object.keys(actual).length !== Object.keys(expected).length && !partial) {
         return false;

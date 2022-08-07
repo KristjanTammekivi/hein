@@ -18,7 +18,7 @@
 
 ### Assert style
 ```typescript
-import {equals} from 'same-but-different/assert';
+import {equals} from '@hein/hein/assert';
 
 equals(1, 1);
 ```

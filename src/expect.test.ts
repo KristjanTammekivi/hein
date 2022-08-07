@@ -30,7 +30,7 @@ describe('expect', () => {
 
     describe('equal', () => {
         it('should not throw for strict equality', () => {
-            expect(1).to.equal(1);
+            expect(1).to.eq(1);
         });
         it('should throw if values are not equal', () => {
             expect(() => {
@@ -93,6 +93,27 @@ describe('expect', () => {
             it('should invert the assertion', () => {
                 expect(() => {
                     expect(1).not.to.be.greaterThan(0);
+                }).to.throw();
+            });
+        });
+    });
+
+    describe('greaterThanEqual', () => {
+        it('should not throw when expectation is smaller than actual', () => {
+            expect(1).to.be.greaterThanOrEqual(0);
+        });
+        it('should not throw when expectation is equal to actual', () => {
+            expect(1).to.be.greaterThanOrEqual(1);
+        });
+        it('should throw when expectation is bigger than actual', () => {
+            expect(() => {
+                expect(1).to.be.greaterThanOrEqual(2);
+            }).to.throw();
+        });
+        describe('not', () => {
+            it('should invert the assertion', () => {
+                expect(() => {
+                    expect(1).not.to.be.greaterThanOrEqual(0);
                 }).to.throw();
             });
         });
