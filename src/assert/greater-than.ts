@@ -1,4 +1,4 @@
-import { createAssertion } from '../utils';
+import { createAssertion } from '../utils/assertion';
 
 export const [greaterThan, notGreaterThan] = createAssertion({
     messages: {

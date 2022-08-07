@@ -11,7 +11,7 @@ import {
     notRejects
 } from './assert';
 import { Constructor, ErrorPredicate, ThrowsCallback } from './assert/throws';
-import { registerMethod, registerProperty } from './utils';
+import { registerMethod, registerProperty } from './utils/chain';
 
 interface ValueExpect<T> {
     to: this;
@@ -118,14 +118,14 @@ use({
     }
 });
 
-const valueExpect = <T>(value: T, { inverted }: State): ValueExpect<T> & FunctionExpect<T> => {
+const expectChain = <T>(value: T, { inverted }: State): ValueExpect<T> & FunctionExpect<T> => {
     // const noop = (i = inverted) => valueExpect(value, { inverted: i });
     const chain = {};
     for (const [key, v] of Object.entries(mixins)) {
         if (v.type === 'property') {
             registerProperty(chain, key, () => {
                 const newState = v.value({ inverted });
-                return valueExpect(value, newState || { inverted });
+                return expectChain(value, newState || { inverted });
             });
         } else {
             registerMethod(chain, key, (...args: any[]) => {
@@ -135,7 +135,7 @@ const valueExpect = <T>(value: T, { inverted }: State): ValueExpect<T> & Functio
                     v.value(value, { inverted })(...args);
                 }
                 v.value(value, { inverted })(...args);
-                return valueExpect(value, { inverted });
+                return expectChain(value, { inverted });
             });
         }
     }
@@ -150,5 +150,5 @@ interface Expect {
 }
 
 export const expect = (<T>(actual: T) => {
-    return valueExpect(actual, {});
+    return expectChain(actual, {});
 }) as Expect;

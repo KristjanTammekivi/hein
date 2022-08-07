@@ -1,17 +1,6 @@
-import { createAssertion } from '../utils';
+import { createAssertion } from '../utils/assertion';
 import { ErrorPredicate, isConstructor, processError } from './throws';
-/*
-invalidArgument: 'Expected {{actual}} to be a function',
-invalidThrow: 'Expected function to throw an instance of Error',
-throws: 'Expected function to throw',
-throwsConstructor: 'Expected function to throw {{expected}}',
-throwsError: 'Expected {{actual}} to match predicate function',
-throwsRegex: 'Expected function to throw an error matching {{expected}}',
-not: 'Expected function to not throw',
-notConstructor: 'Expected function to not throw a {{expected}}',
-notError: 'Expected function to not throw an error matching the predicate',
-notRegex: 'Expected function to not throw an error matching {{expected}}'
-*/
+
 export const [rejects, notRejects] = createAssertion({
     messages: {
         invalidArgument: 'Expected {{actual}} to be a Promise',

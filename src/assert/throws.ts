@@ -1,4 +1,4 @@
-import { createAssertion, Report } from '../utils';
+import { createAssertion, Report } from '../utils/assertion';
 
 export type ThrowsCallback = () => unknown;
 export const isThrowsCallback = (value: any): value is ThrowsCallback => {

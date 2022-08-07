@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import { createAssertion } from '../utils';
+import { createAssertion } from '../utils/assertion';
 
 const anySymbol: unique symbol = Symbol();
 

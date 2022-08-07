@@ -1,25 +1,12 @@
-import { inspect } from 'loupe';
-import { State } from './expect';
 import * as mustache from 'mustache';
+import { State } from '../expect';
 import { mapValues } from 'lodash';
+import { stringify } from './stringify';
 
 // TODO: toggle this on and off inside format function
 (mustache as any).escape = (x: string) => x;
+
 const { render } = mustache;
-
-export const stringify = (value: any) => {
-    if (typeof value === 'string') {
-        return `'${ value }'`;
-    }
-    if (value instanceof RegExp) {
-        return value.toString();
-    }
-    if (value instanceof Error) {
-        return `${ value.name }: ${ value.message }`;
-    }
-    return inspect(value);
-};
-
 
 export class AssertionError extends Error {
     public showDiff = true;
@@ -28,23 +15,6 @@ export class AssertionError extends Error {
         super(message);
     }
 }
-
-export const registerProperty = <T, U extends string, V extends () => any>(obj: T, name: U, value: V) => {
-    Object.defineProperty(obj, name, {
-        enumerable: true,
-        get() {
-            return value();
-        },
-    });
-    return obj as T & Record<U, V>;
-};
-
-export const registerMethod = <T, U extends string, V>(obj: T, name: U, value: V) => {
-    Object.defineProperty(obj, name, {
-        value,
-    });
-    return obj as T & Record<U, V>;
-};
 
 interface ReportOptions<T, U> {
     status: 'ok' | 'notok';
