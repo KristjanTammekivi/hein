@@ -55,7 +55,7 @@ interface ReportOptions<T, U> {
     noStringify?: boolean;
 }
 
-export type Report<T> = <U>(args: ReportOptions<T, U>) => void;
+export type Report<T> = <U>(args: ReportOptions<T, U>) => true | void;
 
 interface AssertionArguments<T extends string, U extends (...args: any[]) => void> {
     messages: Record<T, string> & { not: string; };
@@ -72,12 +72,14 @@ const format = (message: string, data: Record<any, any>, noStringify: boolean) =
 export const createAssertion = <T extends string, U extends (...args: any[]) => void>({ messages, test }: AssertionArguments<T, U>) => {
     const factory = ({ inverted }: State = {}) => {
         const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify }) => {
+            // console.trace({ status, messageId, message, actual, expected });
             if (inverted && status === 'ok') {
                 throw new AssertionError(actual, expected, format(message || messages[messageId] || messages.not, { actual, expected }, noStringify));
             }
             if (!inverted && status === 'notok') {
                 throw new AssertionError(actual, expected, format(message || messages[messageId], { actual, expected }, noStringify));
             }
+            return true;
         };
         return ((...args: any[]) => {
             return test(report)(...args);

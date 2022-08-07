@@ -120,28 +120,7 @@ use({
 
 const valueExpect = <T>(value: T, { inverted }: State): ValueExpect<T> & FunctionExpect<T> => {
     // const noop = (i = inverted) => valueExpect(value, { inverted: i });
-    const chain = {
-        // throw: (...args: any[]) => {
-        //     if (isThrowsCallback(value)) {
-        //         if (!inverted) {
-        //             throws(value, ...args);
-        //         } else {
-        //             notThrows(value, ...args);
-        //         }
-        //     } else {
-        //         throw new Error('Cannot throw on non-function');
-        //     }
-        //     return noop();
-        // },
-        // equal: (other: T) => {
-        //     equal(value, other);
-        //     return noop();
-        // },
-        // eql: (other: T) => {
-        //     eql(value, other);
-        //     return noop();
-        // }
-    };
+    const chain = {};
     for (const [key, v] of Object.entries(mixins)) {
         if (v.type === 'property') {
             registerProperty(chain, key, () => {

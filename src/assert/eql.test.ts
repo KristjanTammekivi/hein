@@ -51,17 +51,50 @@ describe('eql', () => {
     it('should throw if objects are not strictly equal', () => {
         throws(() => eql({ a: 1 }, { a: 2 }));
     });
-    it('should throw if expected has more keys than actual');
-    it.skip('should throw if expectation has extra properties', () => {
-        throws(() => eql({ a: 1, b: 2 }, { a: 1 }));
+    it('should throw if expected has more keys than actual', () => {
+        throws(() => eql({ a: 1 }, { a: 1, b: 2 }));
     });
-    it.skip('should replace a property with any()', () => {
-        eql({ a: 1, b: 2 }, { a: 1, b: any() });
+    it('should throw with 2 different symbols', () => {
+        throws(() => eql(Symbol('a'), Symbol('a')));
     });
-    it.skip('should reject with correct message', () => {
+    it('should throw if nested values are different', () => {
+        eql({ a: { b: 1 } }, { a: { b: 1 } });
+    });
+    it('should throw if second key is different', () => {
+        throws(() => eql({ a: 1, b: 1 }, { a: 1, b: 2 }));
+    });
+    it('should throw if actual is a number but expected is an object', () => {
+        throws(() => eql({ a: 1 }, { a: {} }));
+    });
+    it('should not throw if value and function stringify to same function', () => {
+        eql(() => { }, () => { });
+    });
+    it('should not throw if both values are the same functions', () => {
+        const noop = () => { };
+        eql(noop, noop);
+    });
+    it('should throw if both values are empty WeakMaps', () => {
+        throws(() => eql(new WeakMap(), new WeakMap()));
+    });
+    it('should throw if both values are WeakSets', () => {
+        throws(() => eql(new WeakSet(), new WeakSet()));
+    });
+    it('should not throw if both values are the same Date', () => {
+        const ms = Date.now();
+        eql(new Date(ms), new Date(ms));
+    });
+    it('should throw if both values are different Dates', () => {
+        throws(() => eql(new Date(1), new Date(2)));
+    });
+    describe('any', () => {
+        it('should replace a property with any()', () => {
+            eql({ a: 1 }, { a: any() });
+        });
+    });
+    it('should reject with correct message', () => {
         throws(() => eql({ a: 1, b: 2 }, { a: 1, b: 3 }), /Expected { a: 1, b: 2 } to deep equal { a: 1, b: 3 }/);
     });
-    describe.skip('notEql', () => {
+    describe('notEql', () => {
         it('should not throw if values are different', () => {
             notEql({ a: 1 }, { a: 2 });
         });
