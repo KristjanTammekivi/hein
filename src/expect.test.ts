@@ -80,7 +80,7 @@ describe('expect', () => {
         });
     });
 
-    describe.skip('greaterThan', () => {
+    describe('greaterThan', () => {
         it('should not throw when expectation is smaller than actual', () => {
             expect(1).to.be.greaterThan(0);
         });

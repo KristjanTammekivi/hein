@@ -1,6 +1,16 @@
-import { eql, equal, notEql, notEqual, notThrows, throws } from './assert';
-import { notRejects, rejects } from './assert/rejects';
-import { Constructor, ErrorPredicate, isThrowsCallback, ThrowsCallback } from './assert/throws';
+import {
+    eql,
+    equal,
+    notEql,
+    notEqual,
+    notThrows,
+    throws,
+    greaterThan,
+    notGreaterThan,
+    rejects,
+    notRejects
+} from './assert';
+import { Constructor, ErrorPredicate, ThrowsCallback } from './assert/throws';
 import { registerMethod, registerProperty } from './utils';
 
 interface ValueExpect<T> {
@@ -20,6 +30,10 @@ interface FunctionExpect<T> extends ValueExpect<T> {
 interface PromiseExpect<T> extends ValueExpect<T> {
     reject(message?: string): Promise<void>;
     reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
+}
+
+interface NumberExpect extends ValueExpect<number> {
+    greaterThan(value: number): this;
 }
 
 export interface State {
@@ -81,32 +95,52 @@ use({
                 return notRejects(value, ...args);
             }
         }
+    },
+    greaterThan: {
+        type: 'method',
+        value: (value: any, { inverted }) => (other: any) => {
+            if (inverted) {
+                notGreaterThan(value, other);
+            } else {
+                greaterThan(value, other);
+            }
+        }
+    },
+    throw: {
+        type: 'method',
+        value: (value: any, { inverted }) => (...args: any[]) => {
+            if (inverted) {
+                return notThrows(value, ...args);
+            } else {
+                return throws(value, ...args);
+            }
+        }
     }
 });
 
 const valueExpect = <T>(value: T, { inverted }: State): ValueExpect<T> & FunctionExpect<T> => {
-    const noop = (i = inverted) => valueExpect(value, { inverted: i });
+    // const noop = (i = inverted) => valueExpect(value, { inverted: i });
     const chain = {
-        throw: (...args: any[]) => {
-            if (isThrowsCallback(value)) {
-                if (!inverted) {
-                    throws(value, ...args);
-                } else {
-                    notThrows(value, ...args);
-                }
-            } else {
-                throw new Error('Cannot throw on non-function');
-            }
-            return noop();
-        },
-        equal: (other: T) => {
-            equal(value, other);
-            return noop();
-        },
-        eql: (other: T) => {
-            eql(value, other);
-            return noop();
-        }
+        // throw: (...args: any[]) => {
+        //     if (isThrowsCallback(value)) {
+        //         if (!inverted) {
+        //             throws(value, ...args);
+        //         } else {
+        //             notThrows(value, ...args);
+        //         }
+        //     } else {
+        //         throw new Error('Cannot throw on non-function');
+        //     }
+        //     return noop();
+        // },
+        // equal: (other: T) => {
+        //     equal(value, other);
+        //     return noop();
+        // },
+        // eql: (other: T) => {
+        //     eql(value, other);
+        //     return noop();
+        // }
     };
     for (const [key, v] of Object.entries(mixins)) {
         if (v.type === 'property') {
@@ -132,6 +166,7 @@ const valueExpect = <T>(value: T, { inverted }: State): ValueExpect<T> & Functio
 interface Expect {
     <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
     <T extends Promise<any>>(actual: T): PromiseExpect<T>;
+    <T extends number>(actual: T): NumberExpect;
     <T>(actual: T): ValueExpect<T>;
 }
 
