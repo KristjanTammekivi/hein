@@ -1,4 +1,5 @@
-import { any, eql, notEql } from './eql';
+import { any } from '../utils/match';
+import { eql, notEql } from './eql';
 import { throws } from './throws';
 
 describe('eql', () => {
@@ -65,9 +66,6 @@ describe('eql', () => {
     });
     it('should throw if actual is a number but expected is an object', () => {
         throws(() => eql({ a: 1 }, { a: {} }));
-    });
-    it('should not throw if value and function stringify to same function', () => {
-        eql(() => { }, () => { });
     });
     it('should not throw if both values are the same functions', () => {
         const noop = () => { };
