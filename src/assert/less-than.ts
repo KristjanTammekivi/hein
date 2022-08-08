@@ -7,7 +7,7 @@ interface LesserThan {
     <T>(actual: T, expected: T, message?: string): void;
 }
 
-export const [lesserThan, notLesserThan] = createAssertion({
+export const [lessThan, notLessThan] = createAssertion({
     messages: {
         lesserThan: 'Expected {{actual}} to be less than {{expected}}',
         not: 'Expected {{actual}} to not be less than {{expected}}'

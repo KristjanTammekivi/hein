@@ -3,6 +3,7 @@ export { throws, notThrows } from './assert/throws';
 export { eql, notEql } from './assert/eql';
 export { greaterThan, notGreaterThan } from './assert/greater-than';
 export { rejects, notRejects } from './assert/rejects';
+export { lessThan, notLessThan } from './assert/less-than';
 
 export const assert = () => {
     throw new Error('Not implemented');

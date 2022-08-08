@@ -45,7 +45,7 @@ interface PromiseExpect<T> extends ValueExpect<T> {
 interface NumberExpect extends ValueExpect<number> {
     greaterThan(value: number): this;
     greaterThanOrEqual(value: number): this;
-    lesserThan(value: number): this;
+    lessThan(value: number): this;
 }
 
 export interface State {
