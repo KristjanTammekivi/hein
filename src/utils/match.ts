@@ -53,25 +53,25 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     }
     // TODO:refactor and use typeguards
     if (actual instanceof Map || expected instanceof Map) {
-        if (xor(actual instanceof Map, expected instanceof Map)) {
+        if (!(actual instanceof Map && expected instanceof Map)) {
             return false;
         }
-        if ((actual as any as Map<any, any>).size !== (expected as any as Map<any, any>).size && !partial) {
+        if (actual.size !== expected.size && !partial) {
             return false;
         }
-        return [...(expected as any as Map<any, any>).entries()]
+        return [...expected.entries()]
             .every(([key, value]) => {
-                if (!(actual as any as Map<any, any>).has(key)) {
+                if (!actual.has(key)) {
                     return false;
                 }
-                const actualValue = (actual as any as Map<any, any>).get(key);
+                const actualValue = actual.get(key);
                 if (mutate) {
                     if (isEvaluation(value)) {
-                        (expected as any as Map<any, any>).set(key, actualValue);
+                        expected.set(key, actualValue);
                         return value(actualValue);
                     }
                     if (isAny(value)) {
-                        (expected as any as Map<any, any>).set(key, actualValue);
+                        expected.set(key, actualValue);
                         return true;
                     }
                 }
@@ -82,27 +82,27 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         return false;
     }
     if (actual instanceof Set || expected instanceof Set) {
-        if (xor(actual instanceof Set, expected instanceof Set)) {
+        if (!(actual instanceof Set && expected instanceof Set)) {
             return false;
         }
-        if ((actual as any as Set<any>).size !== (expected as any as Set<any>).size && !partial) {
+        if (actual.size !== expected.size && !partial) {
             return false;
         }
-        return [...(expected as any as Set<any>).values()]
+        return [...expected.values()]
             .every(value => {
-                return (actual as any as Set<any>).has(value);
+                return actual.has(value);
             });
     }
     if (actual instanceof WeakSet || expected instanceof WeakSet) {
         return false;
     }
     if (actual instanceof Date || expected instanceof Date) {
-        if (xor(actual instanceof Date, expected instanceof Date)) {
+        if (!(actual instanceof Date && expected instanceof Date)) {
             const date1 = new Date(actual as any);
             const date2 = new Date(expected as any);
             return date1.getTime() === date2.getTime();
         }
-        if ((actual as any as Date).getTime() !== (expected as any as Date).getTime()) {
+        if ((actual).getTime() !== (expected).getTime()) {
             return false;
         }
         return true;
@@ -111,14 +111,14 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         return false;
     }
     if (Array.isArray(actual) || Array.isArray(expected)) {
-        if (xor(Array.isArray(actual), Array.isArray(expected))) {
+        if (!(Array.isArray(actual) && Array.isArray(expected))) {
             return false;
         }
-        if ((actual as any as any[]).length !== (expected as any as any[]).length && !partial) {
+        if (actual.length !== expected.length && !partial) {
             return false;
         }
-        return (actual as any as any[]).every((value, index) => {
-            if (index >= (expected as any).length) {
+        return actual.every((value, index) => {
+            if (index >= expected.length) {
                 return true;
             }
             const expectedValue = expected[index];
