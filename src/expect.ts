@@ -14,6 +14,7 @@ import {
     isEmpty,
     notIsEmpty
 } from './assert';
+import { hasSize, notHasSize } from './assert/has-size';
 import { isType, notIsType, ValueType } from './assert/is-type';
 import { Constructor, ErrorPredicate, ThrowsCallback } from './assert/throws';
 import { registerMethod, registerProperty } from './utils/chain';
@@ -41,14 +42,6 @@ interface ValueExpect<T> {
      * check if value is of certain type
      */
     type(type: ValueType): this;
-    /**
-     * check if instance of value
-     */
-    instanceOf(constructor: Constructor): this;
-    /**
-     * check if object/array/Map/Set is empty
-     */
-    empty(message?: string): this;
 }
 
 interface FunctionExpect<T> extends ValueExpect<T> {
@@ -65,6 +58,28 @@ interface NumberExpect<T = number> extends ValueExpect<T> {
     greaterThan(value: T): this;
     greaterThanOrEqual(value: T): this;
     lessThan(value: T): this;
+}
+
+interface ObjectExpect<T> extends ValueExpect<T> {
+    /**
+     * check if instance of value
+     */
+    instanceOf(constructor: Constructor): this;
+    /**
+     * check if object/array/Map/Set is empty
+     */
+    empty(message?: string): this;
+    /**
+     * check for object/array/Map/Set to have a certain size
+     */
+    size(size: number, message?: string): this;
+}
+
+interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
+    /**
+     * check for array length
+     */
+    length(length: number, message?: string): this;
 }
 
 export interface State {
@@ -205,6 +220,17 @@ use({
                 isEmpty(value, message);
             }
         }
+    },
+    size: { type: 'alias', value: 'length' },
+    length: {
+        type: 'method',
+        value: (value: any, { inverted }) => (length: number, message?: string) => {
+            if (inverted) {
+                notHasSize(value, length, message);
+            } else {
+                hasSize(value, length, message);
+            }
+        }
     }
 });
 
@@ -272,6 +298,8 @@ const createDelayedChain = (base: any, { inverted, evaluations = [] }: State & {
 interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<any> {
     <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
     <T extends Promise<any>>(actual: T): PromiseExpect<T>;
+    <T extends any[]>(actual: T): ArrayExpect<T>;
+    <T extends Record<string, any>>(actual: T): ObjectExpect<T>;
     <T extends number>(actual: T): NumberExpect;
     <T>(actual: T): ValueExpect<T>;
     evaluate: (value: any) => void;

@@ -168,4 +168,46 @@ describe('expect', () => {
             });
         });
     });
+
+    describe('empty', () => {
+        it('should not throw if array is empty', () => {
+            expect([]).to.be.empty();
+        });
+        it('should throw if array is not empty', () => {
+            expect(() => {
+                expect([1]).to.be.empty();
+            }).to.throw(/Expected array to be empty/);
+        });
+        describe('not', () => {
+            it('should throw if array is empty', () => {
+                expect(() => {
+                    expect([]).not.to.be.empty();
+                }).to.throw(/Expected array to not be empty/);
+            });
+            it('should not throw if array is not empty', () => {
+                expect([1]).not.to.be.empty();
+            });
+        });
+    });
+
+    describe('size', () => {
+        it('should not throw if array is of correct size', () => {
+            expect([1, 2, 3]).to.have.size(3);
+        });
+        it('should throw if array is not of correct size', () => {
+            expect(() => {
+                expect([1, 2, 3]).to.have.size(2);
+            }).to.throw(/Expected array to have length of 2/);
+        });
+        describe('not', () => {
+            it('should throw if array is of correct size', () => {
+                expect(() => {
+                    expect([1, 2, 3]).not.to.have.length(3);
+                }).to.throw(/Expected array to not have length of 3/);
+            });
+            it('should not throw if array is not of correct size', () => {
+                expect([1, 2, 3]).not.to.have.size(2);
+            });
+        });
+    });
 });
