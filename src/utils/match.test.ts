@@ -183,7 +183,17 @@ describe('utils/match', () => {
             equal(match({ a: 5 }, expect), true);
             equal(expect.a, anyInstance);
         });
-        it('should mutate array elements');
+        it('should mutate array elements', () => {
+            const expectation = [any()];
+            equal(match([5], expectation, { mutate: true }), true);
+            equal(expectation[0], 5);
+        });
+        it('should mutate map values', () => {
+            const key = {};
+            const expectation = new Map([[key, any()]]);
+            equal(match(new Map([[key, 5]]), expectation, { mutate: true }), true);
+            equal(expectation.get(key), 5);
+        });
     });
     describe('partial', () => {
         it('should match partial objects', () => {
@@ -232,5 +242,13 @@ describe('utils/match', () => {
             equal(match([1], expect, { mutate: true }), true);
             equal(expect[0], 1);
         });
+        it('should mutate Maps', () => {
+            const key = {};
+            const actual = new Map([[key, 1]]);
+            const expect = new Map([[key, trueEvaluation]]);
+            equal(match(actual, expect, { mutate: true }), true);
+            equal(expect.get(key), 1);
+        });
+        it('should traverse the whole object even if something is not a match');
     });
 });

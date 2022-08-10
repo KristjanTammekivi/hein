@@ -64,7 +64,18 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
                 if (!(actual as any as Map<any, any>).has(key)) {
                     return false;
                 }
-                return match(value, (actual as any as Map<any, any>).get(key), { mutate, partial });
+                const actualValue = (actual as any as Map<any, any>).get(key);
+                if (mutate) {
+                    if (isEvaluation(value)) {
+                        (expected as any as Map<any, any>).set(key, actualValue);
+                        return value(actualValue);
+                    }
+                    if (isAny(value)) {
+                        (expected as any as Map<any, any>).set(key, actualValue);
+                        return true;
+                    }
+                }
+                return match(value, actualValue, { mutate, partial });
             });
     }
     if (actual instanceof WeakMap || expected instanceof WeakMap) {
@@ -118,6 +129,10 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
                         expected[index] = value;
                     }
                     return result;
+                }
+                if (isAny(expectedValue)) {
+                    expected[index] = value;
+                    return true;
                 }
             }
             return match(value, expectedValue, { mutate, partial });
