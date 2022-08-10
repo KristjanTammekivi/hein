@@ -118,4 +118,54 @@ describe('expect', () => {
             });
         });
     });
+
+    describe('curried', () => {
+        it('should curry the assertion', () => {
+            expect(() => {
+                expect.to.be.greaterThan(1).evaluate(0);
+            }).to.throw(/Expected 0 to be greater than 1/);
+        });
+    });
+
+    describe('type', () => {
+        it('should not throw for number, number', () => {
+            expect(1).to.have.type('number');
+        });
+        it('should throw for number, string', () => {
+            expect(() => {
+                expect(1).to.have.type('string');
+            }).to.throw(/Expected number to be a\(n\) string/);
+        });
+        describe('not', () => {
+            it('should throw if is of type', () => {
+                expect(() => {
+                    expect(1).not.to.have.type('number');
+                }).to.throw(/Expected number to not be a\(n\) number/);
+            });
+            it('should not throw if not of type', () => {
+                expect(1).not.to.have.type('string');
+            });
+        });
+    });
+
+    describe('instanceOf', () => {
+        it('should not throw if is correct constructor', () => {
+            expect(new Error()).to.be.instanceOf(Error);
+        });
+        it('should throw if is not correct constructor', () => {
+            expect(() => {
+                expect(new Error()).to.be.instanceOf(Array);
+            }).to.throw(/Expected Error to be an instance of Array/);
+        });
+        describe('not', () => {
+            it('should throw if is correct constructor', () => {
+                expect(() => {
+                    expect(new Error()).not.to.be.instanceOf(Error);
+                }).to.throw(/Expected Error to not be an instance of Error/);
+            });
+            it('should not throw if is not correct constructor', () => {
+                expect(new Error()).not.to.be.instanceOf(Array);
+            });
+        });
+    });
 });

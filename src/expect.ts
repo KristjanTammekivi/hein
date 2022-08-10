@@ -8,8 +8,13 @@ import {
     greaterThan,
     notGreaterThan,
     rejects,
-    notRejects
+    notRejects,
+    instanceOf,
+    notInstanceOf,
+    isEmpty,
+    notIsEmpty
 } from './assert';
+import { isType, notIsType, ValueType } from './assert/is-type';
 import { Constructor, ErrorPredicate, ThrowsCallback } from './assert/throws';
 import { registerMethod, registerProperty } from './utils/chain';
 
@@ -18,6 +23,8 @@ interface ValueExpect<T> {
     be: this;
     not: this;
     and: this;
+    have: this;
+    of: this;
     /**
      * check for === equality
      */
@@ -30,11 +37,23 @@ interface ValueExpect<T> {
      * check for deep equality
      */
     eql(value: T): this;
+    /**
+     * check if value is of certain type
+     */
+    type(type: ValueType): this;
+    /**
+     * check if instance of value
+     */
+    instanceOf(constructor: Constructor): this;
+    /**
+     * check if object/array/Map/Set is empty
+     */
+    empty(message?: string): this;
 }
 
 interface FunctionExpect<T> extends ValueExpect<T> {
     throw(message?: string): this;
-    throw(matcher: RegExp | Constructor<Error> | ErrorPredicate): this;
+    throw(matcher: RegExp | Constructor<Error> | ErrorPredicate, message?: string): this;
 }
 
 interface PromiseExpect<T> extends ValueExpect<T> {
@@ -42,10 +61,10 @@ interface PromiseExpect<T> extends ValueExpect<T> {
     reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
 }
 
-interface NumberExpect extends ValueExpect<number> {
-    greaterThan(value: number): this;
-    greaterThanOrEqual(value: number): this;
-    lessThan(value: number): this;
+interface NumberExpect<T = number> extends ValueExpect<T> {
+    greaterThan(value: T): this;
+    greaterThanOrEqual(value: T): this;
+    lessThan(value: T): this;
 }
 
 export interface State {
@@ -82,6 +101,8 @@ use({
     to: { type: 'property', value: identity },
     be: { type: 'property', value: identity },
     and: { type: 'property', value: identity },
+    have: { type: 'property', value: identity },
+    this: { type: 'property', value: identity },
     not: { type: 'property', value: ({ inverted }) => ({ inverted: !inverted }) },
     eql: {
         type: 'method',
@@ -154,7 +175,37 @@ use({
             greaterThan(other, value);
         }
     },
-    below: { type: 'alias', value: 'lessThan' }
+    below: { type: 'alias', value: 'lessThan' },
+    type: {
+        type: 'method',
+        value: (value: any, { inverted }) => (type: ValueType) => {
+            if (inverted) {
+                notIsType(value, type);
+            } else {
+                isType(value, type);
+            }
+        }
+    },
+    instanceOf: {
+        type: 'method',
+        value: (value: any, { inverted }) => (constructor: Constructor) => {
+            if (inverted) {
+                notInstanceOf(value, constructor);
+            } else {
+                instanceOf(value, constructor);
+            }
+        }
+    },
+    empty: {
+        type: 'method',
+        value: (value: any, { inverted }) => (message?: string) => {
+            if (inverted) {
+                notIsEmpty(value, message);
+            } else {
+                isEmpty(value, message);
+            }
+        }
+    }
 });
 
 const expectChain = <T>(value: T, { inverted }: State): ValueExpect<T> & FunctionExpect<T> => {
@@ -168,15 +219,11 @@ const expectChain = <T>(value: T, { inverted }: State): ValueExpect<T> & Functio
             });
         } else if (v.type === 'method') {
             registerMethod(chain, key, (...args: any[]) => {
-                if (v.noAutoNot || !inverted) {
-                    v.value(value, { inverted })(...args);
-                } else {
-                    v.value(value, { inverted })(...args);
-                }
                 v.value(value, { inverted })(...args);
                 return expectChain(value, { inverted });
             });
         } else {
+            // apply aliases last in case they are defined before the method
             aliases[key] = v.value;
         }
     }
@@ -186,13 +233,50 @@ const expectChain = <T>(value: T, { inverted }: State): ValueExpect<T> & Functio
     return chain;
 };
 
-interface Expect {
+const delayedChain = ({ inverted, evaluations = [] }: State & { evaluations: ((value: any) => void)[] }) => {
+    return createDelayedChain({}, { inverted, evaluations });
+};
+
+const createDelayedChain = (base: any, { inverted, evaluations = [] }: State & { evaluations: ((value: any) => void)[] }) => {
+    const chain = base;
+    const aliases: Record<string, string> = {};
+    for (const [key, v] of Object.entries(mixins)) {
+        if (v.type === 'property') {
+            registerProperty(chain, key, () => {
+                const newState = v.value({ inverted });
+                return delayedChain({ inverted, evaluations, ...newState });
+            });
+        } else if (v.type === 'method') {
+            registerMethod(chain, key, (...args: any[]) => {
+                const evaluation = (value: any) => {
+                    v.value(value, { inverted })(...args);
+                };
+                const c = delayedChain({ inverted, evaluations: [...evaluations, evaluation] });
+                c.evaluate = (value: string) => {
+                    // TODO: if function returns a promise then throw, we need none of that
+                    [...evaluations, evaluation].forEach((e) => e(value));
+                };
+                return c;
+            });
+        } else {
+            // apply aliases last in case they are defined before the method
+            aliases[key] = v.value;
+        }
+    }
+    for (const [key, v] of Object.entries(aliases)) {
+        chain[key] = chain[v];
+    }
+    return chain;
+};
+
+interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<any> {
     <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
     <T extends Promise<any>>(actual: T): PromiseExpect<T>;
     <T extends number>(actual: T): NumberExpect;
     <T>(actual: T): ValueExpect<T>;
+    evaluate: (value: any) => void;
 }
 
-export const expect = (<T>(actual: T) => {
+export const expect = createDelayedChain((<T>(actual: T) => {
     return expectChain(actual, {});
-}) as Expect;
+}), { evaluations: [] }) as Expect;

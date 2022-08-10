@@ -3,6 +3,9 @@ import { eql, notEql } from './eql';
 import { throws } from './throws';
 
 describe('eql', () => {
+    it('should not throw for NaN', () => {
+        eql(NaN, NaN);
+    });
     it('should not throw if objects are strictly equal', () => {
         const obj = { a: 1 };
         eql(obj, obj);
@@ -98,6 +101,9 @@ describe('eql', () => {
         });
         it('should throw if values are the same', () => {
             throws(() => notEql({ a: 1 }, { a: 1 }), /Expected { a: 1 } to not deep equal { a: 1 }/);
+        });
+        it('should throw with custom message', () => {
+            throws(() => notEql({ a: 1 }, { a: 1 }, 'custom message'), /custom message/);
         });
     });
 });

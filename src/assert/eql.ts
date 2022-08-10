@@ -7,13 +7,13 @@ export const [eql, notEql] = createAssertion({
         notEql: 'Expected {{actual}} to deep equal {{expected}}',
         not: 'Expected {{actual}} to not deep equal {{expected}}'
     },
-    test: (report) => <T>(actual: T, expected: T) => {
+    test: (report) => <T>(actual: T, expected: T, message?: string) => {
         if (typeof expected !== 'function') {
             expected = cloneDeep(expected);
         }
         if (match(actual, expected, { mutate: true })) {
-            return report({ status: 'ok', expected, actual });
+            return report({ message, status: 'ok', expected, actual });
         }
-        return report({ status: 'notok', messageId: 'notEql', expected, actual });
+        return report({ message, status: 'notok', messageId: 'notEql', expected, actual });
     }
 });

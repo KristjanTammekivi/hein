@@ -1,5 +1,5 @@
 import { equal } from 'assert';
-import { any, match } from './match';
+import { any, createEvaluation, match } from './match';
 
 describe('utils/match', () => {
     describe('number', () => {
@@ -135,6 +135,9 @@ describe('utils/match', () => {
             equal(match(new Date(), {} as any), false);
             equal(match({} as any, new Date()), false);
         });
+        it('should return true if one value is a Date and the other a representation of that date', () => {
+            equal(match<any>(new Date(0), new Date(0).getMilliseconds()), true);
+        });
     });
     describe('object', () => {
         it(`should return false if one object is empty and the other isn't`, () => {
@@ -180,6 +183,7 @@ describe('utils/match', () => {
             equal(match({ a: 5 }, expect), true);
             equal(expect.a, anyInstance);
         });
+        it('should mutate array elements');
     });
     describe('partial', () => {
         it('should match partial objects', () => {
@@ -205,6 +209,28 @@ describe('utils/match', () => {
             const set1 = new Set([1, 2]);
             const set2 = new Set([1]);
             equal(match(set1, set2, { partial: true }), true);
+        });
+    });
+    describe('evaluation', () => {
+        const trueEvaluation = createEvaluation(() => true) as any;
+        const falseEvaluation = createEvaluation(() => false) as any;
+        it('should evaluate evaluation', () => {
+            equal(match(1, trueEvaluation), true);
+            equal(match(1, falseEvaluation), false);
+        });
+        it('should test properties', () => {
+            equal(match({ a: 1 }, { a: trueEvaluation }), true);
+            equal(match({ a: 1 }, { a: falseEvaluation }), false);
+        });
+        it('should mutate expected properties', () => {
+            const expect = { a: trueEvaluation };
+            equal(match({ a: 1 }, expect, { mutate: true }), true);
+            equal(expect.a, 1);
+        });
+        it('should mutate arrays', () => {
+            const expect = [trueEvaluation];
+            equal(match([1], expect, { mutate: true }), true);
+            equal(expect[0], 1);
         });
     });
 });

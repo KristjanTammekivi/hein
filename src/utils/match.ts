@@ -11,6 +11,23 @@ export const any = (): any => ({ [anySymbol]: true });
 
 const isAny = (value: any): value is Any => value && value[anySymbol];
 
+const evaluationSymbol: unique symbol = Symbol();
+
+interface Evaluation {
+    [evaluationSymbol]: true;
+    (value: any): boolean;
+}
+
+export const createEvaluation = (fn: (value: any) => boolean): Evaluation => {
+    const evaluation = (value: any): boolean => {
+        return fn(value);
+    };
+    evaluation[evaluationSymbol] = true;
+    return evaluation as Evaluation;
+};
+
+const isEvaluation = (value: any): value is Evaluation => value && value[evaluationSymbol];
+
 interface MatchOptions {
     mutate?: boolean;
     partial?: boolean;
@@ -20,18 +37,19 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     if (actual === expected) {
         return true;
     }
-    if (isAny(actual) || isAny(expected)) {
+    if (isAny(expected)) {
         return true;
     }
-    if (!actual || !expected || (!isObjectLike(actual) && !isObjectLike(expected))) {
+    if (isEvaluation(expected)) {
+        return expected(actual);
+    }
+
+    if (actual == null || expected == null || (!isObjectLike(actual) && !isObjectLike(expected))) {
         if (actual !== actual && expected !== expected) {
             return true;
         } else {
             return false;
         }
-    }
-    if (xor(isObjectLike(actual), isObjectLike(expected))) {
-        return false;
     }
     // TODO:refactor and use typeguards
     if (actual instanceof Map || expected instanceof Map) {
@@ -69,12 +87,17 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     }
     if (actual instanceof Date || expected instanceof Date) {
         if (xor(actual instanceof Date, expected instanceof Date)) {
-            return false;
+            const date1 = new Date(actual as any);
+            const date2 = new Date(expected as any);
+            return date1.getTime() === date2.getTime();
         }
         if ((actual as any as Date).getTime() !== (expected as any as Date).getTime()) {
             return false;
         }
         return true;
+    }
+    if (xor(isObjectLike(actual), isObjectLike(expected))) {
+        return false;
     }
     if (Array.isArray(actual) || Array.isArray(expected)) {
         if (xor(Array.isArray(actual), Array.isArray(expected))) {
@@ -87,27 +110,47 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
             if (index >= (expected as any).length) {
                 return true;
             }
-            return match(value, expected[index], { mutate, partial });
+            const expectedValue = expected[index];
+            if (mutate) {
+                if (isEvaluation(expectedValue)) {
+                    const result = expectedValue(value);
+                    if (result) {
+                        expected[index] = value;
+                    }
+                    return result;
+                }
+            }
+            return match(value, expectedValue, { mutate, partial });
         });
     }
     if (Object.keys(actual).length !== Object.keys(expected).length && !partial) {
         return false;
     }
     for (const i in actual) {
+        const expectedValue = expected[i];
+        const actualValue = actual[i];
         if (!(i in expected)) {
             if (partial) {
                 continue;
             }
             return false;
         }
-        if (isAny(expected[i])) {
+        if (isAny(expectedValue)) {
             if (mutate) {
                 // so diffs don't show any in case of mismatches elsewhere
-                expected[i] = actual[i];
+                expected[i] = actualValue;
             }
             return true;
         }
-        if (!match(actual[i], expected[i], { mutate, partial })) {
+        if (isEvaluation(expectedValue)) {
+            if (!expectedValue(actualValue)) {
+                return false;
+            }
+            if (mutate) {
+                expected[i] = actualValue;
+            }
+        }
+        if (!match(actual[i], expectedValue, { mutate, partial })) {
             return false;
         }
     }
