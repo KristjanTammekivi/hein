@@ -10,7 +10,7 @@ describe('greaterThan', () => {
     });
     it('should throw if actual is not a number', async () => {
         // @ts-expect-error intentionally wrong type
-        throws(() => greaterThan('a', 1), /Expected 'a' to be a number/);
+        throws(() => greaterThan('a', 1), /Expected arguments to be number\/bigint\/date, received string\/number/);
     });
     it('should throw if actual is smaller than expected', async () => {
         throws(() => greaterThan(0, 1), /Expected 0 to be greater than 1/);

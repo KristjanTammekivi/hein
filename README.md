@@ -17,7 +17,6 @@
 
 * Example plugin for body, status matching for supertest
 * Example plugin for sinon
-* Always call assertions like expect(value).to.be.true(); instead of throwing on property access
 * Eslint plugin to not forget to call expect(value).to.be.true();
 
 ## Usage

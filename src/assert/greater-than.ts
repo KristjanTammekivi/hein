@@ -1,15 +1,20 @@
 import { createAssertion } from '../utils/assertion';
+import { validateNumericsAndDates } from './less-than-equal';
+
+interface GreaterThan {
+    /**
+     * check for >
+     */
+    <T extends number | bigint | Date>(actual: T, expected: T, message?: string): void;
+}
 
 export const [greaterThan, notGreaterThan] = createAssertion({
     messages: {
-        invalidArgument: 'Expected {{actual}} to be a number',
         smaller: 'Expected {{actual}} to be greater than {{expected}}',
         not: 'Expected {{actual}} to not be greater than {{expected}}'
     },
-    test: (report) => (actual: number, expected: number) => {
-        if (typeof actual !== 'number') {
-            return report({ status: 'notok', messageId: 'invalidArgument', actual, expected });
-        }
+    test: (report): GreaterThan => (actual: any, expected: any) => {
+        validateNumericsAndDates(actual, expected);
         if (actual < expected) {
             return report({ status: 'notok', messageId: 'smaller', actual, expected, noStringify: true });
         }

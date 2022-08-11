@@ -7,8 +7,6 @@ interface Equal {
     <T>(actual: T, expected: T, message?: string): void;
 }
 
-// TODO: NaN should equal?
-
 export const [equal, notEqual] = createAssertion({
     messages: {
         equal: 'Expected {{actual}} to equal {{expected}}',

@@ -20,6 +20,9 @@ describe('isType', () => {
     it('should throw for string, array', () => {
         throws(() => isType('a', 'array'), /Expected string to be a\(n\) array/);
     });
+    it('should not throw if NaN and expecting NaN', () => {
+        isType(NaN, 'NaN');
+    });
     describe('notIsType', () => {
         it('should not throw if actual has wrong type', () => {
             notIsType('a', 'number');

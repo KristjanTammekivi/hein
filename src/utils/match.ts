@@ -51,7 +51,7 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
             return false;
         }
     }
-    // TODO:refactor and use typeguards
+
     if (actual instanceof Map || expected instanceof Map) {
         if (!(actual instanceof Map && expected instanceof Map)) {
             return false;
