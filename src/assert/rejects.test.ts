@@ -29,11 +29,11 @@ describe('rejects', () => {
         try {
             await rejects(Promise.resolve(), 'Things are not good');
             fail();
-        } catch (e) {
-            if (e instanceof FailError) {
-                throw e;
+        } catch (error) {
+            if (error instanceof FailError) {
+                throw error;
             }
-            if (e.message !== 'Things are not good') {
+            if (error.message !== 'Things are not good') {
                 throw new Error('Expected message to be "Things are not good"');
             }
         }

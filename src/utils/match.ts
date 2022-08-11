@@ -18,9 +18,9 @@ interface Evaluation {
     (value: any): boolean;
 }
 
-export const createEvaluation = (fn: (value: any) => boolean): Evaluation => {
+export const createEvaluation = (callback: (value: any) => boolean): Evaluation => {
     const evaluation = (value: any): boolean => {
-        return fn(value);
+        return callback(value);
     };
     evaluation[evaluationSymbol] = true;
     return evaluation as Evaluation;
@@ -45,11 +45,7 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     }
 
     if (actual == null || expected == null || (!isObjectLike(actual) && !isObjectLike(expected))) {
-        if (actual !== actual && expected !== expected) {
-            return true;
-        } else {
-            return false;
-        }
+        return actual !== actual && expected !== expected;
     }
 
     if (actual instanceof Map || expected instanceof Map) {
@@ -102,7 +98,7 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
             const date2 = new Date(expected as any);
             return date1.getTime() === date2.getTime();
         }
-        if ((actual).getTime() !== (expected).getTime()) {
+        if (actual.getTime() !== expected.getTime()) {
             return false;
         }
         return true;
@@ -141,10 +137,10 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     if (Object.keys(actual).length !== Object.keys(expected).length && !partial) {
         return false;
     }
-    for (const i in actual) {
-        const expectedValue = expected[i];
-        const actualValue = actual[i];
-        if (!(i in expected)) {
+    for (const index in actual) {
+        const expectedValue = expected[index];
+        const actualValue = actual[index];
+        if (!(index in expected)) {
             if (partial) {
                 continue;
             }
@@ -153,7 +149,7 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         if (isAny(expectedValue)) {
             if (mutate) {
                 // so diffs don't show any in case of mismatches elsewhere
-                expected[i] = actualValue;
+                expected[index] = actualValue;
             }
             return true;
         }
@@ -162,10 +158,10 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
                 return false;
             }
             if (mutate) {
-                expected[i] = actualValue;
+                expected[index] = actualValue;
             }
         }
-        if (!match(actual[i], expectedValue, { mutate, partial })) {
+        if (!match(actual[index], expectedValue, { mutate, partial })) {
             return false;
         }
     }

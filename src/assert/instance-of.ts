@@ -1,6 +1,5 @@
-import { AssertionError } from 'assert';
 import { isObjectLike } from 'lodash';
-import { createAssertion } from '../utils/assertion';
+import { AssertionError, createAssertion } from '../utils/assertion';
 import { getType } from '../utils/get-type';
 import { Constructor } from '../utils/process-error';
 
@@ -11,11 +10,7 @@ export const [instanceOf, notInstanceOf] = createAssertion({
     },
     test: (report) => (actual: any, expected: Constructor) => {
         if (!isObjectLike(actual)) {
-            throw new AssertionError({
-                message: 'Expected value to be an object',
-                actual: getType(actual),
-                expected: 'object'
-            });
+            throw new AssertionError(getType(actual), 'object', 'Expected value to be an object');
         }
         if (!(actual instanceof expected)) {
             return report({ status: 'notok', messageId: 'notInstanceOf', expected: expected.name, actual: actual.constructor.name, noStringify: true });

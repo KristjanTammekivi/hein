@@ -3,10 +3,14 @@
     "extends": [
         "airbnb-typescript/base",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:mocha/recommended",
+        "plugin:unicorn/recommended"
     ],
     "plugins": [
-        "import"
+        "import",
+        "mocha",
+        "unicorn"
     ],
     "parserOptions": {
         "ecmaVersion": 2018,
@@ -72,7 +76,74 @@
                 "allowTemplateLiterals": true
             }
         ],
-        "@typescript-eslint/no-floating-promises": "error"
+        "@typescript-eslint/no-floating-promises": "error",
+        "mocha/no-mocha-arrows": "off",
+        "unicorn/no-null": "off",
+        "unicorn/prevent-abbreviations": [
+            "error",
+            {
+                "replacements": {
+                    "args": false
+                }
+            }
+        ],
+        "unicorn/consistent-function-scoping": "off",
+        "unicorn/empty-brace-spaces": "off",
+        "unicorn/error-message": "off",
+        "@typescript-eslint/no-extra-parens": "error",
+        "@typescript-eslint/no-extra-semi": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "variable",
+                "format": [
+                    "camelCase",
+                    "PascalCase"
+                ]
+            },
+            {
+                "selector": "function",
+                "format": [
+                    "camelCase",
+                    "PascalCase"
+                ]
+            },
+            {
+                "selector": "typeLike",
+                "format": [
+                    "PascalCase"
+                ]
+            },
+            {
+                "selector": "variable",
+                "format": [
+                    "camelCase",
+                    "PascalCase",
+                    "UPPER_CASE",
+                    "snake_case"
+                ],
+                "modifiers": [
+                    "destructured"
+                ]
+            },
+            {
+                "selector": "variable",
+                "format": [
+                    "camelCase",
+                    "PascalCase",
+                    "UPPER_CASE"
+                ],
+                "modifiers": [
+                    "const"
+                ]
+            },
+            {
+                "selector": "typeParameter",
+                "format": [
+                    "UPPER_CASE"
+                ]
+            }
+        ]
     },
     "overrides": [
         {

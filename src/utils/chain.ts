@@ -1,16 +1,16 @@
-export const registerProperty = <T, U extends string, V extends () => any>(obj: T, name: U, value: V) => {
-    Object.defineProperty(obj, name, {
+export const registerProperty = <T, U extends string, V extends () => any>(object: T, name: U, value: V) => {
+    Object.defineProperty(object, name, {
         enumerable: true,
         get() {
             return value();
         },
     });
-    return obj as T & Record<U, V>;
+    return object as T & Record<U, V>;
 };
 
-export const registerMethod = <T, U extends string, V>(obj: T, name: U, value: V) => {
-    Object.defineProperty(obj, name, {
+export const registerMethod = <T, U extends string, V>(object: T, name: U, value: V) => {
+    Object.defineProperty(object, name, {
         value,
     });
-    return obj as T & Record<U, V>;
+    return object as T & Record<U, V>;
 };

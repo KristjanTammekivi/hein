@@ -14,15 +14,15 @@ export const [rejects, notRejects] = createAssertion({
         notPredicate: 'Expected {{actual}} to not match predicate function',
         notRegex: 'Expected Promise to not reject with an error matching {{expected}}'
     },
-    test: (report) => (async (promise: Promise<any>, e2?, e3?) => {
+    test: (report) => async (promise: Promise<any>, narrowerOrMessage?, message?) => {
         if (!promise || typeof promise.then !== 'function') {
             return report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof promise, expected: 'Promise' });
         }
         try {
             await promise;
-        } catch (e) {
-            return processError(report, e, e2, e3);
+        } catch (error) {
+            return processError(report, error, narrowerOrMessage, message);
         }
-        return report({ noStringify: true, status: 'notok', messageId: 'throws', message: typeof e2 === 'string' ? e2 : e3 });
-    })
+        return report({ noStringify: true, status: 'notok', messageId: 'throws', message: typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message });
+    }
 });

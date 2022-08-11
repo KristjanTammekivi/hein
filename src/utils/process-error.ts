@@ -26,31 +26,31 @@ type ThrowsMessages = 'invalidArgument' |
     'notPredicate' |
     'notRegex';
 
-export const processError = (report: Report<ThrowsMessages>, e: Error, e2, e3) => {
-    const message = (typeof e2 === 'string' ? e2 : e3) ?? null;
+export const processError = (report: Report<ThrowsMessages>, error: Error, narrowerOrMessage, message) => {
+    message = (typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message) ?? null;
 
-    if (!(e instanceof Error)) {
-        return report({ noStringify: true, status: 'notok', messageId: 'nonError', actual: typeof e, expected: 'Error' });
+    if (!(error instanceof Error)) {
+        return report({ noStringify: true, status: 'notok', messageId: 'nonError', actual: typeof error, expected: 'Error' });
     }
-    if (e2) {
-        if (isConstructor(e2)) {
-            if (!(e instanceof e2)) {
-                return report({ noStringify: true, status: 'notok', messageId: 'invalidConstructor', actual: e.name, expected: e2.name, message });
+    if (narrowerOrMessage) {
+        if (isConstructor(narrowerOrMessage)) {
+            if (!(error instanceof narrowerOrMessage)) {
+                return report({ noStringify: true, status: 'notok', messageId: 'invalidConstructor', actual: error.name, expected: narrowerOrMessage.name, message });
             }
-            return report({ noStringify: true, status: 'ok', messageId: 'notConstructor', actual: e.name, expected: e2.name, message });
-        } else if (typeof e2 === 'function') {
-            if (!(e2 as ErrorPredicate)(e)) {
-                return report({ noStringify: true, status: 'notok', messageId: 'predicate', actual: e, expected: null, message });
+            return report({ noStringify: true, status: 'ok', messageId: 'notConstructor', actual: error.name, expected: narrowerOrMessage.name, message });
+        } else if (typeof narrowerOrMessage === 'function') {
+            if (!(narrowerOrMessage as ErrorPredicate)(error)) {
+                return report({ noStringify: true, status: 'notok', messageId: 'predicate', actual: error, expected: null, message });
             }
-            return report({ noStringify: true, status: 'ok', messageId: 'notPredicate', actual: e, expected: null, message });
-        } else if (typeof e2 === 'string') {
-            return report({ noStringify: true, status: 'ok', messageId: 'throws', actual: e, message: e2 });
-        } else if (e2 instanceof RegExp) {
-            if (!e2.test(e.message)) {
-                return report({ noStringify: true, status: 'notok', messageId: 'regex', actual: e.message, expected: e2.toString(), message });
+            return report({ noStringify: true, status: 'ok', messageId: 'notPredicate', actual: error, expected: null, message });
+        } else if (typeof narrowerOrMessage === 'string') {
+            return report({ noStringify: true, status: 'ok', messageId: 'throws', actual: error, message: narrowerOrMessage });
+        } else if (narrowerOrMessage instanceof RegExp) {
+            if (!narrowerOrMessage.test(error.message)) {
+                return report({ noStringify: true, status: 'notok', messageId: 'regex', actual: error.message, expected: narrowerOrMessage.toString(), message });
             }
-            return report({ noStringify: true, status: 'ok', messageId: 'notRegex', actual: e.message, expected: e2.toString(), message });
+            return report({ noStringify: true, status: 'ok', messageId: 'notRegex', actual: error.message, expected: narrowerOrMessage.toString(), message });
         }
     }
-    return report({ noStringify: true, status: 'ok', actual: e, message });
+    return report({ noStringify: true, status: 'ok', actual: error, message });
 };

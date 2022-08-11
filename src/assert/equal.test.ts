@@ -22,7 +22,7 @@ describe('equals', () => {
         }, /Expected { a: 1 } to equal { a: 1 }/);
     });
     it('should consider NaN as equal', () => {
-        equal(NaN, NaN);
+        equal(Number.NaN, Number.NaN);
     });
     describe('notEqual', () => {
         it('should throw if two values are equal', () => {
@@ -43,12 +43,12 @@ describe('equals', () => {
         });
         it('should consider NaN as equal', () => {
             throws(() => {
-                notEqual(NaN, NaN);
+                notEqual(Number.NaN, Number.NaN);
             }, /Expected NaN to not equal NaN/);
         });
         it('should throw with custom message for notEqual(NaN, NaN)', () => {
             throws(() => {
-                notEqual(NaN, NaN, 'Things are bad');
+                notEqual(Number.NaN, Number.NaN, 'Things are bad');
             }, /Things are bad/);
         });
     });

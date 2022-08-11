@@ -24,11 +24,11 @@ describe('throws', () => {
         try {
             throws(() => { }, 'Things are bad');
             fail();
-        } catch (e) {
-            if (e instanceof FailError) {
-                throw e;
+        } catch (error) {
+            if (error instanceof FailError) {
+                throw error;
             }
-            if (e.message !== 'Things are bad') {
+            if (error.message !== 'Things are bad') {
                 throw new Error('Expected message to be "Things are bad"');
             }
         }

@@ -27,16 +27,16 @@ const messages = {
 
 export const [throws, notThrows] = createAssertion({
     messages: messages,
-    test: (report) => ((callback, e2, e3) => {
+    test: (report) => ((callback, narrowerOrMessage, message) => {
         if (typeof callback !== 'function') {
             return report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof callback, expected: 'function' });
         }
         try {
             callback();
-        } catch (e) {
-            return processError(report, e, e2, e3);
+        } catch (error) {
+            return processError(report, error, narrowerOrMessage, message);
         }
-        return report({ noStringify: true, status: 'notok', messageId: 'throws', message: typeof e2 === 'string' ? e2 : e3 });
+        return report({ noStringify: true, status: 'notok', messageId: 'throws', message: typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message });
     }) as Throw
 });
 

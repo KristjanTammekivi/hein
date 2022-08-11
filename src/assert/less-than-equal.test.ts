@@ -28,7 +28,7 @@ describe('lessThanEqual', () => {
     });
     it('should throw with NaN arguments', () => {
         throws(() => {
-            lessThanEqual(NaN, 1);
+            lessThanEqual(Number.NaN, 1);
         }, /Expected arguments to be number\/bigint\/date, received NaN\/number/);
     });
     describe('notLessThanEqual', () => {

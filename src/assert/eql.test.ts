@@ -4,11 +4,11 @@ import { throws } from '../assert';
 
 describe('eql', () => {
     it('should not throw for NaN', () => {
-        eql(NaN, NaN);
+        eql(Number.NaN, Number.NaN);
     });
     it('should not throw if objects are strictly equal', () => {
-        const obj = { a: 1 };
-        eql(obj, obj);
+        const object = { a: 1 };
+        eql(object, object);
     });
     it('should not throw if both values are the same numbers', () => {
         eql(1, 1);
@@ -17,7 +17,7 @@ describe('eql', () => {
         throws(() => eql(1, 2));
     });
     it('should not throw if both values are NaN', () => {
-        eql(NaN, NaN);
+        eql(Number.NaN, Number.NaN);
     });
     it('should throw if values are strings', () => {
         throws(() => eql('a', 'b'));

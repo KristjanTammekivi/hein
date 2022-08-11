@@ -1,4 +1,4 @@
-import { equal } from 'assert';
+import { equal } from '../assert';
 import { any, createEvaluation, match } from './match';
 
 describe('utils/match', () => {
@@ -10,10 +10,10 @@ describe('utils/match', () => {
             equal(match(1, 2), false);
         });
         it('should return true if both values are NaN', () => {
-            equal(match(NaN, NaN), true);
+            equal(match(Number.NaN, Number.NaN), true);
         });
         it('should return false if one value is NaN', () => {
-            equal(match(NaN, 1), false);
+            equal(match(Number.NaN, 1), false);
         });
     });
     describe('string', () => {
@@ -37,11 +37,12 @@ describe('utils/match', () => {
             equal(match(null, null), true);
         });
         it('should return false if one value is undefined', () => {
-            equal(match(null, undefined), false);
+            equal(match(undefined, null), false);
         });
     });
     describe('undefined', () => {
         it('should return true if both values are undefined', () => {
+            // eslint-disable-next-line unicorn/no-useless-undefined
             equal(match(undefined, undefined), true);
         });
         it('should return false if one value is undefined', () => {
@@ -145,8 +146,8 @@ describe('utils/match', () => {
             equal(match({ a: 1 }, {}), false);
         });
         it('should return true if both values are the same instance', () => {
-            const obj = {};
-            equal(match(obj, obj), true);
+            const object = {};
+            equal(match(object, object), true);
         });
         it('should return true if both have same keys and values', () => {
             equal(match({ a: 1 }, { a: 1 }), true);
@@ -161,8 +162,8 @@ describe('utils/match', () => {
     });
     describe('function', () => {
         it('should return true if both functions are the same instance', () => {
-            const fn = () => { };
-            equal(match(fn, fn), true);
+            const callback = () => { };
+            equal(match(callback, callback), true);
         });
         it('should return false if functions are different', () => {
             equal(match(() => 5, () => 4), false);
@@ -203,9 +204,9 @@ describe('utils/match', () => {
             equal(match([1, 2], [1], { partial: true }), true);
         });
         it('should match partial Maps', () => {
-            const obj = [{}, {}];
-            const map1 = new Map([[obj[0], 1], [obj[1], 2]]);
-            const map2 = new Map([[obj[0], 1]]);
+            const object = [{}, {}];
+            const map1 = new Map([[object[0], 1], [object[1], 2]]);
+            const map2 = new Map([[object[0], 1]]);
             equal(match(map1, map2, { partial: true }), true);
         });
         it('should return false for partial Maps if expected has more keys', () => {
@@ -222,7 +223,9 @@ describe('utils/match', () => {
         });
     });
     describe('evaluation', () => {
+        // eslint-disable-next-line mocha/no-setup-in-describe
         const trueEvaluation = createEvaluation(() => true) as any;
+        // eslint-disable-next-line mocha/no-setup-in-describe
         const falseEvaluation = createEvaluation(() => false) as any;
         it('should evaluate evaluation', () => {
             equal(match(1, trueEvaluation), true);
