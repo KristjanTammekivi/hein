@@ -1,5 +1,5 @@
-import { isEmpty, notIsEmpty } from './is-empty';
-import { throws } from './throws';
+import { isEmpty, notIsEmpty } from '../assert';
+import { throws } from '../assert';
 
 describe('isEmpty', () => {
     describe('array', () => {

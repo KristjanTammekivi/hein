@@ -1,5 +1,5 @@
 import { createAssertion } from '../utils/assertion';
-import { validateNumericsAndDates } from './less-than-equal';
+import { validateNumericsAndDates } from '../utils/validate-numeric-and-dates';
 
 interface GreaterThan {
     /**

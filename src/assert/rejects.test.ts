@@ -1,4 +1,4 @@
-import { notRejects, rejects } from './rejects';
+import { notRejects, rejects } from '../assert';
 
 class FailError extends Error { }
 

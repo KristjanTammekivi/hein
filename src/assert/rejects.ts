@@ -1,5 +1,5 @@
 import { createAssertion } from '../utils/assertion';
-import { ErrorPredicate, isConstructor, processError } from './throws';
+import { processError } from '../utils/process-error';
 
 export const [rejects, notRejects] = createAssertion({
     messages: {

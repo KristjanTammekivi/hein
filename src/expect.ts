@@ -12,12 +12,16 @@ import {
     instanceOf,
     notInstanceOf,
     isEmpty,
-    notIsEmpty
+    notIsEmpty,
+    notIsType,
+    isType,
+    notHasSize,
+    hasSize
 } from './assert';
-import { hasSize, notHasSize } from './assert/has-size';
-import { isType, notIsType, ValueType } from './assert/is-type';
-import { Constructor, ErrorPredicate, ThrowsCallback } from './assert/throws';
+import { ThrowsCallback } from './assert/throws';
 import { registerMethod, registerProperty } from './utils/chain';
+import { ValueType } from './utils/get-type';
+import { Constructor, ErrorPredicate } from './utils/process-error';
 
 interface ValueExpect<T> {
     to: this;
@@ -73,6 +77,65 @@ interface ObjectExpect<T> extends ValueExpect<T> {
      * check for object/array/Map/Set to have a certain size
      */
     size(size: number, message?: string): this;
+}
+
+interface GreaterThanFamily<T> {
+    // greaterThan, gt, above
+    /**
+     * check if actual is greater than expected
+     */
+    greaterThan(value: T): this;
+    /**
+     * check if actual is greater than expected
+     */
+    gt(value: T): this;
+    /**
+     * check if actual is greater than expected
+     */
+    above(value: T): this;
+    // greaterThanOrEqual, gte, atLeast
+    /**
+     * check if actual is greater than or equal to expected
+     */
+    greaterThanOrEqual(value: T): this;
+    /**
+     * check if actual is greater than or equal to expected
+     */
+    gte(value: T): this;
+    /**
+     * check if actual is greater than or equal to expected
+     */
+    atLeast(value: T): this;
+    // lessThan, lt, below
+    /**
+     * check if actual is less than expected
+     */
+    lessThan(value: T): this;
+    /**
+     * check if actual is less than expected
+     */
+    lt(value: T): this;
+    /**
+     * check if actual is less than expected
+     */
+    below(value: T): this;
+    // lessThanOrEqual, lte, atMost
+    /**
+     * check if actual is less than or equal to expected
+     */
+    lessThanOrEqual(value: T): this;
+    /**
+     * check if actual is less than or equal to expected
+     */
+    lte(value: T): this;
+    /**
+     * check if actual is less than or equal to expected
+     */
+    atMost(value: T): this;
+}
+
+interface DateExpect<T = Date> extends ValueExpect<T>, ObjectExpect<T>, GreaterThanFamily<T> {
+
 }
 
 interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
@@ -160,6 +223,7 @@ use({
             }
         }
     },
+    gt: { type: 'alias', value: 'greaterThan' },
     above: { type: 'alias', value: 'greaterThan' },
     greaterThanOrEqual: {
         type: 'method',
@@ -171,6 +235,8 @@ use({
             }
         }
     },
+    gte: { type: 'alias', value: 'greaterThanOrEqual' },
+    atLeast: { type: 'alias', value: 'greaterThanOrEqual' },
     throw: {
         type: 'method',
         value: (value: any, { inverted }) => (...args: any[]) => {
@@ -186,11 +252,25 @@ use({
         value: (value: any, { inverted }) => (other: any) => {
             if (inverted) {
                 notGreaterThan(other, value);
+            } else {
+                greaterThan(other, value);
             }
-            greaterThan(other, value);
         }
     },
+    lt: { type: 'alias', value: 'lessThan' },
     below: { type: 'alias', value: 'lessThan' },
+    lessThanOrEqual: {
+        type: 'method',
+        value: (value: any, { inverted }) => (other: any) => {
+            if (inverted) {
+                notGreaterThan(other, value);
+            } else {
+                greaterThan(other, value);
+            }
+        }
+    },
+    lte: { type: 'alias', value: 'lessThanOrEqual' },
+    atMost: { type: 'alias', value: 'lessThanOrEqual' },
     type: {
         type: 'method',
         value: (value: any, { inverted }) => (type: ValueType) => {
@@ -299,6 +379,7 @@ interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<a
     <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
     <T extends Promise<any>>(actual: T): PromiseExpect<T>;
     <T extends any[]>(actual: T): ArrayExpect<T>;
+    <T extends Date>(actual: T): DateExpect<T>;
     <T extends Record<string, any>>(actual: T): ObjectExpect<T>;
     <T extends number>(actual: T): NumberExpect;
     <T>(actual: T): ValueExpect<T>;

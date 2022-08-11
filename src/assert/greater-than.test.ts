@@ -1,5 +1,5 @@
-import { greaterThan, notGreaterThan } from './greater-than';
-import { throws } from './throws';
+import { greaterThan, notGreaterThan } from '../assert';
+import { throws } from '../assert';
 
 describe('greaterThan', () => {
     it('should not throw if actual is greater than expected', () => {

@@ -89,6 +89,9 @@ describe('expect', () => {
                 expect(1).to.be.greaterThan(2);
             }).to.throw();
         });
+        it('should work with dates', () => {
+            expect(new Date(1)).to.be.gt(new Date(0));
+        });
         describe('not', () => {
             it('should invert the assertion', () => {
                 expect(() => {

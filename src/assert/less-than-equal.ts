@@ -1,20 +1,5 @@
-import { AssertionError } from 'assert';
 import { createAssertion } from '../utils/assertion';
-import { getType, ValueType } from './is-type';
-
-const allowedTypes: (ValueType | 'date')[] = ['number', 'bigint', 'date'];
-
-export const validateNumericsAndDates = (actual: any, expected: any) => {
-    const actualType = actual instanceof Date ? 'date' : getType(actual);
-    const expectedType = expected instanceof Date ? 'date' : getType(expected);
-    if (!allowedTypes.includes(actualType) || !allowedTypes.includes(expectedType)) {
-        throw new AssertionError({
-            message: `Expected arguments to be ${ allowedTypes.join('/') }, received ${ actualType }/${ expectedType }`,
-            actual: actualType,
-            expected: allowedTypes.join('/')
-        });
-    }
-};
+import { validateNumericsAndDates } from '../utils/validate-numeric-and-dates';
 
 interface LessThanEqual {
     /**

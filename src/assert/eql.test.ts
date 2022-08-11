@@ -1,6 +1,6 @@
 import { any } from '../utils/match';
-import { eql, notEql } from './eql';
-import { throws } from './throws';
+import { eql, notEql } from '../assert';
+import { throws } from '../assert';
 
 describe('eql', () => {
     it('should not throw for NaN', () => {

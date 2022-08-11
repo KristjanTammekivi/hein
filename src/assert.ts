@@ -1,12 +1,15 @@
-export { equal, notEqual } from './assert/equal';
-export { throws, notThrows } from './assert/throws';
 export { eql, notEql } from './assert/eql';
+export { equal, notEqual } from './assert/equal';
 export { greaterThan, notGreaterThan } from './assert/greater-than';
-export { rejects, notRejects } from './assert/rejects';
-export { lessThan, notLessThan } from './assert/less-than';
-export { isType, notIsType } from './assert/is-type';
+export { greaterThanEqual, notGreaterThanEqual } from './assert/greater-than-equal';
+export { hasSize, notHasSize } from './assert/has-size';
 export { instanceOf, notInstanceOf } from './assert/instance-of';
 export { isEmpty, notIsEmpty } from './assert/is-empty';
+export { isType, notIsType } from './assert/is-type';
+export { lessThan, notLessThan } from './assert/less-than';
+export { lessThanEqual, notLessThanEqual } from './assert/less-than-equal';
+export { notRejects, rejects } from './assert/rejects';
+export { notThrows, throws } from './assert/throws';
 
 export const assert = () => {
     throw new Error('Not implemented');

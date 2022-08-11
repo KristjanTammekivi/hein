@@ -1,5 +1,5 @@
-import { equal, notEqual } from './equal';
-import { throws } from './throws';
+import { equal, notEqual } from '../assert';
+import { throws } from '../assert';
 
 describe('equals', () => {
     it('should not throw if two values are equal', () => {

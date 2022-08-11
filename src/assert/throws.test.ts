@@ -1,4 +1,4 @@
-import { notThrows, throws } from './throws';
+import { notThrows, throws } from '../assert';
 
 class FailError extends Error { }
 

@@ -1,8 +1,8 @@
 import { AssertionError } from 'assert';
 import { isObjectLike } from 'lodash';
 import { createAssertion } from '../utils/assertion';
-import { getType } from './is-type';
-import { Constructor } from './throws';
+import { getType } from '../utils/get-type';
+import { Constructor } from '../utils/process-error';
 
 export const [instanceOf, notInstanceOf] = createAssertion({
     messages: {

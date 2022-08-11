@@ -1,5 +1,5 @@
-import { lessThanEqual, notLessThanEqual } from './less-than-equal';
-import { throws } from './throws';
+import { lessThanEqual, notLessThanEqual } from '../assert';
+import { throws } from '../assert';
 
 describe('lessThanEqual', () => {
     it('should not throw if less than expected', () => {

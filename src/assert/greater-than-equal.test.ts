@@ -1,5 +1,5 @@
 import { throws } from 'assert';
-import { greaterThanEqual } from './greater-than-equal';
+import { greaterThanEqual } from '../assert';
 
 describe('greaterThanEqual', () => {
     it('should not throw if actual is greater than expected', () => {
