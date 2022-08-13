@@ -7,10 +7,12 @@ export const [hasSize, notHasSize] = createAssertion({
         object: 'Expected object to have size of {{expected}}',
         map: 'Expected Map to have size of {{expected}}',
         set: 'Expected Set to have size of {{expected}}',
+        string: 'Expected string to have length of {{expected}}',
         not: 'Expected array to not have length of {{expected}}',
         notObject: 'Expected object to not have size of {{expected}}',
         notMap: 'Expected Map to not have size of {{expected}}',
-        notSet: 'Expected Set to not have size of {{expected}}'
+        notSet: 'Expected Set to not have size of {{expected}}',
+        notString: 'Expected string to not have length of {{expected}}'
     },
     test: (report) => <T>(actual: T, expected: number, message?: string) => {
         if (Array.isArray(actual)) {
@@ -36,6 +38,12 @@ export const [hasSize, notHasSize] = createAssertion({
                 return report({ message, status: 'ok', messageId: 'notSet', expected, actual: actual.size });
             }
             return report({ message, status: 'notok', messageId: 'set', expected, actual: actual.size });
+        }
+        if (typeof actual === 'string') {
+            if (actual.length === expected) {
+                return report({ message, status: 'ok', messageId: 'notString', expected, actual: actual.length });
+            }
+            return report({ message, status: 'notok', messageId: 'string', expected, actual: actual.length });
         }
     }
 });

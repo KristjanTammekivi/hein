@@ -20,8 +20,12 @@ import {
 } from './assert';
 import { ThrowsCallback } from './assert/throws';
 import { registerMethod, registerProperty } from './utils/chain';
+import { getSize } from './utils/get-size';
 import { ValueType } from './utils/get-type';
+import { createEvaluation } from './utils/match';
 import { Constructor, ErrorPredicate } from './utils/process-error';
+
+type AllowExpectAsValue<T> = { [P in keyof T]: T[P] | Expect | AllowExpectAsValue<T[P]> };
 
 interface ValueExpect<T> {
     to: this;
@@ -41,7 +45,7 @@ interface ValueExpect<T> {
     /**
      * check for deep equality
      */
-    eql(value: T): this;
+    eql(value: AllowExpectAsValue<T>): this;
     /**
      * check if value is of certain type
      */
@@ -58,13 +62,14 @@ interface PromiseExpect<T> extends ValueExpect<T> {
     reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
 }
 
-interface NumberExpect<T = number> extends ValueExpect<T> {
-    greaterThan(value: T): this;
-    greaterThanOrEqual(value: T): this;
-    lessThan(value: T): this;
+interface NumberExpect<T = number> extends ValueExpect<T>, GreaterThanFamily<T> { }
+
+interface StringExpect<T = string> extends ValueExpect<T> {
+    lengthOf(length: number, message?: string): this;
 }
 
 interface ObjectExpect<T> extends ValueExpect<T> {
+    size: NumberExpect<number>;
     /**
      * check if instance of value
      */
@@ -74,9 +79,9 @@ interface ObjectExpect<T> extends ValueExpect<T> {
      */
     empty(message?: string): this;
     /**
-     * check for object/array/Map/Set to have a certain size
+     * check for object/array/Map/Set/string to have a certain size
      */
-    size(size: number, message?: string): this;
+    sizeOf(size: number, message?: string): this;
 }
 
 interface GreaterThanFamily<T> {
@@ -139,24 +144,27 @@ interface DateExpect<T = Date> extends ValueExpect<T>, ObjectExpect<T>, GreaterT
 }
 
 interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
+    length: NumberExpect<number> & this;
     /**
      * check for array length
      */
-    length(length: number, message?: string): this;
+    lengthOf(length: number, message?: string): this;
 }
 
-export interface State {
+export interface State<T> {
     inverted?: boolean;
+    value?: T;
+    evaluateSize?: boolean;
 }
 
 const identity = <T>(value: T) => value;
 
 interface Property {
     type: 'property';
-    value: (baggage: State) => State | null;
+    value: (state: State<any>) => State<any> | null;
 }
 
-type MethodCallback = <T>(value: T, state: State) => (...args: any[]) => void;
+type MethodCallback = <T>(state: State<T>) => (...args: any[]) => void;
 
 interface Method {
     type: 'method';
@@ -181,10 +189,10 @@ use({
     and: { type: 'property', value: identity },
     have: { type: 'property', value: identity },
     this: { type: 'property', value: identity },
-    not: { type: 'property', value: ({ inverted }) => ({ inverted: !inverted }) },
+    not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
     eql: {
         type: 'method',
-        value: (value, { inverted }) => (other: any) => {
+        value: ({ value, inverted }) => (other: any) => {
             if (inverted) {
                 notEql(value, other);
             } else {
@@ -194,7 +202,7 @@ use({
     },
     equal: {
         type: 'method',
-        value: (value, { inverted }) => (other: any, message?: string) => {
+        value: ({ value, inverted }) => (other: any, message?: string) => {
             if (inverted) {
                 notEqual(value, other, message);
             } else {
@@ -205,17 +213,13 @@ use({
     eq: { type: 'alias', value: 'equal' },
     reject: {
         type: 'method',
-        value: (value: any, { inverted }) => (...args: any[]) => {
-            if (inverted) {
-                return rejects(value, ...args);
-            } else {
-                return notRejects(value, ...args);
-            }
+        value: ({ value, inverted }: State<any>) => (...args: any[]) => {
+            return inverted ? rejects(value, ...args) : notRejects(value, ...args);
         }
     },
     greaterThan: {
         type: 'method',
-        value: (value: any, { inverted }) => (other: any) => {
+        value: ({ value, inverted }) => (other: any) => {
             if (inverted) {
                 notGreaterThan(value, other);
             } else {
@@ -227,7 +231,7 @@ use({
     above: { type: 'alias', value: 'greaterThan' },
     greaterThanOrEqual: {
         type: 'method',
-        value: (value: any, { inverted }) => (other: any) => {
+        value: ({ value, inverted }) => (other: any) => {
             if (inverted) {
                 notGreaterThan(value, other);
             } else {
@@ -239,17 +243,13 @@ use({
     atLeast: { type: 'alias', value: 'greaterThanOrEqual' },
     throw: {
         type: 'method',
-        value: (value: any, { inverted }) => (...args: any[]) => {
-            if (inverted) {
-                return notThrows(value, ...args);
-            } else {
-                return throws(value, ...args);
-            }
+        value: ({ value, inverted }: State<any>) => (...args: any[]) => {
+            return inverted ? notThrows(value, ...args) : throws(value, ...args);
         }
     },
     lessThan: {
         type: 'method',
-        value: (value: any, { inverted }) => (other: any) => {
+        value: ({ value, inverted }) => (other: any) => {
             if (inverted) {
                 notGreaterThan(other, value);
             } else {
@@ -261,7 +261,7 @@ use({
     below: { type: 'alias', value: 'lessThan' },
     lessThanOrEqual: {
         type: 'method',
-        value: (value: any, { inverted }) => (other: any) => {
+        value: ({ value, inverted }) => (other: any) => {
             if (inverted) {
                 notGreaterThan(other, value);
             } else {
@@ -273,7 +273,7 @@ use({
     atMost: { type: 'alias', value: 'lessThanOrEqual' },
     type: {
         type: 'method',
-        value: (value: any, { inverted }) => (type: ValueType) => {
+        value: ({ value, inverted }) => (type: ValueType) => {
             if (inverted) {
                 notIsType(value, type);
             } else {
@@ -283,7 +283,7 @@ use({
     },
     instanceOf: {
         type: 'method',
-        value: (value: any, { inverted }) => (constructor: Constructor) => {
+        value: ({ value, inverted }) => (constructor: Constructor) => {
             if (inverted) {
                 notInstanceOf(value, constructor);
             } else {
@@ -293,7 +293,7 @@ use({
     },
     empty: {
         type: 'method',
-        value: (value: any, { inverted }) => (message?: string) => {
+        value: ({ value, inverted }) => (message?: string) => {
             if (inverted) {
                 notIsEmpty(value, message);
             } else {
@@ -301,91 +301,85 @@ use({
             }
         }
     },
-    size: { type: 'alias', value: 'length' },
-    length: {
+    sizeOf: { type: 'alias', value: 'lengthOf' },
+    lengthOf: {
         type: 'method',
-        value: (value: any, { inverted }) => (length: number, message?: string) => {
+        value: ({ value, inverted }) => (length: number, message?: string) => {
             if (inverted) {
                 notHasSize(value, length, message);
             } else {
                 hasSize(value, length, message);
             }
         }
-    }
+    },
+    length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) }
 });
 
-const expectChain = <T>(value: T, { inverted }: State): ValueExpect<T> & FunctionExpect<T> => {
+const expectChain = <T>({ value, inverted, evaluateSize }: State<T>): ValueExpect<T> & FunctionExpect<T> => {
     const chain = {} as any;
-    const aliases: Record<string, string> = {};
     for (const [key, v] of Object.entries(mixins)) {
-        if (v.type === 'property') {
+        const definition = v.type === 'alias' ? mixins[v.value] : v;
+        if (definition.type === 'property') {
             registerProperty(chain, key, () => {
-                const newState = v.value({ inverted });
-                return expectChain(value, newState || { inverted });
+                const newState = definition.value({ value, inverted, evaluateSize });
+                return expectChain(newState || { value, inverted, evaluateSize });
             });
-        } else if (v.type === 'method') {
+        } else if (definition.type === 'method') {
             registerMethod(chain, key, (...args: any[]) => {
-                v.value(value, { inverted })(...args);
-                return expectChain(value, { inverted });
+                if (evaluateSize) {
+                    definition.value({ value: getSize(value), inverted })(...args);
+                } else {
+                    definition.value({ value, inverted })(...args);
+                }
+                return expectChain({ value, inverted, evaluateSize });
             });
-        } else {
-            // apply aliases last in case they are defined before the method
-            aliases[key] = v.value;
         }
-    }
-    for (const [key, v] of Object.entries(aliases)) {
-        chain[key] = chain[v];
     }
     return chain;
 };
 
-const delayedChain = ({ inverted, evaluations = [] }: State & { evaluations: ((value: any) => void)[] }) => {
+const delayedChain = ({ inverted, evaluations = [] }: State<any> & { evaluations: ((value: any) => void)[] }) => {
     return createDelayedChain({}, { inverted, evaluations });
 };
 
-const createDelayedChain = (base: any, { inverted, evaluations = [] }: State & { evaluations: ((value: any) => void)[] }) => {
+const createDelayedChain = (base: any, { inverted, evaluateSize, evaluations = [] }: State<any> & { evaluations: ((value: any) => void)[] }) => {
     const chain = base;
-    const aliases: Record<string, string> = {};
     for (const [key, v] of Object.entries(mixins)) {
-        if (v.type === 'property') {
-            registerProperty(chain, key, () => {
-                const newState = v.value({ inverted });
-                return delayedChain({ inverted, evaluations, ...newState });
-            });
-        } else if (v.type === 'method') {
-            registerMethod(chain, key, (...args: any[]) => {
-                const evaluation = (value: any) => {
-                    v.value(value, { inverted })(...args);
+        const definition = v.type === 'alias' ? mixins[v.value] : v;
+        if (definition.type === 'property') {
+            registerProperty(chain, key, createEvaluation(() => {
+                const newState = definition.value({ inverted, evaluateSize });
+                return delayedChain({ inverted, evaluateSize, evaluations, ...newState });
+            }) as any);
+        } else if (definition.type === 'method') {
+            registerMethod(chain, key, createEvaluation((...args: any[]) => {
+                const newEvaluation = (value: any) => {
+                    definition.value({ value: evaluateSize ? getSize(value) : value, inverted })(...args);
                 };
-                const c = delayedChain({ inverted, evaluations: [...evaluations, evaluation] });
+                const c = delayedChain({ inverted, evaluations: [...evaluations, newEvaluation] });
                 c.evaluate = (value: string) => {
                     // TODO: if function returns a promise then throw, we need none of that
-                    [...evaluations, evaluation].forEach((e) => e(value));
+                    for (const evaluation of [...evaluations, newEvaluation]) { evaluation(value); }
                 };
                 return c;
-            });
-        } else {
-            // apply aliases last in case they are defined before the method
-            aliases[key] = v.value;
+            }) as any);
         }
-    }
-    for (const [key, v] of Object.entries(aliases)) {
-        chain[key] = chain[v];
     }
     return chain;
 };
 
-interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<any> {
+interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<any>, ArrayExpect<any> {
     <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
     <T extends Promise<any>>(actual: T): PromiseExpect<T>;
     <T extends any[]>(actual: T): ArrayExpect<T>;
     <T extends Date>(actual: T): DateExpect<T>;
     <T extends Record<string, any>>(actual: T): ObjectExpect<T>;
     <T extends number>(actual: T): NumberExpect;
+    <T extends string>(actual: T): StringExpect;
     <T>(actual: T): ValueExpect<T>;
     evaluate: (value: any) => void;
 }
 
-export const expect = createDelayedChain((<T>(actual: T) => {
-    return expectChain(actual, {});
-}), { evaluations: [] }) as Expect;
+export const expect = createDelayedChain(<T>(actual: T) => {
+    return expectChain({ value: actual });
+}, { evaluations: [] }) as Expect;

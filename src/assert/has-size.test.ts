@@ -107,4 +107,30 @@ describe('hasSize', () => {
             });
         });
     });
+    describe('string', () => {
+        it('should not throw if string has correct size', () => {
+            hasSize('abc', 3);
+        });
+        it('should throw if string has incorrect size', () => {
+            throws(() => hasSize('abc', 2), /Expected string to have length of 2/);
+        });
+        it('should throw with provided message', () => {
+            throws(() => hasSize('abc', 2, 'Expected string to be almost full'), /Expected string to be almost full/);
+        });
+        describe('notHasSize', () => {
+            it('should throw if string has correct size', () => {
+                throws(() => {
+                    notHasSize('abc', 3);
+                }, /Expected string to not have length of 3/);
+            });
+            it('should not throw if string has incorrect size', () => {
+                notHasSize('abc', 2);
+            });
+            it('should throw with provided message', () => {
+                throws(() => {
+                    notHasSize('abc', 3, 'Expected string to be almost full');
+                }, /Expected string to be almost full/);
+            });
+        });
+    });
 });

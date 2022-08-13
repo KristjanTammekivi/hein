@@ -13,8 +13,8 @@ describe('expect', () => {
         });
         it('should accept arguments', () => {
             class CustomError extends Error { }
-            const cb = () => { throw new Error(); };
-            throws(() => expect(cb).to.throw(CustomError), /Expected function to throw CustomError/);
+            const callback = () => { throw new Error(); };
+            throws(() => expect(callback).to.throw(CustomError), /Expected function to throw CustomError/);
         });
         describe('not', () => {
             it(`should not throw if callback doesn't throw and it's inverted`, () => {
@@ -128,6 +128,20 @@ describe('expect', () => {
                 expect.to.be.greaterThan(1).evaluate(0);
             }).to.throw(/Expected 0 to be greater than 1/);
         });
+        it('should curry .length', () => {
+            expect(() => {
+                expect.length.to.above(1).evaluate(0);
+            }).to.throw(/Expected 0 to be greater than 1/);
+        });
+        it.skip('should work with eql', () => {
+            expect({
+                a: 'test',
+                b: new Date(),
+            }).to.eql({
+                a: 'test',
+                b: expect.to.be.instanceOf(Date)
+            })
+        });
     });
 
     describe('type', () => {
@@ -193,24 +207,30 @@ describe('expect', () => {
         });
     });
 
-    describe('size', () => {
+    describe('sizeOf', () => {
         it('should not throw if array is of correct size', () => {
-            expect([1, 2, 3]).to.have.size(3);
+            expect([1, 2, 3]).to.have.sizeOf(3);
         });
         it('should throw if array is not of correct size', () => {
             expect(() => {
-                expect([1, 2, 3]).to.have.size(2);
+                expect([1, 2, 3]).to.have.sizeOf(2);
             }).to.throw(/Expected array to have length of 2/);
         });
         describe('not', () => {
             it('should throw if array is of correct size', () => {
                 expect(() => {
-                    expect([1, 2, 3]).not.to.have.length(3);
+                    expect([1, 2, 3]).not.to.have.lengthOf(3);
                 }).to.throw(/Expected array to not have length of 3/);
             });
             it('should not throw if array is not of correct size', () => {
-                expect([1, 2, 3]).not.to.have.size(2);
+                expect([1, 2, 3]).not.to.have.sizeOf(2);
             });
+        });
+    });
+
+    describe('size', () => {
+        it('should not throw if length is above', () => {
+            expect([1, 2]).length.to.be.above(1);
         });
     });
 });

@@ -2,6 +2,7 @@
 
 ## TODOs
 
+* to.be.typeOf(typeof value) / .to.be.a('date' etc)
 * to.be.undefined()?
 * to.be.null()?
 * .length.to.be.above()?

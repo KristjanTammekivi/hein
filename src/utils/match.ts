@@ -26,7 +26,7 @@ export const createEvaluation = (callback: (value: any) => boolean): Evaluation 
     return evaluation as Evaluation;
 };
 
-const isEvaluation = (value: any): value is Evaluation => value && value[evaluationSymbol];
+export const isEvaluation = (value: any): value is Evaluation => value && value[evaluationSymbol];
 
 interface MatchOptions {
     mutate?: boolean;

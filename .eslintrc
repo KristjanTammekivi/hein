@@ -143,7 +143,12 @@
                     "UPPER_CASE"
                 ]
             }
-        ]
+        ],
+        "curly": [
+            "error",
+            "all"
+        ],
+        "@typescript-eslint/object-curly-newline"
     },
     "overrides": [
         {
