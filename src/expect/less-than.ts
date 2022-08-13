@@ -1,6 +1,37 @@
 import { notGreaterThan, greaterThan } from '../assert';
 import { use } from '../mixins';
 
+declare module '../expect.types' {
+    interface NumberExpect<T> {
+        /**
+         * check if actual is less than expected
+         */
+        lessThan(value: T): this;
+        /**
+         * check if actual is less than expected
+         */
+        lt(value: T): this;
+        /**
+         * check if actual is less than expected
+         */
+        below(value: T): this;
+    }
+    interface DateExpect<T> {
+        /**
+         * check if actual is less than expected
+         */
+        lessThan(value: T): this;
+        /**
+         * check if actual is less than expected
+         */
+        lt(value: T): this;
+        /**
+         * check if actual is less than expected
+         */
+        below(value: T): this;
+    }
+}
+
 use({
     lessThan: {
         type: 'method',

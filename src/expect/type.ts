@@ -2,6 +2,15 @@ import { notIsType, isType } from '../assert';
 import { use } from '../mixins';
 import { ValueType } from '../utils/get-type';
 
+declare module '../expect.types' {
+    interface ValueExpect<T> {
+        /**
+         * check if value is of certain type
+         */
+        type(type: ValueType): this;
+    }
+}
+
 use({
     type: {
         type: 'method',

@@ -1,149 +1,20 @@
-import { ThrowsCallback } from './assert/throws';
+import { mixins, State, use } from './mixins';
 import { registerMethod, registerProperty } from './utils/chain';
 import { getSize } from './utils/get-size';
-import { ValueType } from './utils/get-type';
 import { createEvaluation } from './utils/match';
-import { Constructor, ErrorPredicate } from './utils/process-error';
-import { mixins, State, use } from './mixins';
-
+import { Expect } from './expect.types';
 import './expect/empty';
 import './expect/eql';
 import './expect/equal';
-import './expect/greater-than-equal';
 import './expect/greater-than';
+import './expect/greater-than-equal';
 import './expect/instance-of';
 import './expect/length';
-import './expect/less-than-equal';
 import './expect/less-than';
+import './expect/less-than-equal';
 import './expect/reject';
 import './expect/throw';
 import './expect/type';
-
-type AllowExpectAsValue<T> = { [P in keyof T]: T[P] | Expect | AllowExpectAsValue<T[P]> };
-
-interface ValueExpect<T> {
-    to: this;
-    be: this;
-    not: this;
-    and: this;
-    have: this;
-    of: this;
-    /**
-     * check for === equality
-     */
-    equal(value: T, message?: string): this;
-    /**
-     * check for === equality
-     */
-    eq(value: T, message?: string): this;
-    /**
-     * check for deep equality
-     */
-    eql(value: AllowExpectAsValue<T>): this;
-    /**
-     * check if value is of certain type
-     */
-    type(type: ValueType): this;
-}
-
-interface FunctionExpect<T> extends ValueExpect<T> {
-    throw(message?: string): this;
-    throw(matcher: RegExp | Constructor<Error> | ErrorPredicate, message?: string): this;
-}
-
-interface PromiseExpect<T> extends ValueExpect<T> {
-    reject(message?: string): Promise<void>;
-    reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
-}
-
-interface NumberExpect<T = number> extends ValueExpect<T>, GreaterThanFamily<T> { }
-
-interface StringExpect<T = string> extends ValueExpect<T> {
-    lengthOf(length: number, message?: string): this;
-}
-
-interface ObjectExpect<T> extends ValueExpect<T> {
-    size: NumberExpect<number>;
-    /**
-     * check if instance of value
-     */
-    instanceOf(constructor: Constructor): this;
-    /**
-     * check if object/array/Map/Set is empty
-     */
-    empty(message?: string): this;
-    /**
-     * check for object/array/Map/Set/string to have a certain size
-     */
-    sizeOf(size: number, message?: string): this;
-}
-
-interface GreaterThanFamily<T> {
-    // greaterThan, gt, above
-    /**
-     * check if actual is greater than expected
-     */
-    greaterThan(value: T): this;
-    /**
-     * check if actual is greater than expected
-     */
-    gt(value: T): this;
-    /**
-     * check if actual is greater than expected
-     */
-    above(value: T): this;
-    // greaterThanOrEqual, gte, atLeast
-    /**
-     * check if actual is greater than or equal to expected
-     */
-    greaterThanOrEqual(value: T): this;
-    /**
-     * check if actual is greater than or equal to expected
-     */
-    gte(value: T): this;
-    /**
-     * check if actual is greater than or equal to expected
-     */
-    atLeast(value: T): this;
-    // lessThan, lt, below
-    /**
-     * check if actual is less than expected
-     */
-    lessThan(value: T): this;
-    /**
-     * check if actual is less than expected
-     */
-    lt(value: T): this;
-    /**
-     * check if actual is less than expected
-     */
-    below(value: T): this;
-    // lessThanOrEqual, lte, atMost
-    /**
-     * check if actual is less than or equal to expected
-     */
-    lessThanOrEqual(value: T): this;
-    /**
-     * check if actual is less than or equal to expected
-     */
-    lte(value: T): this;
-    /**
-     * check if actual is less than or equal to expected
-     */
-    atMost(value: T): this;
-}
-
-interface DateExpect<T = Date> extends ValueExpect<T>, ObjectExpect<T>, GreaterThanFamily<T> {
-
-}
-
-interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
-    length: NumberExpect<number> & this;
-    /**
-     * check for array length
-     */
-    lengthOf(length: number, message?: string): this;
-}
 
 const identity = <T>(value: T) => value;
 
@@ -158,7 +29,7 @@ use({
     length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) }
 });
 
-const expectChain = <T>({ value, inverted, evaluateSize }: State<T>): ValueExpect<T> & FunctionExpect<T> => {
+const expectChain = <T>({ value, inverted, evaluateSize }: State<T>): Expect => {
     const chain = {} as any;
     for (const [key, v] of Object.entries(mixins)) {
         const definition = v.type === 'alias' ? mixins[v.value] : v;
@@ -210,18 +81,6 @@ const createDelayedChain = (base: any, { inverted, evaluateSize, evaluations = [
     }
     return chain;
 };
-
-interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<any>, ArrayExpect<any> {
-    <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
-    <T extends Promise<any>>(actual: T): PromiseExpect<T>;
-    <T extends any[]>(actual: T): ArrayExpect<T>;
-    <T extends Date>(actual: T): DateExpect<T>;
-    <T extends Record<string, any>>(actual: T): ObjectExpect<T>;
-    <T extends number>(actual: T): NumberExpect;
-    <T extends string>(actual: T): StringExpect;
-    <T>(actual: T): ValueExpect<T>;
-    evaluate: (value: any) => void;
-}
 
 export const expect = createDelayedChain(<T>(actual: T) => {
     return expectChain({ value: actual });

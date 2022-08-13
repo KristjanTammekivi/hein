@@ -1,5 +1,13 @@
 import { notRejects, rejects } from '../assert';
 import { State, use } from '../mixins';
+import { Constructor, ErrorPredicate } from '../utils/process-error';
+
+declare module '../expect.types' {
+    interface PromiseExpect<T> {
+        reject(message?: string): Promise<void>;
+        reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
+    }
+}
 
 use({
     reject: {

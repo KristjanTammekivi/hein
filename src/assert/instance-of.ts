@@ -3,6 +3,15 @@ import { AssertionError, createAssertion } from '../utils/assertion';
 import { getType } from '../utils/get-type';
 import { Constructor } from '../utils/process-error';
 
+declare module '../expect.types' {
+    interface ValueExpect<T> {
+        /**
+         * check if instance of value
+         */
+        instanceOf(constructor: Constructor): this;
+    }
+}
+
 export const [instanceOf, notInstanceOf] = createAssertion({
     messages: {
         notInstanceOf: 'Expected {{actual}} to be an instance of {{expected}}',

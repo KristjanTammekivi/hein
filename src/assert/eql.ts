@@ -9,8 +9,8 @@ export const [eql, notEql] = createAssertion({
     },
     test: (report) => <T>(actual: T, expected: T, message?: string) => {
         if (typeof expected !== 'function') {
+            // TODO: detect evaluations
             expected = cloneDeepWith(expected, (value, key) => {
-                console.log(key, value);
                 if (isEvaluation(value)) {
                     console.log('dong');
                     return value;
