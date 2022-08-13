@@ -8,4 +8,4 @@ use({
             return inverted ? notThrows(value, ...args) : throws(value, ...args);
         }
     }
-})
+});

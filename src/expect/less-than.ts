@@ -14,4 +14,4 @@ use({
     },
     lt: { type: 'alias', value: 'lessThan' },
     below: { type: 'alias', value: 'lessThan' }
-})
+});

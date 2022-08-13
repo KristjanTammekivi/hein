@@ -1,4 +1,4 @@
-import { cloneDeep, cloneDeepWith } from 'lodash';
+import { cloneDeepWith } from 'lodash';
 import { createAssertion } from '../utils/assertion';
 import { isEvaluation, match } from '../utils/match';
 
