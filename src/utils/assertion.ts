@@ -1,7 +1,7 @@
 import * as mustache from 'mustache';
-import { State } from '../expect';
 import { mapValues } from 'lodash';
 import { stringify } from './stringify';
+import { State } from '../mixins';
 
 // TODO: toggle this on and off inside format function
 (mustache as any).escape = (x: string) => x;
@@ -40,7 +40,7 @@ const format = (message: string, data: Record<any, any>, noStringify: boolean) =
 };
 
 export const createAssertion = <T extends string, U extends (...args: any[]) => void>({ messages, test }: AssertionArguments<T, U>) => {
-    const factory = ({ inverted }: State = {}) => {
+    const factory = ({ inverted }: State<any> = {}) => {
         const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify }) => {
             // console.trace({ status, messageId, message, actual, expected });
             if (inverted && status === 'ok') {
