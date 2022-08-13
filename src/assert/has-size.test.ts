@@ -1,8 +1,8 @@
 import { throws } from '../assert';
 import { hasSize, notHasSize } from '../assert';
 
-describe('hasSize', () => {
-    describe('array', () => {
+describe('assert/hasSize', () => {
+    describe('assert/array', () => {
         it('should not throw if array has correct size', () => {
             hasSize([1, 2, 3], 3);
         });
@@ -12,7 +12,7 @@ describe('hasSize', () => {
         it('should throw with provided message', () => {
             throws(() => hasSize([1, 2, 3], 2, 'Expected array to be almost full'), /Expected array to be almost full/);
         });
-        describe('notHasSize', () => {
+        describe('assert/notHasSize', () => {
             it('should throw if array has correct size', () => {
                 throws(() => {
                     notHasSize([1, 2, 3], 3);
@@ -28,7 +28,7 @@ describe('hasSize', () => {
             });
         });
     });
-    describe('object', () => {
+    describe('assert/object', () => {
         it('should not throw if object has correct size', () => {
             hasSize({ a: 1, b: 2, c: 3 }, 3);
         });
@@ -38,7 +38,7 @@ describe('hasSize', () => {
         it('should throw with provided message', () => {
             throws(() => hasSize({ a: 1, b: 2, c: 3 }, 2, 'Expected object to be almost full'), /Expected object to be almost full/);
         });
-        describe('notHasSize', () => {
+        describe('assert/notHasSize', () => {
             it('should throw if object has correct size', () => {
                 throws(() => {
                     notHasSize({ a: 1, b: 2, c: 3 }, 3);
@@ -54,7 +54,7 @@ describe('hasSize', () => {
             });
         });
     });
-    describe('Map', () => {
+    describe('assert/Map', () => {
         it('should not throw if Map has correct size', () => {
             hasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 3);
         });
@@ -65,7 +65,7 @@ describe('hasSize', () => {
             throws(() => hasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 2, 'Expected Map to be almost full'),
                 /Expected Map to be almost full/);
         });
-        describe('notHasSize', () => {
+        describe('assert/notHasSize', () => {
             it('should throw if Map has correct size', () => {
                 throws(() => {
                     notHasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 3);
@@ -81,7 +81,7 @@ describe('hasSize', () => {
             });
         });
     });
-    describe('Set', () => {
+    describe('assert/Set', () => {
         it('should not throw if Set has correct size', () => {
             hasSize(new Set([1, 2, 3]), 3);
         });
@@ -91,7 +91,7 @@ describe('hasSize', () => {
         it('should throw with provided message', () => {
             throws(() => hasSize(new Set([1, 2, 3]), 2, 'Expected Set to be almost full'), /Expected Set to be almost full/);
         });
-        describe('notHasSize', () => {
+        describe('assert/notHasSize', () => {
             it('should throw if Set has correct size', () => {
                 throws(() => {
                     notHasSize(new Set([1, 2, 3]), 3);
@@ -107,7 +107,7 @@ describe('hasSize', () => {
             });
         });
     });
-    describe('string', () => {
+    describe('assert/string', () => {
         it('should not throw if string has correct size', () => {
             hasSize('abc', 3);
         });
@@ -117,7 +117,7 @@ describe('hasSize', () => {
         it('should throw with provided message', () => {
             throws(() => hasSize('abc', 2, 'Expected string to be almost full'), /Expected string to be almost full/);
         });
-        describe('notHasSize', () => {
+        describe('assert/notHasSize', () => {
             it('should throw if string has correct size', () => {
                 throws(() => {
                     notHasSize('abc', 3);

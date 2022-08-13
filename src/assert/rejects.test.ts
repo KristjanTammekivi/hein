@@ -6,7 +6,7 @@ const fail = () => {
     throw new FailError('Expected promise to reject');
 };
 
-describe('rejects', () => {
+describe('assert/rejects', () => {
     class CustomError extends Error { }
     const reject = async (message = 'Things are bad') => {
         throw new Error(message);
@@ -65,7 +65,7 @@ describe('rejects', () => {
     it('should throw with the provided message if error predicate function returns false for the thrown error', async () => {
         await rejects(rejects(Promise.reject(new Error()), () => false, 'Damn'), /Damn/);
     });
-    describe('notRejects', () => {
+    describe('assert/notRejects', () => {
         it(`should not reject if promise resolves`, async () => {
             await notRejects(Promise.resolve());
         });

@@ -6,7 +6,7 @@ const fail = () => {
     throw new FailError('Expected function to throw');
 };
 
-describe('throws', () => {
+describe('assert/throws', () => {
     it(`should throw if the callback doesn't throw`, () => {
         try {
             throws(() => { });
@@ -81,7 +81,7 @@ describe('throws', () => {
             throws(() => { throw new Error('oops'); }, () => false, 'Damn');
         }, /Damn/);
     });
-    describe('notThrows', () => {
+    describe('assert/notThrows', () => {
         const errorCallback = () => {
             throw new Error('Correct');
         };

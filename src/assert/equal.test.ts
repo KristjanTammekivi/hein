@@ -1,7 +1,7 @@
 import { equal, notEqual } from '../assert';
 import { throws } from '../assert';
 
-describe('equals', () => {
+describe('assert/equals', () => {
     it('should not throw if two values are equal', () => {
         equal(1, 1);
     });
@@ -24,7 +24,7 @@ describe('equals', () => {
     it('should consider NaN as equal', () => {
         equal(Number.NaN, Number.NaN);
     });
-    describe('notEqual', () => {
+    describe('assert/notEqual', () => {
         it('should throw if two values are equal', () => {
             throws(() => {
                 notEqual(1, 1);

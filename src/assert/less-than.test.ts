@@ -1,7 +1,7 @@
 import { throws } from '../assert';
 import { lessThan, notLessThan } from '../assert';
 
-describe('lesserThan', () => {
+describe('assert/lesserThan', () => {
     it('should not throw if actual is lesser than expected', () => {
         lessThan(0, 1);
     });
@@ -10,7 +10,7 @@ describe('lesserThan', () => {
             lessThan(2, 1);
         });
     });
-    describe('notLesserThan', () => {
+    describe('assert/notLesserThan', () => {
         it('should not throw if actual is greater than expected', () => {
             notLessThan(2, 1);
         });

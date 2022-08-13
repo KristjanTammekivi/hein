@@ -1,7 +1,7 @@
 import { greaterThan, notGreaterThan } from '../assert';
 import { throws } from '../assert';
 
-describe('greaterThan', () => {
+describe('assert/greaterThan', () => {
     it('should not throw if actual is greater than expected', () => {
         greaterThan(1, 0);
     });
@@ -15,7 +15,7 @@ describe('greaterThan', () => {
     it('should throw if actual is smaller than expected', async () => {
         throws(() => greaterThan(0, 1), /Expected 0 to be greater than 1/);
     });
-    describe('notGreaterThan', () => {
+    describe('assert/notGreaterThan', () => {
         it('should not throw if greater is smaller than expected', () => {
             notGreaterThan(0, 1);
         });

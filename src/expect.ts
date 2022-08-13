@@ -1,7 +1,6 @@
 import { mixins, State, use } from './mixins';
 import { registerMethod, registerProperty } from './utils/chain';
 import { getSize } from './utils/get-size';
-import { createEvaluation } from './utils/match';
 import { Expect } from './expect.types';
 import './expect/empty';
 import './expect/eql';

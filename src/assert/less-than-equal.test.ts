@@ -1,7 +1,7 @@
 import { lessThanEqual, notLessThanEqual } from '../assert';
 import { throws } from '../assert';
 
-describe('lessThanEqual', () => {
+describe('assert/lessThanEqual', () => {
     it('should not throw if less than expected', () => {
         lessThanEqual(0, 1);
     });
@@ -31,7 +31,7 @@ describe('lessThanEqual', () => {
             lessThanEqual(Number.NaN, 1);
         }, /Expected arguments to be number\/bigint\/date, received NaN\/number/);
     });
-    describe('notLessThanEqual', () => {
+    describe('assert/notLessThanEqual', () => {
         it('should not throw if greater than expected', () => {
             notLessThanEqual(2, 1);
         });

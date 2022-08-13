@@ -2,7 +2,7 @@ import { any } from '../utils/match';
 import { eql, notEql } from '../assert';
 import { throws } from '../assert';
 
-describe('eql', () => {
+describe('assert/eql', () => {
     it('should not throw for NaN', () => {
         eql(Number.NaN, Number.NaN);
     });
@@ -87,7 +87,7 @@ describe('eql', () => {
     it('should throw if both values are different Dates', () => {
         throws(() => eql(new Date(1), new Date(2)));
     });
-    describe('any', () => {
+    describe('assert/any', () => {
         it('should replace a property with any()', () => {
             eql({ a: 1 }, { a: any() });
         });
@@ -95,7 +95,7 @@ describe('eql', () => {
     it('should reject with correct message', () => {
         throws(() => eql({ a: 1, b: 2 }, { a: 1, b: 3 }), /Expected { a: 1, b: 2 } to deep equal { a: 1, b: 3 }/);
     });
-    describe('notEql', () => {
+    describe('assert/notEql', () => {
         it('should not throw if values are different', () => {
             notEql({ a: 1 }, { a: 2 });
         });

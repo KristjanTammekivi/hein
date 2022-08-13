@@ -1,7 +1,7 @@
 import { throws } from '../assert';
 import { isType, notIsType } from '../assert';
 
-describe('isType', () => {
+describe('assert/isType', () => {
     it('should not throw if actual is of correct type', () => {
         isType('a', 'string');
     });
@@ -23,7 +23,7 @@ describe('isType', () => {
     it('should not throw if NaN and expecting NaN', () => {
         isType(Number.NaN, 'NaN');
     });
-    describe('notIsType', () => {
+    describe('assert/notIsType', () => {
         it('should not throw if actual has wrong type', () => {
             notIsType('a', 'number');
         });

@@ -4,6 +4,7 @@
         "module": "CommonJS",
         "moduleResolution": "node",
         "target": "ES2018",
+        "noUnusedLocals": true,
         "declaration": true,
         "declarationMap": true,
         "sourceMap": true,

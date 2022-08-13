@@ -1,7 +1,7 @@
 import { throws } from '../assert';
 import { instanceOf, notInstanceOf } from '../assert';
 
-describe('instanceOf', () => {
+describe('assert/instanceOf', () => {
     it('should not throw if actual is an instance of the constructor', () => {
         instanceOf(new Date(), Date);
     });
@@ -11,7 +11,7 @@ describe('instanceOf', () => {
     it('should throw if actual is not an object', () => {
         throws(() => instanceOf(null, Date), /Expected value to be an object/);
     });
-    describe('notInstanceOf', () => {
+    describe('assert/notInstanceOf', () => {
         it('should not throw if actual is not an instance of the constructor', () => {
             notInstanceOf(new Error(), Date);
         });

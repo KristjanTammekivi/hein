@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { ThrowsCallback } from './assert/throws';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface ValueExpect<T> {
     to: this;
     be: this;
@@ -37,5 +38,4 @@ export interface Expect {
     <T extends number>(actual: T): NumberExpect;
     <T extends string>(actual: T): StringExpect;
     <T>(actual: T): ValueExpect<T>;
-    evaluate: (value: any) => void;
 }

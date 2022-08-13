@@ -3,6 +3,7 @@ import { State, use } from '../mixins';
 import { Constructor, ErrorPredicate } from '../utils/process-error';
 
 declare module '../expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface PromiseExpect<T> {
         reject(message?: string): Promise<void>;
         reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
