@@ -28,7 +28,7 @@ export interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
     length: NumberExpect<number> & this;
 }
 
-export interface Expect extends FunctionExpect<any>, PromiseExpect<any>, NumberExpect<any>, ArrayExpect<any> {
+export interface Expect {
     <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
     <T extends Promise<any>>(actual: T): PromiseExpect<T>;
     <T extends any[]>(actual: T): ArrayExpect<T>;
