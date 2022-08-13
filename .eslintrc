@@ -148,7 +148,7 @@
             "error",
             "all"
         ],
-        "@typescript-eslint/object-curly-newline"
+        "@typescript-eslint/semi": "error"
     },
     "overrides": [
         {

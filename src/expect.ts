@@ -1,29 +1,23 @@
-import {
-    eql,
-    equal,
-    notEql,
-    notEqual,
-    notThrows,
-    throws,
-    greaterThan,
-    notGreaterThan,
-    rejects,
-    notRejects,
-    instanceOf,
-    notInstanceOf,
-    isEmpty,
-    notIsEmpty,
-    notIsType,
-    isType,
-    notHasSize,
-    hasSize
-} from './assert';
 import { ThrowsCallback } from './assert/throws';
 import { registerMethod, registerProperty } from './utils/chain';
 import { getSize } from './utils/get-size';
 import { ValueType } from './utils/get-type';
 import { createEvaluation } from './utils/match';
 import { Constructor, ErrorPredicate } from './utils/process-error';
+import { mixins, State, use } from './mixins';
+
+import './expect/empty';
+import './expect/eql';
+import './expect/equal';
+import './expect/greater-than-equal';
+import './expect/greater-than';
+import './expect/instance-of';
+import './expect/length';
+import './expect/less-than-equal';
+import './expect/less-than';
+import './expect/reject';
+import './expect/throw';
+import './expect/type';
 
 type AllowExpectAsValue<T> = { [P in keyof T]: T[P] | Expect | AllowExpectAsValue<T[P]> };
 
@@ -151,37 +145,7 @@ interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
     lengthOf(length: number, message?: string): this;
 }
 
-export interface State<T> {
-    inverted?: boolean;
-    value?: T;
-    evaluateSize?: boolean;
-}
-
 const identity = <T>(value: T) => value;
-
-interface Property {
-    type: 'property';
-    value: (state: State<any>) => State<any> | null;
-}
-
-type MethodCallback = <T>(state: State<T>) => (...args: any[]) => void;
-
-interface Method {
-    type: 'method';
-    noAutoNot?: boolean;
-    value: MethodCallback;
-}
-
-interface Alias {
-    type: 'alias';
-    value: string;
-}
-
-const mixins: Record<string, Property | Method | Alias> = {};
-
-export const use = (plugins: Record<string, Property | Method | Alias>) => {
-    Object.assign(mixins, plugins);
-};
 
 use({
     to: { type: 'property', value: identity },
@@ -190,128 +154,7 @@ use({
     have: { type: 'property', value: identity },
     this: { type: 'property', value: identity },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
-    eql: {
-        type: 'method',
-        value: ({ value, inverted }) => (other: any) => {
-            if (inverted) {
-                notEql(value, other);
-            } else {
-                eql(value, other);
-            }
-        }
-    },
-    equal: {
-        type: 'method',
-        value: ({ value, inverted }) => (other: any, message?: string) => {
-            if (inverted) {
-                notEqual(value, other, message);
-            } else {
-                equal(value, other, message);
-            }
-        }
-    },
-    eq: { type: 'alias', value: 'equal' },
-    reject: {
-        type: 'method',
-        value: ({ value, inverted }: State<any>) => (...args: any[]) => {
-            return inverted ? rejects(value, ...args) : notRejects(value, ...args);
-        }
-    },
-    greaterThan: {
-        type: 'method',
-        value: ({ value, inverted }) => (other: any) => {
-            if (inverted) {
-                notGreaterThan(value, other);
-            } else {
-                greaterThan(value, other);
-            }
-        }
-    },
-    gt: { type: 'alias', value: 'greaterThan' },
-    above: { type: 'alias', value: 'greaterThan' },
-    greaterThanOrEqual: {
-        type: 'method',
-        value: ({ value, inverted }) => (other: any) => {
-            if (inverted) {
-                notGreaterThan(value, other);
-            } else {
-                greaterThan(value, other);
-            }
-        }
-    },
-    gte: { type: 'alias', value: 'greaterThanOrEqual' },
-    atLeast: { type: 'alias', value: 'greaterThanOrEqual' },
-    throw: {
-        type: 'method',
-        value: ({ value, inverted }: State<any>) => (...args: any[]) => {
-            return inverted ? notThrows(value, ...args) : throws(value, ...args);
-        }
-    },
-    lessThan: {
-        type: 'method',
-        value: ({ value, inverted }) => (other: any) => {
-            if (inverted) {
-                notGreaterThan(other, value);
-            } else {
-                greaterThan(other, value);
-            }
-        }
-    },
-    lt: { type: 'alias', value: 'lessThan' },
-    below: { type: 'alias', value: 'lessThan' },
-    lessThanOrEqual: {
-        type: 'method',
-        value: ({ value, inverted }) => (other: any) => {
-            if (inverted) {
-                notGreaterThan(other, value);
-            } else {
-                greaterThan(other, value);
-            }
-        }
-    },
-    lte: { type: 'alias', value: 'lessThanOrEqual' },
-    atMost: { type: 'alias', value: 'lessThanOrEqual' },
-    type: {
-        type: 'method',
-        value: ({ value, inverted }) => (type: ValueType) => {
-            if (inverted) {
-                notIsType(value, type);
-            } else {
-                isType(value, type);
-            }
-        }
-    },
-    instanceOf: {
-        type: 'method',
-        value: ({ value, inverted }) => (constructor: Constructor) => {
-            if (inverted) {
-                notInstanceOf(value, constructor);
-            } else {
-                instanceOf(value, constructor);
-            }
-        }
-    },
-    empty: {
-        type: 'method',
-        value: ({ value, inverted }) => (message?: string) => {
-            if (inverted) {
-                notIsEmpty(value, message);
-            } else {
-                isEmpty(value, message);
-            }
-        }
-    },
-    sizeOf: { type: 'alias', value: 'lengthOf' },
-    lengthOf: {
-        type: 'method',
-        value: ({ value, inverted }) => (length: number, message?: string) => {
-            if (inverted) {
-                notHasSize(value, length, message);
-            } else {
-                hasSize(value, length, message);
-            }
-        }
-    },
+
     length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) }
 });
 
