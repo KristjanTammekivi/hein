@@ -1,4 +1,4 @@
-import { notGreaterThan, greaterThan, lessThan, notLessThan } from '../assert';
+import { lessThan, notLessThan } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
