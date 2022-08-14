@@ -18,16 +18,13 @@ import './expect/equal-shorthand';
 import './expect/instance-of-shorthand';
 import './expect/type-shorthand';
 
-const identity = <T>(value: T) => value;
-
 use({
-    to: { type: 'property', value: identity },
-    be: { type: 'property', value: identity },
-    a: { type: 'property', value: identity },
-    an: { type: 'property', value: identity },
-    and: { type: 'property', value: identity },
-    have: { type: 'property', value: identity },
-    this: { type: 'property', value: identity },
+    to: { type: 'property', value: () => null },
+    be: { type: 'property', value: () => null },
+    a: { type: 'property', value: () => null },
+    an: { type: 'property', value: () => null },
+    and: { type: 'property', value: () => null },
+    have: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
 
     length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) }
@@ -47,7 +44,10 @@ const expectChain = <T>({ value, inverted, evaluateSize }: State<T>) => {
                 if (evaluateSize) {
                     definition.value({ value: getSize(value), inverted })(...args);
                 } else {
-                    definition.value({ value, inverted })(...args);
+                    const result = definition.value({ value, inverted })(...args);
+                    if (result as any) {
+                        return result;
+                    }
                 }
                 return expectChain({ value, inverted, evaluateSize });
             });

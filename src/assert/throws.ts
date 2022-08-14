@@ -1,10 +1,8 @@
-import { createAssertion } from '../utils/assertion';
+import { AssertionError, createAssertion } from '../utils/assertion';
+import { getType } from '../utils/get-type';
 import { Constructor, ErrorPredicate, processError } from '../utils/process-error';
 
 export type ThrowsCallback = () => unknown;
-export const isThrowsCallback = (value: any): value is ThrowsCallback => {
-    return typeof value === 'function';
-};
 
 interface Throw {
     (callback: ThrowsCallback, message?: string): void;
@@ -13,7 +11,6 @@ interface Throw {
 
 
 const messages = {
-    invalidArgument: 'Expected {{actual}} to be a function',
     nonError: 'Expected function to throw an instance of Error',
     throws: 'Expected function to throw',
     invalidConstructor: 'Expected function to throw {{expected}}',
@@ -28,8 +25,9 @@ const messages = {
 export const [throws, notThrows] = createAssertion({
     messages: messages,
     test: (report) => ((callback, narrowerOrMessage, message) => {
-        if (typeof callback !== 'function') {
-            return report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof callback, expected: 'function' });
+        const argumentType = getType(callback);
+        if (argumentType !== 'function') {
+            throw new AssertionError(argumentType, 'function', `Expected ${ argumentType } to be a function`);
         }
         try {
             callback();

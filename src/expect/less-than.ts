@@ -1,4 +1,4 @@
-import { notGreaterThan, greaterThan } from '../assert';
+import { notGreaterThan, greaterThan, lessThan, notLessThan } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
@@ -37,9 +37,9 @@ use({
         type: 'method',
         value: ({ value, inverted }) => (other: any) => {
             if (inverted) {
-                notGreaterThan(other, value);
+                notLessThan(value, other);
             } else {
-                greaterThan(other, value);
+                lessThan(value, other);
             }
         }
     },

@@ -81,6 +81,19 @@ describe('assert/throws', () => {
             throws(() => { throw new Error('oops'); }, () => false, 'Damn');
         }, /Damn/);
     });
+    it('should throw if first argument is not a function', () => {
+        try {
+            throws(1 as any);
+            fail();
+        } catch (error) {
+            if (error instanceof FailError) {
+                throw error;
+            }
+            if (error.message !== 'Expected number to be a function') {
+                throw new Error(`Expected "${ error.message }" to be "Expected number to be a function"`);
+            }
+        }
+    });
     describe('assert/notThrows', () => {
         const errorCallback = () => {
             throw new Error('Correct');
@@ -113,6 +126,19 @@ describe('assert/throws', () => {
         });
         it(`should not throw when error doesn't match the provided predicate`, () => {
             notThrows(() => { throw new Error(); }, () => false);
+        });
+        it('should throw if first argument is not a function', () => {
+            try {
+                notThrows(1 as any);
+                fail();
+            } catch (error) {
+                if (error instanceof FailError) {
+                    throw error;
+                }
+                if (error.message !== 'Expected number to be a function') {
+                    throw new Error(`Expected "${ error.message }" to be "Expected number to be a function"`);
+                }
+            }
         });
     });
 });

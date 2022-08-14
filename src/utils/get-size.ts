@@ -16,4 +16,5 @@ export const getSize = (value: any) => {
     if (typeof value === 'string') {
         return value.length;
     }
+    return 0;
 };

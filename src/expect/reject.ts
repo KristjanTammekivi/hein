@@ -14,7 +14,7 @@ use({
     reject: {
         type: 'method',
         value: ({ value, inverted }: State<any>) => (...args: any[]) => {
-            return inverted ? rejects(value, ...args) : notRejects(value, ...args);
+            return inverted ? notRejects(value, ...args) : rejects(value, ...args);
         }
     }
 });

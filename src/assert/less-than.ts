@@ -13,11 +13,11 @@ export const [lessThan, notLessThan] = createAssertion({
         lesserThan: 'Expected {{actual}} to be less than {{expected}}',
         not: 'Expected {{actual}} to not be less than {{expected}}'
     },
-    test: (report): LesserThan => (a: any, b: any, message?: string) => {
-        validateNumericsAndDates(a, b);
-        if (a >= b) {
-            return report({ status: 'notok', messageId: 'lesserThan', actual: a, expected: b, message });
+    test: (report): LesserThan => (actual: any, expected: any, message?: string) => {
+        validateNumericsAndDates(actual, expected);
+        if (actual >= expected) {
+            return report({ status: 'notok', messageId: 'lesserThan', actual, expected, message });
         }
-        return report({ status: 'ok', expected: a, actual: b, message, messageId: 'not' });
+        return report({ status: 'ok', actual, expected, message, messageId: 'not' });
     }
 });

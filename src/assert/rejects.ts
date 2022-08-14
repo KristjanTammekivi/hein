@@ -15,6 +15,7 @@ export const [rejects, notRejects] = createAssertion({
         notRegex: 'Expected Promise to not reject with an error matching {{expected}}'
     },
     test: (report) => async (promise: Promise<any>, narrowerOrMessage?, message?) => {
+        // TODO: invalid argument in not case
         if (!promise || typeof promise.then !== 'function') {
             return report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof promise, expected: 'Promise' });
         }
