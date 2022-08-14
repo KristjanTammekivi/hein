@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-      - run: yarn --cwd hein
+        run: yarn --cwd hein
       - run: yarn run build --cwd hein
       - run: yarn run lint --cwd hein
       - run: yarn run coverage --cwd hein
