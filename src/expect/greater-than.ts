@@ -44,5 +44,5 @@ use({
         }
     },
     gt: { type: 'alias', value: 'greaterThan' },
-    above: { type: 'alias', value: 'greaterThan' },
+    above: { type: 'alias', value: 'greaterThan' }
 });

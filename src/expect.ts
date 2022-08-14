@@ -23,7 +23,7 @@ use({
     be: { type: 'property', value: () => null },
     a: { type: 'property', value: () => null },
     an: { type: 'property', value: () => null },
-    and: { type: 'property', value: () => null },
+    and: { type: 'property', value: ({ value }) => ({ value }) },
     have: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
 

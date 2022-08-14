@@ -4,8 +4,22 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KristjanTammekivi/hein"
+  },
+  "description": "Assertion library written in TypeScript",
+  "keywords": [
+    "typescript",
+    "assertion",
+    "assert",
+    "test"
+  ],
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./assert": "./dist/assert.js"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc",
     "lint": "eslint src/**/*.ts",
@@ -13,8 +27,8 @@
     "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
     "coverage": "nyc npm run test"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Kristjan Tammekivi",
+  "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.21",
     "loupe": "^2.3.4",

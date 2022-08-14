@@ -7,6 +7,9 @@ describe('expect/lessThan', () => {
     it('should throw if actual is equal to expected', () => {
         expect(() => expect(1).lt(1)).to.throw(/Expected 1 to be less than 1/);
     });
+    it('should not throw if actual is a date lesser than expected', () => {
+        expect(new Date(0)).to.be.lessThan(new Date(1));
+    });
     describe('not', () => {
         it('should not throw if actual is greater than expected', () => {
             expect(2).to.not.be.below(1);
