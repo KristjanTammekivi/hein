@@ -2,6 +2,9 @@
 
 ## TODOs
 
+* refactor value shorthands
+* instanceof shorthands (Date, Map, Set)
+
 * to.be.typeOf(typeof value) / .to.be.a('date' etc)
 * to.be.undefined()?
 * to.be.null()?

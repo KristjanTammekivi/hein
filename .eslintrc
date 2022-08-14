@@ -148,7 +148,11 @@
             "error",
             "all"
         ],
-        "@typescript-eslint/semi": "error"
+        "@typescript-eslint/semi": "error",
+        "comma-dangle": [
+            "error",
+            "never"
+        ]
     },
     "overrides": [
         {

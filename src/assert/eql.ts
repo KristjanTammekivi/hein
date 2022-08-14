@@ -1,6 +1,6 @@
-import { cloneDeepWith } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { createAssertion } from '../utils/assertion';
-import { isEvaluation, match } from '../utils/match';
+import { match } from '../utils/match';
 
 export const [eql, notEql] = createAssertion({
     messages: {
@@ -9,13 +9,8 @@ export const [eql, notEql] = createAssertion({
     },
     test: (report) => <T>(actual: T, expected: T, message?: string) => {
         if (typeof expected !== 'function') {
-            // TODO: detect evaluations
-            expected = cloneDeepWith(expected, (value, key) => {
-                if (isEvaluation(value)) {
-                    console.log('dong');
-                    return value;
-                }
-            });
+            // TODO: evaluations
+            expected = cloneDeep(expected);
         }
         if (match(actual, expected, { mutate: true })) {
             return report({ message, status: 'ok', expected, actual });

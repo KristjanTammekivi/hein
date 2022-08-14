@@ -32,7 +32,7 @@ interface AssertionArguments<T extends string, U extends (...args: any[]) => voi
     test: (report: Report<T>) => U;
 }
 
-const format = (message: string, data: Record<any, any>, noStringify: boolean) => {
+export const format = (message: string, data: Record<any, any>, noStringify: boolean) => {
     if (noStringify) {
         return render(message, data);
     }

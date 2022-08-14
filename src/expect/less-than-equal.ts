@@ -44,5 +44,5 @@ use({
         }
     },
     lte: { type: 'alias', value: 'lessThanOrEqual' },
-    atMost: { type: 'alias', value: 'lessThanOrEqual' },
+    atMost: { type: 'alias', value: 'lessThanOrEqual' }
 });

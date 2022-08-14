@@ -13,7 +13,6 @@ type MethodCallback = <T>(state: State<T>) => (...args: any[]) => void;
 
 export interface Method {
     type: 'method';
-    noAutoNot?: boolean;
     value: MethodCallback;
 }
 

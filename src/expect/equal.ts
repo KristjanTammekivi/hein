@@ -25,5 +25,5 @@ use({
             }
         }
     },
-    eq: { type: 'alias', value: 'equal' },
+    eq: { type: 'alias', value: 'equal' }
 });
