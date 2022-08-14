@@ -47,32 +47,35 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     if (actual == null || expected == null || (!isObjectLike(actual) && !isObjectLike(expected))) {
         return actual !== actual && expected !== expected;
     }
-
+    let result = true;
     if (actual instanceof Map || expected instanceof Map) {
         if (!(actual instanceof Map && expected instanceof Map)) {
             return false;
         }
         if (actual.size !== expected.size && !partial) {
-            return false;
+            result = false;
         }
-        return [...expected.entries()]
-            .every(([key, value]) => {
-                if (!actual.has(key)) {
-                    return false;
+        for (const [key, value] of expected.entries()) {
+            if (!actual.has(key)) {
+                result = false;
+                continue;
+            }
+            const actualValue = actual.get(key);
+            if (mutate) {
+                if (isEvaluation(value)) {
+                    expected.set(key, actualValue);
+                    result &&= value(actualValue);
+                    continue;
                 }
-                const actualValue = actual.get(key);
-                if (mutate) {
-                    if (isEvaluation(value)) {
-                        expected.set(key, actualValue);
-                        return value(actualValue);
-                    }
-                    if (isAny(value)) {
-                        expected.set(key, actualValue);
-                        return true;
-                    }
+                if (isAny(value)) {
+                    expected.set(key, actualValue);
+                    continue;
                 }
-                return match(value, actualValue, { mutate, partial });
-            });
+            }
+            result = match(actualValue, value, { mutate, partial }) && result;
+            continue;
+        }
+        return result;
     }
     if (actual instanceof WeakMap || expected instanceof WeakMap) {
         return false;
@@ -111,31 +114,34 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
             return false;
         }
         if (actual.length !== expected.length && !partial) {
-            return false;
+            result = false;
         }
-        return actual.every((value, index) => {
+        for (const [index, value] of actual.entries()) {
             if (index >= expected.length) {
-                return true;
+                continue;
             }
             const expectedValue = expected[index];
             if (mutate) {
                 if (isEvaluation(expectedValue)) {
-                    const result = expectedValue(value);
-                    if (result) {
+                    const matchesEvaluation = expectedValue(value);
+                    if (matchesEvaluation) {
                         expected[index] = value;
                     }
-                    return result;
+                    result &&= matchesEvaluation;
+                    continue;
                 }
                 if (isAny(expectedValue)) {
                     expected[index] = value;
-                    return true;
+                    continue;
                 }
             }
-            return match(value, expectedValue, { mutate, partial });
-        });
+            result &&= match(value, expectedValue, { mutate, partial });
+            continue;
+        }
+        return result;
     }
     if (Object.keys(actual).length !== Object.keys(expected).length && !partial) {
-        return false;
+        result = false;
     }
     for (const index in actual) {
         const expectedValue = expected[index];
@@ -144,26 +150,29 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
             if (partial) {
                 continue;
             }
-            return false;
+            result &&= false;
+            continue;
         }
         if (isAny(expectedValue)) {
             if (mutate) {
                 // so diffs don't show any in case of mismatches elsewhere
                 expected[index] = actualValue;
             }
-            return true;
+            continue;
         }
         if (isEvaluation(expectedValue)) {
             if (!expectedValue(actualValue)) {
-                return false;
+                result &&= false;
+                continue;
             }
             if (mutate) {
                 expected[index] = actualValue;
             }
+            continue;
         }
         if (!match(actual[index], expectedValue, { mutate, partial })) {
-            return false;
+            result = false;
         }
     }
-    return true;
+    return result;
 };

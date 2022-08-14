@@ -1,4 +1,4 @@
-import { equal } from '../assert';
+import { equal, hasSize } from '../assert';
 import { any, createEvaluation, match } from './match';
 
 describe('utils/match', () => {
@@ -195,6 +195,66 @@ describe('utils/match', () => {
             equal(match(new Map([[key, 5]]), expectation, { mutate: true }), true);
             equal(expectation.get(key), 5);
         });
+        it('should traverse the whole object even if something is not a match', () => {
+            const expected = {
+                a: [1, any()],
+                b: [2, any()]
+            };
+            const actual = {
+                a: [3, 5],
+                b: [4, 6]
+            };
+            match(actual, expected, { mutate: true });
+            equal(expected.a[1], 5);
+            equal(expected.b[1], 6);
+        });
+        it(`should mutate the whole array even if arrays aren't equal length`, () => {
+            const expected = [any(), any()];
+            const actual = [1, 2, 3];
+            match(actual, expected, { mutate: true });
+            equal(expected[0], 1);
+            equal(expected[1], 2);
+            hasSize(expected, 2);
+        });
+        it(`should mutate the whole object even if objects have different amount of keys`, () => {
+            const expected = {
+                a: any(),
+                b: any()
+            };
+            const actual = {
+                a: 1,
+                b: 2,
+                c: 3
+            };
+            match(actual, expected, { mutate: true });
+            equal(expected.a, 1);
+            equal(expected.b, 2);
+            hasSize(expected, 2);
+        });
+        it('should mutate the whole Map even if Maps have different amount of keys', () => {
+            const key = {};
+            const key2 = {};
+            const expected = new Map([[key, any()]]);
+            const actual = new Map([[key, 2], [key2, 4]]);
+            match(actual, expected, { mutate: true });
+            equal(expected.get(key), 2);
+            hasSize(expected, 1);
+        });
+        it('should traverse the whole Map even if something is not a match', () => {
+            const key1 = {};
+            const key2 = {};
+            const expected = new Map([
+                [key1, [1, any()]],
+                [key2, [2, any()]]
+            ]);
+            const actual = new Map([
+                [key1, [3, 5]],
+                [key2, [4, 6]]
+            ]);
+            match(actual, expected, { mutate: true });
+            equal(expected.get(key1)[1], 5);
+            equal(expected.get(key2)[1], 6);
+        });
     });
     describe('partial', () => {
         it('should match partial objects', () => {
@@ -252,6 +312,5 @@ describe('utils/match', () => {
             equal(match(actual, expect, { mutate: true }), true);
             equal(expect.get(key), 1);
         });
-        it('should traverse the whole object even if something is not a match');
     });
 });
