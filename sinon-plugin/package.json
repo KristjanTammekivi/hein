@@ -1,0 +1,11 @@
+{
+  "name": "@hein/sinon-plugin",
+  "version": "1.0.0",
+  "description": "@hein/hein plugin for sinon assertions",
+  "main": "dist/index.js",
+  "author": "Kristjan Tammekivi",
+  "license": "MIT",
+  "dependencies": {
+    "@types/sinon": "^10.0.13"
+  }
+}
