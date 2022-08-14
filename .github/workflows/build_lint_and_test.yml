@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn --cwd hein
+      - run: yarn run --cwd hein
       - run: yarn run build --cwd hein
       - run: yarn run lint --cwd hein
       - run: yarn run coverage --cwd hein
