@@ -1,37 +1,27 @@
 # Hein
 
-## TODOs
+Assertion library with focus on TypeScript
 
-* refactor value shorthands
-* instanceof shorthands (Date, Map, Set)
+## Features?
 
-* to.be.typeOf(typeof value) / .to.be.a('date' etc)
-* to.be.undefined()?
-* to.be.null()?
-* .length.to.be.above()?
-* .to.have.property(prop, value?)?
-* .to.have.deep.property(lodashSelector, value?)?
-* .to.deep?.match()?
-* string.to.match(/regex/)?
-* (array, string).to.include(element/substring)? / contain
-* .to.be.approximately(value, delta)?
+* Full TypeScript support
+* Fuzzy matching for eql with any()
 
-.and should clear state from last method
-
-
-* Example plugin for body, status matching for supertest
-* Example plugin for sinon
-* Eslint plugin to not forget to call expect(value).to.be.true();
+* [Differences between Chai and Hein](DIFFERENCES_WITH_CHAI.md)
 
 ## Usage
 
 ### Assert style
 ```typescript
-import {equals} from '@hein/hein/assert';
+import { assert } from '@hein/hein';
+import {equal} from '@hein/hein/assert';
 
-equals(1, 1);
+equal(1, 1);
+assert.equal(1, 1);
 ```
 
-## TODO
-
-* Stack hack to get the line number of the assertion
+### Expect style
+```typescript
+import { expect } from '@hein/hein';
+expect(1).to.equal(1);
+```
