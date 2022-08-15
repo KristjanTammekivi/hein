@@ -2,7 +2,7 @@
   "name": "hein",
   "workspaces": [
     "hein",
-    "sinon-plugin"
+    "hein-plugin-sinon"
   ],
   "version": "0.0.1",
   "description": "Node.js assertion library",
