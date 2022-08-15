@@ -7,7 +7,7 @@ Assertion library with focus on TypeScript
 * Full TypeScript support
 * Fuzzy matching for eql with any()
 
-* [Differences between Chai and Hein](hein/DIFFERENCES_WITH_CHAI.md)
+* [Differences between Chai and Hein](https://github.com/KristjanTammekivi/hein/blob/main/hein/DIFFERENCES_WITH_CHAI.md)
 
 ## Usage
 
