@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "incremental": true,
+        "composite": true
+    },
+    "include": [],
+    "references": [
+        {
+            "path": "./hein"
+        },
+        {
+            "path": "./hein-plugin-sinon"
+        }
+    ]
+}
