@@ -13,8 +13,8 @@ Assertion library with focus on TypeScript
 
 ### Assert
 ```typescript
-import { assert } from '@hein/hein';
-import {equal} from '@hein/hein/assert';
+import { assert } from 'hein';
+import {equal} from 'hein/assert';
 
 equal(1, 1);
 assert.equal(1, 1);
@@ -22,7 +22,7 @@ assert.equal(1, 1);
 
 ### Expect
 ```typescript
-import { expect } from '@hein/hein';
+import { expect } from 'hein';
 expect(1).to.equal(1);
 ```
 
