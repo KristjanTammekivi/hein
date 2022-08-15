@@ -7,7 +7,7 @@ Assertion library with focus on TypeScript
 * Full TypeScript support
 * Fuzzy matching for eql with any()
 
-* [Differences between Chai and Hein](DIFFERENCES_WITH_CHAI.md)
+* [Differences between Chai and Hein](hein/DIFFERENCES_WITH_CHAI.md)
 
 ## Usage
 
@@ -101,6 +101,9 @@ expect(new Set()).to.be.empty();
 Assert that value deep equals the expectation
 ```typescript
 expect({ a: 1 }).to.eql({ a: 1 });
+
+import { any } from 'hein';
+expect({ a: 1, b: new Date() }).to.eql({ a: 1, b: any() })
 ```
 
 ##### eq
