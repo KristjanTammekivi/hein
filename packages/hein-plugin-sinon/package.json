@@ -5,8 +5,11 @@
   "main": "dist/index.js",
   "author": "Kristjan Tammekivi",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc -b ."
+  },
   "dependencies": {
     "@types/sinon": "^10.0.13",
-    "hein": "^0.0.2"
+    "hein": "0.0.2"
   }
 }

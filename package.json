@@ -1,8 +1,7 @@
 {
   "name": "hein",
   "workspaces": [
-    "hein",
-    "hein-plugin-sinon"
+    "packages/*"
   ],
   "version": "0.0.1",
   "description": "Node.js assertion library",
@@ -11,7 +10,9 @@
   "author": "Kristjan Tammekivi <kristjantammekivi@gmail.com>",
   "private": true,
   "license": "MIT",
+  "scripts": {
+    "build": "tsc -b ."
+  },
   "devDependencies": {
-    "lerna": "^5.4.2"
   }
 }

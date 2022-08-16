@@ -1,16 +1,8 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "incremental": true,
-        "composite": true
-    },
-    "include": [],
+    "extends": "./tsconfig.base.json",
     "references": [
-        {
-            "path": "./hein"
-        },
-        {
-            "path": "./hein-plugin-sinon"
-        }
-    ]
+        { "path": "./packages/hein"},
+        { "path": "./packages/hein-plugin-sinon"}
+    ],
+    "files": []
 }

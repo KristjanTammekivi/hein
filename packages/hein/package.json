@@ -21,7 +21,7 @@
     "./assert": "./dist/assert.js"
   },
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rimraf dist && tsc -b .",
     "lint": "eslint src/**/*.ts",
     "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
     "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
@@ -49,6 +49,7 @@
     "eslint-plugin-unicorn": "^43.0.2",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   }
