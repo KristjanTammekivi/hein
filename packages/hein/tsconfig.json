@@ -3,7 +3,6 @@
     "compilerOptions": {
         "rootDir": "src",
         "outDir": "./dist",
-        "declarationDir": "types",
         "module": "CommonJS",
         "moduleResolution": "node",
         "target": "ES2018",

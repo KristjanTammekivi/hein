@@ -20,6 +20,12 @@
     ".": "./dist/index.js",
     "./assert": "./dist/assert.js"
   },
+  "typesVersions": {
+    "*": {
+      "assert": ["dist/assert"]
+    }
+  },
+  "files": ["dist"],
   "scripts": {
     "build": "rimraf dist && tsc -b .",
     "lint": "eslint src/**/*.ts",
