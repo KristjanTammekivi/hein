@@ -1,19 +1,22 @@
 {
+    "extends": "../tsconfig.json",
     "compilerOptions": {
-        "outDir": "./dist",
-        "module": "CommonJS",
-        "moduleResolution": "node",
-        "target": "ES2018",
-        "noUnusedLocals": true,
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true,
-        "baseUrl": ".",
-        "lib": [
-            "ES2022"
-        ]
+        "outDir": "dist",
+        "paths": {
+            "hein/assert": [
+                "../hein/dist/assert"
+            ]
+        }
     },
     "include": [
         "src/**/*.ts"
+    ],
+    "references": [
+        {
+            "path": [
+                "../hein/tsconfig.json"
+            ]
+        }
     ]
+
 }

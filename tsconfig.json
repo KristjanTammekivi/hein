@@ -1,10 +1,18 @@
 {
     "compilerOptions": {
-        "strict": true,
-        "incremental": true,
-        "composite": true
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "target": "ES2018",
+        "noUnusedLocals": true,
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "lib": [
+            "ES2022"
+        ],
+        "composite": false
     },
-    "include": [],
     "references": [
         {
             "path": "./hein"
