@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { ThrowsCallback } from './assert/throws';
+export { State } from './mixins';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface ValueExpect<T> {

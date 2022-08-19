@@ -1,0 +1,17 @@
+{
+  "name": "eslint-config-hein",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Kristjan Tammekivi",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.22.0"
+  },
+  "dependencies": {
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-plugin-unicorn": "^43.0.2"
+  }
+}
