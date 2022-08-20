@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-hein",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "git@github.com:KristjanTammekivi/hein.git",
   "author": "Kristjan Tammekivi",
@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "release:patch": "sh release.sh"
+    "release:patch": "sh release.sh patch"
   },
   "devDependencies": {
     "eslint": "^8.22.0"
