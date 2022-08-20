@@ -3,7 +3,7 @@ name: Release Hein
 on:
   push:
     tags:
-      - "hein_*"
+      - "hein@*"
 
 jobs:
   build:

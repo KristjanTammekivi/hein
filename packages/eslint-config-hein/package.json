@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "release:patch": "sh release.sh"
   },
   "devDependencies": {
     "eslint": "^8.22.0"
