@@ -13,9 +13,10 @@
   "scripts": {
     "build": "tsc -b .",
     "lint:hein": "yarn workspace hein run lint",
+    "lint:hein-assertion-utils": "yarn workspace hein-assertion-utils run lint",
     "lint:hein-plugin-sinon": "yarn workspace hein-plugin-sinon run lint",
     "lint:eslint-config-hein": "yarn workspace eslint-config-hein run lint",
-    "lint": "yarn lint:hein && yarn lint:hein-plugin-sinon && yarn lint:eslint-config-hein"
+    "lint": "yarn lint:hein && yarn lint:hein-assertion-utils && yarn lint:hein-plugin-sinon && yarn lint:eslint-config-hein"
   },
   "devDependencies": {
   }

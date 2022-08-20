@@ -1,5 +1,5 @@
 import { isObjectLike } from 'lodash';
-import { AssertionError, createAssertion } from '../utils/assertion';
+import { AssertionError, createAssertion } from 'hein-assertion-utils';
 import { getType } from '../utils/get-type';
 import { Constructor } from '../utils/process-error';
 

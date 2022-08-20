@@ -19,8 +19,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./assert": "./dist/assert.js",
-    "./expect.types": "./dist/expect.types.js",
-    "./utils/assertion": "./dist/utils/assertion.js"
+    "./expect.types": "./dist/expect.types.js"
   },
   "typesVersions": {
     "*": {
@@ -29,9 +28,6 @@
       ],
       "expect.types": [
         "dist/expect.types"
-      ],
-      "utils/assertion": [
-        "dist/utils/assertion"
       ]
     }
   },
@@ -49,9 +45,8 @@
   "author": "Kristjan Tammekivi",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.21",
-    "loupe": "^2.3.4",
-    "mustache": "^4.2.0"
+    "hein-assertion-utils": "*",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
@@ -61,7 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",
-    "eslint-config-hein": "*",
+    "eslint-config-hein": "^1.0.0",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",

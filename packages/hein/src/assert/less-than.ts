@@ -1,4 +1,4 @@
-import { createAssertion } from '../utils/assertion';
+import { createAssertion } from 'hein-assertion-utils';
 import { validateNumericsAndDates } from '../utils/validate-numeric-and-dates';
 
 interface LesserThan {

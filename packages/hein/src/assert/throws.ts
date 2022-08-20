@@ -1,4 +1,4 @@
-import { AssertionError, createAssertion } from '../utils/assertion';
+import { AssertionError, createAssertion } from 'hein-assertion-utils';
 import { getType } from '../utils/get-type';
 import { Constructor, ErrorPredicate, processError } from '../utils/process-error';
 

@@ -1,4 +1,4 @@
-import { createAssertion } from '../utils/assertion';
+import { createAssertion } from 'hein-assertion-utils';
 import { processError } from '../utils/process-error';
 
 export const [rejects, notRejects] = createAssertion({

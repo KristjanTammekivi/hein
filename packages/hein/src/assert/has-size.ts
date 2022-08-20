@@ -1,5 +1,5 @@
 import { isPlainObject } from 'lodash';
-import { createAssertion } from '../utils/assertion';
+import { createAssertion } from 'hein-assertion-utils';
 
 export const [hasSize, notHasSize] = createAssertion({
     messages: {

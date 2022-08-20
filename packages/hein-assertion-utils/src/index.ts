@@ -1,10 +1,6 @@
 import * as mustache from 'mustache';
 import { mapValues } from 'lodash';
 import { stringify } from './stringify';
-import { State } from '../mixins';
-
-// TODO: toggle this on and off inside format function
-(mustache as any).escape = (x: string) => x;
 
 const { render } = mustache;
 
@@ -33,14 +29,15 @@ interface AssertionArguments<T extends string, U extends (...args: any[]) => voi
 }
 
 export const format = (message: string, data: Record<any, any>, noStringify: boolean) => {
-    if (noStringify) {
-        return render(message, data);
-    }
-    return render(message, mapValues(data, stringify));
+    const escape = mustache.escape;
+    (mustache as any).escape = (x: string) => x;
+    const result = noStringify ? render(message, data) : render(message, mapValues(data, stringify));
+    (mustache as any).escape = escape;
+    return result;
 };
 
 export const createAssertion = <T extends string, U extends (...args: any[]) => void>({ messages, test }: AssertionArguments<T, U>) => {
-    const factory = ({ inverted }: State<any> = {}) => {
+    const factory = ({ inverted }: { inverted?: boolean } = {}) => {
         const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify }) => {
             // console.trace({ status, messageId, message, actual, expected });
             if (inverted && status === 'ok') {

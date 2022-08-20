@@ -1,0 +1,24 @@
+name: Release hein-assertion-utils
+
+on:
+  push:
+    tags:
+      - "hein-assertion-utils@*"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: yarn --cwd packages/hein-assertion-utils
+      - run: yarn --cwd packages/hein-assertion-utils run lint
+      - run: yarn --cwd packages/hein-assertion-utils build
+      - run: yarn --cwd packages/hein-assertion-utils publish --non-interactive
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

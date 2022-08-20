@@ -1,4 +1,4 @@
-import { createAssertion } from '../utils/assertion';
+import { createAssertion } from 'hein-assertion-utils';
 import { ValueType, getType } from '../utils/get-type';
 
 export const [isType, notIsType] = createAssertion({

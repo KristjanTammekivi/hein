@@ -1,4 +1,4 @@
-import { createAssertion } from 'hein/utils/assertion';
+import { createAssertion } from 'hein-assertion-utils';
 import type { SinonSpy } from 'sinon';
 
 export const [calledWith, notCalledWith] = createAssertion({

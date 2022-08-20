@@ -1,4 +1,4 @@
-import { Method, Property, State } from 'hein';
+import type { Method, Property, State } from 'hein';
 
 import 'hein/expect.types';
 import type { SinonSpy } from 'sinon';

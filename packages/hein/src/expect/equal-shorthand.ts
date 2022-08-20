@@ -1,6 +1,6 @@
 import { equal, notEqual } from '../assert';
 import { State, use } from '../mixins';
-import { format } from '../utils/assertion';
+import { format } from 'hein-assertion-utils';
 
 declare module '../expect.types' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

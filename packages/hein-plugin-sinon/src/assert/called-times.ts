@@ -1,4 +1,4 @@
-import { AssertionError, createAssertion } from 'hein/utils/assertion';
+import { AssertionError, createAssertion } from 'hein-assertion-utils';
 import type { SinonSpy } from 'sinon';
 
 export const [calledTimes, notCalledTimes] = createAssertion({

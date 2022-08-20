@@ -1,4 +1,4 @@
-name: Release Hein
+name: Release hein
 
 on:
   push:
@@ -17,9 +17,8 @@ jobs:
         with:
           node-version: 18
       - run: yarn --cwd packages/hein
-      - run: yarn --cwd packages/hein run build
       - run: yarn --cwd packages/hein run lint
-      - run: yarn --cwd packages/hein run test
-      - run: yarn --cwd packages/hein release --non-interactive
+      - run: yarn --cwd packages/hein build
+      - run: yarn --cwd packages/hein publish --non-interactive
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
