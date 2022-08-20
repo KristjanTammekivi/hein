@@ -17,9 +17,7 @@ jobs:
         with:
           node-version: 18
       - run: yarn --cwd packages/eslint-config-hein
-      - run: yarn --cwd packages/eslint-config-hein run build
       - run: yarn --cwd packages/eslint-config-hein run lint
-      - run: yarn --cwd packages/eslint-config-hein run test
-      - run: yarn --cwd packages/eslint-config-hein release --non-interactive
+      - run: yarn --cwd packages/eslint-config-hein publish --non-interactive
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -12,8 +12,8 @@ fi
 
 yarn version --$1 --no-git-tag-version
 git add package.json
-git commit -m "Release eslint-config-hein$(node -p "require('./package.json').version")"
-TAG="eslint-config-hein$(node -p "require('./package.json').version")"
+TAG="eslint-config-hein@$(node -p "require('./package.json').version")"
+git commit -m "Release $TAG"
 git tag -a $TAG -m "Release $TAG"
 git push
 git push origin $TAG
