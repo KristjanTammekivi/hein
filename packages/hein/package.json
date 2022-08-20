@@ -18,11 +18,30 @@
   "main": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./assert": "./dist/assert.js"
+    "./assert": "./dist/assert.js",
+    "./expect.types": "./dist/expect.types.js",
+    "./utils/assertion": "./dist/utils/assertion.js"
   },
+  "typesVersions": {
+    "*": {
+      "assert": [
+        "dist/assert"
+      ],
+      "expect.types": [
+        "dist/expect.types"
+      ],
+      "utils/assertion": [
+        "dist/utils/assertion"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rimraf dist && tsc -b .",
     "lint": "eslint src/**/*.ts",
+    "lint:fix": "npm run lint -- --fix",
     "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
     "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
     "coverage": "nyc npm run test"
@@ -42,13 +61,10 @@
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "eslint": "^8.20.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-mocha": "^10.1.0",
-    "eslint-plugin-unicorn": "^43.0.2",
+    "eslint-config-hein": "*",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   }

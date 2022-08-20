@@ -7,7 +7,7 @@ declare module '../expect.types' {
         /**
          * check if value is a number
          */
-        number(): this
+        number(): this;
         /**
          * check if value is a NaN
          */

@@ -28,7 +28,7 @@ interface ReportOptions<T, U> {
 export type Report<T> = <U>(args: ReportOptions<T, U>) => true | void;
 
 interface AssertionArguments<T extends string, U extends (...args: any[]) => void> {
-    messages: Record<T, string> & { not: string; };
+    messages: Record<T, string> & { not: string };
     test: (report: Report<T>) => U;
 }
 

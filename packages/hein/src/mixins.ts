@@ -9,7 +9,7 @@ export interface Property {
     value: (state: State<any>) => State<any> | null;
 }
 
-type MethodCallback = <T>(state: State<T>) => (...args: any[]) => void;
+type MethodCallback = (state: State<any>) => (...args: any[]) => void;
 
 export interface Method {
     type: 'method';

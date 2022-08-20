@@ -1,8 +1,7 @@
 {
   "name": "hein",
   "workspaces": [
-    "hein",
-    "hein-plugin-sinon"
+    "packages/*"
   ],
   "version": "0.0.1",
   "description": "Node.js assertion library",
@@ -11,7 +10,13 @@
   "author": "Kristjan Tammekivi <kristjantammekivi@gmail.com>",
   "private": true,
   "license": "MIT",
+  "scripts": {
+    "build": "tsc -b .",
+    "lint:hein": "yarn workspace hein run lint",
+    "lint:hein-plugin-sinon": "yarn workspace hein-plugin-sinon run lint",
+    "lint:eslint-config-hein": "yarn workspace eslint-config-hein run lint",
+    "lint": "yarn lint:hein && yarn lint:hein-plugin-sinon && yarn lint:eslint-config-hein"
+  },
   "devDependencies": {
-    "lerna": "^5.4.2"
   }
 }

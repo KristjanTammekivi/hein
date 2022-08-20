@@ -1,0 +1,12 @@
+{
+    "rules": {
+        "quote-props": [
+            "error",
+            "as-needed"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ]
+    }
+}
