@@ -152,7 +152,8 @@ module.exports = {
         'comma-dangle': [
             'error',
             'never'
-        ]
+        ],
+        '@typescript-eslint/member-delimiter-style': ['error']
     },
     overrides: [
         {

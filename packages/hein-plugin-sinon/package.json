@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc -b .",
     "lint": "eslint src/**/*.ts",
+    "lint:fix": "npm run lint -- --fix",
     "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
     "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
     "coverage": "nyc npm run test"

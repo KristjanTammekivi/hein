@@ -6,25 +6,25 @@ declare module '../expect.types' {
         /**
          * check if value is an instance of Date
          */
-        Date(): this
+        Date(): this;
     }
     interface ObjectExpect<T> {
         /**
          * check if value is an instance of Map
          */
-        Map(): this
+        Map(): this;
         /**
          * check if value is an instance of Set
          */
-        Set(): this
+        Set(): this;
         /**
          * check if value is an instance of WeakMap
          */
-        WeakMap(): this
+        WeakMap(): this;
         /**
          * check if value is an instance of WeakSet
          */
-        WeakSet(): this
+        WeakSet(): this;
     }
 }
 
