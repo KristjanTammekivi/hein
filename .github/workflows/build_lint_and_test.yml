@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: yarn --cwd hein
-      - run: yarn --cwd hein run build
-      - run: yarn --cwd hein run lint
-      - run: yarn --cwd hein run coverage
+      - run: yarn
+      - run: yarn run build
+      - run: yarn run lint
+      - run: yarn --cwd packages/hein run coverage
