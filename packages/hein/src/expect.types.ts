@@ -12,6 +12,8 @@ export interface ValueExpect<T> {
     and: this;
     have: this;
     of: this;
+
+    deep: this;
 }
 
 export interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
@@ -33,7 +35,7 @@ export interface SymbolExpect<T> extends ValueExpect<T> { }
 const LooseSymbol: unique symbol = Symbol();
 
 export interface Loose {
-    [LooseSymbol]: true
+    [LooseSymbol]: true;
 }
 
 type AllExpects<T> =

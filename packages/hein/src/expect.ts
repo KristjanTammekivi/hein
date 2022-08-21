@@ -34,7 +34,8 @@ use({
     have: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
 
-    length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) }
+    length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) },
+    deep: { type: 'property', value: (state) => ({ ...state, deep: true }) }
 });
 
 const expectChain = <T>(state: State<T>) => {

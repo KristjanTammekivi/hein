@@ -2,6 +2,7 @@ export interface State<T> {
     inverted?: boolean;
     value?: T;
     evaluateSize?: boolean;
+    deep?: boolean;
 }
 
 export interface Property {
