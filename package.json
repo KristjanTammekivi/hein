@@ -16,7 +16,19 @@
     "lint:hein-assertion-utils": "yarn workspace hein-assertion-utils run lint",
     "lint:hein-plugin-sinon": "yarn workspace hein-plugin-sinon run lint",
     "lint:eslint-config-hein": "yarn workspace eslint-config-hein run lint",
-    "lint": "yarn lint:hein && yarn lint:hein-assertion-utils && yarn lint:hein-plugin-sinon && yarn lint:eslint-config-hein"
+    "lint": "yarn lint:hein && yarn lint:hein-assertion-utils && yarn lint:hein-plugin-sinon && yarn lint:eslint-config-hein",
+    "release:eslint-config-hein:patch": "sh release.sh eslint-config-hein patch",
+    "release:eslint-config-hein:minor": "sh release.sh eslint-config-hein minor",
+    "release:eslint-config-hein:major": "sh release.sh eslint-config-hein major",
+    "release:hein:patch": "sh release.sh hein patch",
+    "release:hein:minor": "sh release.sh hein minor",
+    "release:hein:major": "sh release.sh hein major",
+    "release:hein-assertion-utils:patch": "sh release.sh hein-assertion-utils patch",
+    "release:hein-assertion-utils:minor": "sh release.sh hein-assertion-utils minor",
+    "release:hein-assertion-utils:major": "sh release.sh hein-assertion-utils major",
+    "release:hein-plugin-sinon:patch": "sh release.sh hein-plugin-sinon patch",
+    "release:hein-plugin-sinon:minor": "sh release.sh hein-plugin-sinon minor",
+    "release:hein-plugin-sinon:major": "sh release.sh hein-plugin-sinon major"
   },
   "devDependencies": {
   }
