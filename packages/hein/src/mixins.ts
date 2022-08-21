@@ -6,7 +6,7 @@ export interface State<T> {
 
 export interface Property {
     type: 'property';
-    value: (state: State<any>) => State<any> | null;
+    value: (state: State<any>) => Partial<State<any>> | null;
 }
 
 type MethodCallback = (state: State<any>) => (...args: any[]) => void;

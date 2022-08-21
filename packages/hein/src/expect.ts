@@ -17,39 +17,46 @@ import './expect/type';
 import './expect/equal-shorthand';
 import './expect/instance-of-shorthand';
 import './expect/type-shorthand';
+import { mapValues } from 'lodash';
 
 use({
     to: { type: 'property', value: () => null },
     be: { type: 'property', value: () => null },
     a: { type: 'property', value: () => null },
     an: { type: 'property', value: () => null },
-    and: { type: 'property', value: ({ value }) => ({ value }) },
+    and: {
+        type: 'property',
+        value: ({ value, ...rest }) => {
+            const values = mapValues(rest, () => { }) as any;
+            return { value, ...values };
+        }
+    },
     have: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
 
     length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) }
 });
 
-const expectChain = <T>({ value, inverted, evaluateSize }: State<T>) => {
+const expectChain = <T>(state: State<T>) => {
     const chain = {} as any;
     for (const [key, v] of Object.entries(mixins)) {
         const definition = v.type === 'alias' ? mixins[v.value] : v;
         if (definition.type === 'property') {
             registerProperty(chain, key, () => {
-                const newState = definition.value({ value, inverted, evaluateSize });
-                return expectChain(newState || { value, inverted, evaluateSize });
+                const newState = definition.value(state);
+                return expectChain({ ...state, ...newState });
             });
         } else if (definition.type === 'method') {
             registerMethod(chain, key, (...args: any[]) => {
-                if (evaluateSize) {
-                    definition.value({ value: getSize(value), inverted })(...args);
+                if (state.evaluateSize) {
+                    definition.value({ value: getSize(state.value), inverted: state.inverted })(...args);
                 } else {
-                    const result = definition.value({ value, inverted })(...args);
+                    const result = definition.value({ ...state })(...args);
                     if (result as any) {
                         return result;
                     }
                 }
-                return expectChain({ value, inverted, evaluateSize });
+                return expectChain(state);
             });
         }
     }
