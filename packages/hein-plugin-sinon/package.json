@@ -20,7 +20,7 @@
   "devDependencies": {
     "eslint": "^8.22.0",
     "eslint-config-hein": "^1.0.0",
-    "hein": "0.0.2",
+    "hein": "^0.0.2",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "sinon": "^14.0.0",
