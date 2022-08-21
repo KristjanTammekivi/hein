@@ -24,7 +24,7 @@ yarn --cwd packages/$1 version --$2 --no-git-tag-version
 git add packages/$1/package.json
 VERSION=$(node -p "require('./packages/$1/package.json').version")
 TAG="$1@$VERSION"
-echo git commit -m "Release $TAG"
-echo git tag -a $TAG -m "Release $TAG"
-echo git push
-echo git push origin $TAG
+git commit -m "Release $TAG"
+git tag -a $TAG -m "Release $TAG"
+git push
+git push origin $TAG
