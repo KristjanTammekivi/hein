@@ -31,5 +31,6 @@
     "release:hein-plugin-sinon:major": "sh release.sh hein-plugin-sinon major"
   },
   "devDependencies": {
+    "auto-changelog": "^2.4.0"
   }
 }
