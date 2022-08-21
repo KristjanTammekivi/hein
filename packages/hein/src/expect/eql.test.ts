@@ -11,7 +11,10 @@ describe('expect/eql', () => {
     it('should throw when one object has a different value for the same property', () => {
         expect(() => {
             expect({ a: 1 }).to.eql({ a: 2 });
-        }).to.throw(); // TODO:expect a certain message
+        }).to.throw();
+    });
+    it('should do a partial deep equality with .partially', () => {
+        expect({ a: 1, b: { c: 2, d: 3 } }).to.partially.eql({ b: { c: 2 } });
     });
     describe('not', () => {
         it('should invert the assertion', () => {

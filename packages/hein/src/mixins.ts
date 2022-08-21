@@ -3,6 +3,7 @@ export interface State<T> {
     value?: T;
     evaluateSize?: boolean;
     deep?: boolean;
+    partial?: boolean;
 }
 
 export interface Property {

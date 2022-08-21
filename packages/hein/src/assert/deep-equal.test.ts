@@ -95,6 +95,9 @@ describe('assert/deepEqual', () => {
     it('should reject with correct message', () => {
         throws(() => deepEqual({ a: 1, b: 2 }, { a: 1, b: 3 }), /Expected { a: 1, b: 2 } to deep equal { a: 1, b: 3 }/);
     });
+    it('should not throw for patial equal if expected has missing props', () => {
+        deepEqual({ a: 1, b: 2 }, { a: 1 }, true);
+    });
     describe('assert/notDeepEqual', () => {
         it('should not throw if values are different', () => {
             notDeepEqual({ a: 1 }, { a: 2 });
