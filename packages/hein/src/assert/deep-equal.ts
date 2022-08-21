@@ -2,7 +2,7 @@ import { cloneDeep } from 'lodash';
 import { createAssertion } from 'hein-assertion-utils';
 import { match } from '../utils/match';
 
-export const [eql, notEql] = createAssertion({
+export const [deepEqual, notDeepEqual] = createAssertion({
     messages: {
         notEql: 'Expected {{actual}} to deep equal {{expected}}',
         not: 'Expected {{actual}} to not deep equal {{expected}}'

@@ -1,4 +1,4 @@
-import { eql, equal, notEql, notEqual } from '../assert';
+import { deepEqual, equal, notDeepEqual, notEqual } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
@@ -20,9 +20,9 @@ use({
         value: ({ value, inverted, deep }) => (other: any, message?: string) => {
             if (deep) {
                 if (inverted) {
-                    notEql(value, other, message);
+                    notDeepEqual(value, other, message);
                 } else {
-                    eql(value, other, message);
+                    deepEqual(value, other, message);
                 }
                 return;
             }

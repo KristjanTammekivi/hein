@@ -1,4 +1,4 @@
-export { eql, notEql } from './assert/eql';
+export { deepEqual, notDeepEqual } from './assert/deep-equal';
 export { equal, notEqual } from './assert/equal';
 export { greaterThan, notGreaterThan } from './assert/greater-than';
 export { greaterThanEqual, notGreaterThanEqual } from './assert/greater-than-equal';
