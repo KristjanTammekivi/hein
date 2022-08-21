@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@types/sinon": "^10.0.13",
-    "hein-assertion-utils": "*"
+    "hein-assertion-utils": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^8.22.0",

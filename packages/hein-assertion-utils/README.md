@@ -1,3 +1,3 @@
 # hein-assertion-utils
 
-Utilities for creating assertions, used in [Hein](github.com/KristjanTammekivi/hein)
+Utilities for creating assertions, used in [Hein](https://github.com/KristjanTammekivi/hein)
