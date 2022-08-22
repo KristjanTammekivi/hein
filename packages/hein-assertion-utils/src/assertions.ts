@@ -19,6 +19,7 @@ interface ReportOptions<T, U> {
     expected?: U;
     actual?: U;
     noStringify?: boolean;
+    data?: Record<string, any>;
 }
 
 export type Report<T> = <U>(args: ReportOptions<T, U>) => true | void;
@@ -38,13 +39,12 @@ export const format = (message: string, data: Record<any, any>, noStringify: boo
 
 export const createAssertion = <T extends string, U extends (...args: any[]) => void>({ messages, test }: AssertionArguments<T, U>) => {
     const factory = ({ inverted }: { inverted?: boolean } = {}) => {
-        const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify }) => {
-            // console.trace({ status, messageId, message, actual, expected });
+        const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify, data }) => {
             if (inverted && status === 'ok') {
-                throw new AssertionError(actual, expected, format(message || messages[messageId] || messages.not, { actual, expected }, noStringify));
+                throw new AssertionError(actual, expected, format(message || messages[messageId] || messages.not, { actual, expected, ...data }, noStringify));
             }
             if (!inverted && status === 'notok') {
-                throw new AssertionError(actual, expected, format(message || messages[messageId], { actual, expected }, noStringify));
+                throw new AssertionError(actual, expected, format(message || messages[messageId], { actual, expected, ...data }, noStringify));
             }
             return true;
         };
