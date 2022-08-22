@@ -1,7 +1,7 @@
 export interface State<T> {
     inverted?: boolean;
     value?: T;
-    evaluateSize?: boolean;
+    getProperty?: (value: T) => any;
     deep?: boolean;
     partial?: boolean;
 }

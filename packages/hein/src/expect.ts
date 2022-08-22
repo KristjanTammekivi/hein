@@ -35,7 +35,7 @@ use({
     have: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
 
-    length: { type: 'property', value: (state) => ({ ...state, evaluateSize: true }) },
+    length: { type: 'property', value: (state) => ({ ...state, getProperty: getSize }) },
     deep: { type: 'property', value: (state) => ({ ...state, deep: true }) }
 });
 
@@ -50,8 +50,8 @@ const expectChain = <T>(state: State<T>) => {
             });
         } else if (definition.type === 'method') {
             registerMethod(chain, key, (...args: any[]) => {
-                if (state.evaluateSize) {
-                    definition.value({ value: getSize(state.value), inverted: state.inverted })(...args);
+                if (state.getProperty) {
+                    definition.value({ value: state.getProperty(state.value), inverted: state.inverted })(...args);
                 } else {
                     const result = definition.value({ ...state })(...args);
                     if (result as any) {
