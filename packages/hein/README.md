@@ -98,12 +98,14 @@ expect(new Set()).to.be.empty();
 
 ##### eql
 
-Assert that value deep equals the expectation
+Assert that value deep equals the expectation. When combined with .partially expected may have missing properties
 ```typescript
 expect({ a: 1 }).to.eql({ a: 1 });
 
 import { any } from 'hein';
-expect({ a: 1, b: new Date() }).to.eql({ a: 1, b: any() })
+expect({ a: 1, b: new Date() }).to.eql({ a: 1, b: any() });
+
+expect({ a: 1, b: new Date()}).to.partially.eql({ a: 1 });
 ```
 
 ##### eq
@@ -112,10 +114,12 @@ Alias for [equal](#equal)
 
 ##### equal
 
-Assert that value strictly equals expectation. NaN is treated as a non-unique value
+Assert that value strictly equals expectation. NaN is treated as a non-unique value.
+Chaining with .deep is an alias for [#eql]
 ```typescript
 expect('hein').to.equal('hein');
 expect(NaN).to.equal(NaN);
+expect({ a: 1 }).to.deep.equal({ a: 1 })
 ```
 
 ##### false
@@ -226,8 +230,17 @@ expect(5).to.be.a.number();
 ##### object
 
 Assert that value is an object. Null and instances of Array don't count
+```typescript
 expect({}).to.be.an.object();
+```
 
+##### property
+
+Assert that actual has property. Optionally check that propery has value
+```typescript
+expect({ a: 1 }).to.have.property('a');
+expect({ a: 1 }).to.have.property('a', 1);
+```
 
 ##### reject
 
@@ -293,4 +306,3 @@ Assert that value is an instance of WeakSet
 ```typescript
 expect(new WeakSet()).to.be.a.WeakSet();
 ```
-

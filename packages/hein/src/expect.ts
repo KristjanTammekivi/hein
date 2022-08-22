@@ -17,6 +17,7 @@ import './expect/type';
 import './expect/equal-shorthand';
 import './expect/instance-of-shorthand';
 import './expect/type-shorthand';
+import './expect/has-property';
 import { mapValues } from 'lodash';
 
 use({
