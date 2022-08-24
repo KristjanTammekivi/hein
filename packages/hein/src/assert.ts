@@ -11,6 +11,7 @@ export { lessThan, notLessThan } from './assert/less-than';
 export { lessThanEqual, notLessThanEqual } from './assert/less-than-equal';
 export { notRejects, rejects } from './assert/rejects';
 export { notThrows, throws } from './assert/throws';
+export { includes, notIncludes } from './assert/includes';
 
 export const assert = () => {
     throw new Error('Not implemented');

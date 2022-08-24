@@ -78,6 +78,10 @@ Assert that value is a boolean
 expect(true).to.be.a.boolean();
 ```
 
+##### contain
+
+Alias for [include](#include)
+
 ##### Date
 
 Assert that value is an instance of Date
@@ -158,6 +162,14 @@ expect(5).to.be.greaterThanOrEqual(4);
 ##### gte
 
 Alias for [greaterThanOrEqual](#greaterThanOrEqual)
+
+##### include
+
+Assert that element / substring is present in array / string
+```typescript
+expect([1, 2, 3]).to.include(2);
+expect('hein').to.include('ei');
+```
 
 ##### instanceOf
 
