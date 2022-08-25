@@ -9,6 +9,32 @@ export class AssertionError extends Error {
 
     constructor(public actual: any, public expected: any, message: string) {
         super(message);
+        const originalPrepareStackTrace = Error.prepareStackTrace;
+        Error.prepareStackTrace = (error, callsites) => {
+            const filteredStacks = [
+                '/hein-assertion-utils/',
+                '/node_modules/',
+                '/hein/'
+            ];
+            let foreignCallsiteFound = false;
+            callsites = callsites
+                .filter(x => {
+                    if (foreignCallsiteFound) {
+                        return true;
+                    }
+                    if (filteredStacks.some(filter => x.getFileName().includes(filter))) {
+                        return false;
+                    }
+                    foreignCallsiteFound = true;
+                    return true;
+                });
+            return originalPrepareStackTrace(this, callsites);
+        };
+
+        const stack = this.stack;
+
+        Error.prepareStackTrace = originalPrepareStackTrace;
+        this.stack = stack;
     }
 }
 
