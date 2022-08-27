@@ -1,6 +1,6 @@
 {
   "name": "hein-plugin-sinon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "hein plugin for sinon assertions",
   "main": "dist/index.js",
   "author": "Kristjan Tammekivi",
