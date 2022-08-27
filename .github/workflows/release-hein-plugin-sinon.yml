@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: yarn --cwd packages/hein-plugin-sinon
+      - run: yarn
       - run: yarn --cwd packages/hein-plugin-sinon run lint
-      - run: yarn --cwd packages/hein-plugin-sinon build
+      - run: yarn build
       - run: yarn --cwd packages/hein-plugin-sinon publish --non-interactive
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
