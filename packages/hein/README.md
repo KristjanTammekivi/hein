@@ -10,7 +10,7 @@ Assertion library with focus on TypeScript
 ## Features?
 
 * Full TypeScript support
-* Fuzzy matching for eql with any()
+* Fuzzy matching for eql with hein.any
 
 * [Differences between Chai and Hein](https://github.com/KristjanTammekivi/hein/blob/main/packages/hein/DIFFERENCES_WITH_CHAI.md)
 
@@ -116,11 +116,15 @@ expect(new Set()).to.be.empty();
 Assert that value deep equals the expectation. When combined with .partially expected may have missing properties
 ```typescript
 expect({ a: 1 }).to.eql({ a: 1 });
-
-import { any } from 'hein';
-expect({ a: 1, b: new Date() }).to.eql({ a: 1, b: any() });
-
 expect({ a: 1, b: new Date()}).to.partially.eql({ a: 1 });
+
+import { any, createEvaluation } from 'hein';
+expect({ a: 1, b: new Date(), c: Math.random() }).to.eql({
+    a: 1,
+    b: any,
+    c: createEvaluation(n => typeof n === 'number')
+});
+
 ```
 
 ##### eq
