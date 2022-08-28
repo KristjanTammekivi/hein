@@ -2,7 +2,7 @@ import { deepEqual, notDeepEqual } from '../assert';
 import { use } from '../mixins';
 
 type DeepPartial<T> = {
-    [P in keyof T]?: T[P] extends Array<infer U> ? Array<DeepPartial<U>> : DeepPartial<T[P]>;
+    [P in keyof T]?: T[P] | (T[P] extends Array<infer U> ? Array<DeepPartial<U>> : DeepPartial<T[P]>);
 };
 
 declare module '../expect.types' {
