@@ -1,5 +1,5 @@
 import { expect, use } from 'hein';
-import { spy } from 'sinon';
+import { match, spy } from 'sinon';
 import { sinonPlugin } from '.';
 
 use(sinonPlugin);
@@ -161,5 +161,26 @@ describe('calledWith', () => {
             s(2, 1);
             expect(s).to.not.have.been.calledWith(1, 2);
         });
+    });
+});
+
+describe('calledWithMatch', () => {
+    it('should not throw if value matches partially', () => {
+        const s = spy();
+        s({ a: 1, b: 2, c: 3 });
+        expect(s).to.have.been.calledWithMatch({
+            a: 1,
+            b: match.number
+        });
+    });
+    it(`should throw if value doesn't match`, () => {
+        const s = spy();
+        s({ a: 1, b: 2 });
+        expect(() => {
+            expect(s).to.have.been.calledWithMatch({
+                a: 1,
+                d: 2
+            });
+        }).to.throw();
     });
 });

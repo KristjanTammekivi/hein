@@ -7,8 +7,10 @@ import { calledAfter, notCalledAfter } from './assert/called-after';
 import { calledBefore, notCalledBefore } from './assert/called-before';
 import { calledTimes, notCalledTimes } from './assert/called-times';
 import { calledWith, notCalledWith } from './assert/called-with';
+import { calledWithMatch, notCalledWithMatch } from './assert/called-with-match';
 
 declare module 'hein/expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ValueExpect<T> {
         called(callCount?: number): this;
         calledOnce(): this;
@@ -17,6 +19,7 @@ declare module 'hein/expect.types' {
         calledBefore(spy: SinonSpy): this;
         calledAfter(spy: SinonSpy): this;
         calledWith: (...args: any[]) => this;
+        calledWithMatch: (...args: any[]) => this;
         been: this;
     }
 }
@@ -101,6 +104,16 @@ export const sinonPlugin: Record<string, Method | Property> = {
                 notCalledWith(value, ...args);
             } else {
                 calledWith(value, ...args);
+            }
+        }
+    },
+    calledWithMatch: {
+        type: 'method',
+        value: ({ inverted, value }: State<SinonSpy>) => (...args: any[]) => {
+            if (inverted) {
+                notCalledWithMatch(value, ...args);
+            } else {
+                calledWithMatch(value, ...args);
             }
         }
     }

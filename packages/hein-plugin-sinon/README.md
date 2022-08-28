@@ -77,6 +77,18 @@ s('a', 'b', 'c');
 expect(s).to.have.been.calledWith('a', 'b', 'c');
 ```
 
+### calledWithMatch
+
+Asserts that spy has been called with partial arguments
+```typescript
+const s = sinon.spy();
+s({ a: 1, b: 2, c: 3});
+expect(s).to.have.been.calledWithMatch({
+    a: 1,
+    b: sinon.match.number
+});
+```
+
 ### calledBefore
 
 Asserts that spy has been called before the given spy
