@@ -1,5 +1,10 @@
 # Hein
 
+[![npm](https://img.shields.io/npm/v/hein?style=flat-square)](https://www.npmjs.com/package/hein)
+[![npm](https://img.shields.io/npm/types/hein?style=flat-square)](https://www.npmjs.com/package/hein)
+[![npm](https://img.shields.io/npm/dw/hein?style=flat-square)](https://www.npmjs.com/package/hein)
+[![npm](https://img.shields.io/github/workflow/status/KristjanTammekivi/hein/Build,%20Lint,%20and%20Test/main?style=flat-square)](https://www.npmjs.com/package/hein)
+
 Assertion library with focus on TypeScript
 
 ## Features?
@@ -8,6 +13,12 @@ Assertion library with focus on TypeScript
 * Fuzzy matching for eql with any()
 
 * [Differences between Chai and Hein](https://github.com/KristjanTammekivi/hein/blob/main/packages/hein/DIFFERENCES_WITH_CHAI.md)
+
+## Plugins
+
+[npm/hein-plugin-sinon](https://www.npmjs.com/package/hein-plugin-sinon) -
+Provides assertions like to.have.been.calledOnce() and to.have.been.calledWith() for sinon spies.
+
 
 ## Usage
 
