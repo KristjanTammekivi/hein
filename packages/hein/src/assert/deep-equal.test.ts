@@ -89,7 +89,7 @@ describe('assert/deepEqual', () => {
     });
     describe('assert/any', () => {
         it('should replace a property with any()', () => {
-            deepEqual({ a: 1 }, { a: any() });
+            deepEqual({ a: 1 }, { a: any });
         });
     });
     it('should reject with correct message', () => {

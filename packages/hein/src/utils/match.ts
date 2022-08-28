@@ -1,16 +1,6 @@
 import { isObjectLike } from 'lodash';
 import { xor } from './xor';
 
-const anySymbol: unique symbol = Symbol();
-
-interface Any {
-    [anySymbol]: true;
-}
-
-export const any = (): any => ({ [anySymbol]: true });
-
-const isAny = (value: any): value is Any => value && value[anySymbol];
-
 const evaluationSymbol: unique symbol = Symbol();
 
 interface Evaluation {
@@ -18,13 +8,15 @@ interface Evaluation {
     (value: any): boolean;
 }
 
-export const createEvaluation = (callback: (value: any) => boolean): Evaluation => {
+export const createEvaluation = (callback: (value: any) => boolean): any => {
     const evaluation = (value: any): boolean => {
         return callback(value);
     };
     evaluation[evaluationSymbol] = true;
     return evaluation as Evaluation;
 };
+
+export const any = createEvaluation(() => true);
 
 export const isEvaluation = (value: any): value is Evaluation => value && value[evaluationSymbol];
 
@@ -35,9 +27,6 @@ interface MatchOptions {
 
 export const match = <T>(actual: T, expected: T, { mutate = false, partial = false }: MatchOptions = {}): boolean => {
     if (actual === expected) {
-        return true;
-    }
-    if (isAny(expected)) {
         return true;
     }
     if (isEvaluation(expected)) {
@@ -61,16 +50,10 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
                 continue;
             }
             const actualValue = actual.get(key);
-            if (mutate) {
-                if (isEvaluation(value)) {
-                    expected.set(key, actualValue);
-                    result &&= value(actualValue);
-                    continue;
-                }
-                if (isAny(value)) {
-                    expected.set(key, actualValue);
-                    continue;
-                }
+            if (mutate && isEvaluation(value)) {
+                expected.set(key, actualValue);
+                result &&= value(actualValue);
+                continue;
             }
             result = match(actualValue, value, { mutate, partial }) && result;
             continue;
@@ -121,19 +104,13 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
                 continue;
             }
             const expectedValue = expected[index];
-            if (mutate) {
-                if (isEvaluation(expectedValue)) {
-                    const matchesEvaluation = expectedValue(value);
-                    if (matchesEvaluation) {
-                        expected[index] = value;
-                    }
-                    result &&= matchesEvaluation;
-                    continue;
-                }
-                if (isAny(expectedValue)) {
+            if (mutate && isEvaluation(expectedValue)) {
+                const matchesEvaluation = expectedValue(value);
+                if (matchesEvaluation) {
                     expected[index] = value;
-                    continue;
                 }
+                result &&= matchesEvaluation;
+                continue;
             }
             result &&= match(value, expectedValue, { mutate, partial });
             continue;
@@ -151,13 +128,6 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
                 continue;
             }
             result &&= false;
-            continue;
-        }
-        if (isAny(expectedValue)) {
-            if (mutate) {
-                // so diffs don't show any in case of mismatches elsewhere
-                expected[index] = actualValue;
-            }
             continue;
         }
         if (isEvaluation(expectedValue)) {

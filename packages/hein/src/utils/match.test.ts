@@ -171,34 +171,34 @@ describe('utils/match', () => {
     });
     describe('any', () => {
         it('should return true if one value is a primitive and the other any', () => {
-            equal(match(5, any() as any), true);
+            equal(match(5, any), true);
         });
         it('should mutate expectation if a value is any and mutate is true', () => {
-            const expect = { a: any() };
+            const expect = { a: any };
             equal(match({ a: 5 }, expect, { mutate: true }), true);
             equal(expect.a, 5);
         });
         it('should not mutate if mutate is set to false', () => {
-            const anyInstance = any();
+            const anyInstance = any;
             const expect = { a: anyInstance };
             equal(match({ a: 5 }, expect), true);
             equal(expect.a, anyInstance);
         });
         it('should mutate array elements', () => {
-            const expectation = [any()];
+            const expectation = [any];
             equal(match([5], expectation, { mutate: true }), true);
             equal(expectation[0], 5);
         });
         it('should mutate map values', () => {
             const key = {};
-            const expectation = new Map([[key, any()]]);
+            const expectation = new Map([[key, any]]);
             equal(match(new Map([[key, 5]]), expectation, { mutate: true }), true);
             equal(expectation.get(key), 5);
         });
         it('should traverse the whole object even if something is not a match', () => {
             const expected = {
-                a: [1, any()],
-                b: [2, any()]
+                a: [1, any],
+                b: [2, any]
             };
             const actual = {
                 a: [3, 5],
@@ -209,7 +209,7 @@ describe('utils/match', () => {
             equal(expected.b[1], 6);
         });
         it(`should mutate the whole array even if arrays aren't equal length`, () => {
-            const expected = [any(), any()];
+            const expected = [any, any];
             const actual = [1, 2, 3];
             match(actual, expected, { mutate: true });
             equal(expected[0], 1);
@@ -218,8 +218,8 @@ describe('utils/match', () => {
         });
         it(`should mutate the whole object even if objects have different amount of keys`, () => {
             const expected = {
-                a: any(),
-                b: any()
+                a: any,
+                b: any
             };
             const actual = {
                 a: 1,
@@ -234,7 +234,7 @@ describe('utils/match', () => {
         it('should mutate the whole Map even if Maps have different amount of keys', () => {
             const key = {};
             const key2 = {};
-            const expected = new Map([[key, any()]]);
+            const expected = new Map([[key, any]]);
             const actual = new Map([[key, 2], [key2, 4]]);
             match(actual, expected, { mutate: true });
             equal(expected.get(key), 2);
@@ -244,8 +244,8 @@ describe('utils/match', () => {
             const key1 = {};
             const key2 = {};
             const expected = new Map([
-                [key1, [1, any()]],
-                [key2, [2, any()]]
+                [key1, [1, any]],
+                [key2, [2, any]]
             ]);
             const actual = new Map([
                 [key1, [3, 5]],
