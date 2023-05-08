@@ -111,6 +111,13 @@ expect(new Map()).to.be.empty();
 expect(new Set()).to.be.empty();
 ```
 
+##### endWith
+
+Assert that string ends with argument
+```typescript
+expect('hein').to.endWith('in');
+```
+
 ##### eql
 
 Assert that value deep equals the expectation. When combined with .partially expected may have missing properties
@@ -285,6 +292,14 @@ expect(new Set()).to.be.a.Set();
 ##### sizeOf
 
 Alias of [lengthOf](#lengthOf)
+
+
+##### startWith
+
+Assert that string starts with argument
+```typescript
+expect('hein').to.startWith('he');
+```
 
 ##### string
 

@@ -14,6 +14,8 @@ export { match, notMatch } from './assert/match';
 export { notRejects, rejects } from './assert/rejects';
 export { notThrows, throws } from './assert/throws';
 export { deepHasProperty, deepNotHasProperty } from './assert/deep-has-property';
+export { startsWith, notStartsWith } from './assert/starts-with';
+export { endsWith, notEndsWith } from './assert/ends-with';
 
 export const assert = () => {
     throw new Error('Not implemented');

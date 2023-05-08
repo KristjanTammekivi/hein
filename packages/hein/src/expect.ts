@@ -20,6 +20,8 @@ import './expect/type-shorthand';
 import './expect/has-property';
 import './expect/include';
 import './expect/match';
+import './expect/start-with';
+import './expect/end-with';
 import { mapValues } from 'lodash';
 
 use({

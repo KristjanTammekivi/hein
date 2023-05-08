@@ -14,7 +14,7 @@ declare module '../expect.types' {
          */
         contain(...elements: ArrayType<T>[]): this;
     }
-    interface StringExpect<T> {
+    interface StringExpect {
         /**
          * check if string includes substring(s)
          */
