@@ -8,7 +8,7 @@ export const [hasProperty, notHasProperty] = createAssertion({
         notWrongValue: 'Expected {{obj}} to not have property {{expected}} with value {{value}}'
 
     },
-    test: (report) => <T, K extends keyof T>(...args: [actual: T, expected: K, value?: T[K]]) => {
+    test: (report) => <T extends object, K extends keyof T>(...args: [actual: T, expected: K, value?: T[K]]) => {
         const [actual, expected, value] = args;
         const actualStringified = stringify(actual);
         if (expected in actual) {

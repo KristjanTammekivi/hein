@@ -123,7 +123,7 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     for (const index in actual) {
         const expectedValue = expected[index];
         const actualValue = actual[index];
-        if (!(index in expected)) {
+        if (!(index in (expected as object))) {
             if (partial) {
                 continue;
             }
