@@ -11,17 +11,17 @@ export const [startsWith, notStartsWith] = createAssertion({
     },
     test: (report) =>
         ((actual: string, start: string) => {
-            if (!actual.startsWith(start)) {
+            if (actual.startsWith(start)) {
                 report({
-                    messageId: 'wrongStart',
-                    status: 'notok',
+                    messageId: 'not',
+                    status: 'ok',
                     actual,
                     expected: start
                 });
             } else {
                 report({
-                    messageId: 'not',
-                    status: 'ok',
+                    messageId: 'wrongStart',
+                    status: 'notok',
                     actual,
                     expected: start
                 });

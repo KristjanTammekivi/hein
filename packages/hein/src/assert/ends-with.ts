@@ -11,17 +11,17 @@ export const [endsWith, notEndsWith] = createAssertion({
     },
     test: (report) =>
         ((actual: string, end: string) => {
-            if (!actual.endsWith(end)) {
+            if (actual.endsWith(end)) {
                 report({
-                    messageId: 'wrongEnd',
-                    status: 'notok',
+                    messageId: 'not',
+                    status: 'ok',
                     actual,
                     expected: end
                 });
             } else {
                 report({
-                    messageId: 'not',
-                    status: 'ok',
+                    messageId: 'wrongEnd',
+                    status: 'notok',
                     actual,
                     expected: end
                 });
