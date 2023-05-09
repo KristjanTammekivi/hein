@@ -12,17 +12,17 @@ export const [includes, notIncludes] = createAssertion({
     },
     test: (report) => ((actual: string | any[], ...elements) => {
         for (const element of elements) {
-            if (!actual.includes(element)) {
+            if (actual.includes(element)) {
                 report({
-                    messageId: 'arrayMisses',
-                    status: 'notok',
+                    messageId: 'not',
+                    status: 'ok',
                     actual,
                     expected: element as any
                 });
             } else {
                 report({
-                    messageId: 'not',
-                    status: 'ok',
+                    messageId: 'arrayMisses',
+                    status: 'notok',
                     actual,
                     expected: element as any
                 });
