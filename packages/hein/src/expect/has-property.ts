@@ -3,7 +3,8 @@ import { use } from '../mixins';
 
 declare module '../expect.types' {
     interface ValueExpect<T> {
-        property<K extends keyof T>(property: K | string, value?: any): this;
+        property<K extends keyof T>(property: K, value?: any): this;
+        property(property: string, value?: any): this;
     }
 }
 
