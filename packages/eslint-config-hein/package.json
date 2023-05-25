@@ -17,6 +17,6 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-mocha": "^10.1.0",
-    "eslint-plugin-unicorn": "^46.0.0"
+    "eslint-plugin-unicorn": "^47.0.0"
   }
 }
