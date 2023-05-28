@@ -211,6 +211,13 @@ expect(new Set([1])).to.have.a.lengthOf(1);
 expect('hein').to.have.a.lengthOf(4);
 ```
 
+##### isBefore
+
+Assert that date is before argument
+```typescript
+expect(new Date(2020, 1, 1)).to.be.before(new Date(2020, 1, 2));
+```
+
 ##### lessThan
 
 Assert that value is less than expectation
