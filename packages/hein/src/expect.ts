@@ -3,6 +3,7 @@ import { registerMethod, registerProperty } from './utils/chain';
 import { getSize } from './utils/get-size';
 import { Expect } from './expect.types';
 import './expect/after';
+import './expect/ballpark';
 import './expect/before';
 import './expect/between';
 import './expect/empty';
@@ -40,6 +41,7 @@ use({
         }
     },
     have: { type: 'property', value: () => null },
+    in: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
 
     length: { type: 'property', value: (state) => ({ ...state, getProperty: getSize }) },

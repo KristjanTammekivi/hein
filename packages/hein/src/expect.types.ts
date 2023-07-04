@@ -11,8 +11,8 @@ export interface ValueExpect<T> {
     not: this;
     and: this;
     have: this;
+    in: this;
     of: this;
-
     deep: this;
 }
 

@@ -69,6 +69,14 @@ Alias for [greaterThanOrEqual](#greaterThanOrEqual)
 
 Alias for [lessThanOrEqual](#lessThanOrEqual)
 
+##### ballpark
+
+Assert that value is within a range of expectation (default is 0.1 - within 10%)
+```typescript
+expect(1.1).to.be.in.ballpark(1);
+expect(120).to.be.in.ballpark(100, 0.2);
+```
+
 ##### below
 
 Alias for [lessThan](#lessThan)
