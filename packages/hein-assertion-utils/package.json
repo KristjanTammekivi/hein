@@ -1,6 +1,6 @@
 {
   "name": "hein-assertion-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Helpers for creating hein assertions",
   "main": "dist/index.js",
   "repository": "https://github.com/KristjanTammekivi/hein",
