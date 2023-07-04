@@ -7,25 +7,26 @@ import './expect/ballpark';
 import './expect/before';
 import './expect/between';
 import './expect/empty';
+import './expect/end-with';
 import './expect/eql';
-import './expect/equal';
-import './expect/greater-than';
-import './expect/greater-than-equal';
-import './expect/instance-of';
-import './expect/length';
-import './expect/less-than';
-import './expect/less-than-equal';
-import './expect/reject';
-import './expect/throw';
-import './expect/type';
 import './expect/equal-shorthand';
-import './expect/instance-of-shorthand';
-import './expect/type-shorthand';
+import './expect/equal';
+import './expect/excluding';
+import './expect/greater-than-equal';
+import './expect/greater-than';
 import './expect/has-property';
 import './expect/include';
+import './expect/instance-of-shorthand';
+import './expect/instance-of';
+import './expect/length';
+import './expect/less-than-equal';
+import './expect/less-than';
 import './expect/match';
+import './expect/reject';
 import './expect/start-with';
-import './expect/end-with';
+import './expect/throw';
+import './expect/type-shorthand';
+import './expect/type';
 import { mapValues } from 'lodash';
 
 use({
@@ -48,7 +49,7 @@ use({
     deep: { type: 'property', value: (state) => ({ ...state, deep: true }) }
 });
 
-const expectChain = <T>(state: State<T>) => {
+export const expectChain = <T>(state: State<T>) => {
     const chain = {} as any;
     for (const [key, v] of Object.entries(mixins)) {
         const definition = v.type === 'alias' ? mixins[v.value] : v;

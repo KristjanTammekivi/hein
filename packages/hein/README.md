@@ -378,3 +378,12 @@ Assert that value is an instance of WeakSet
 ```typescript
 expect(new WeakSet()).to.be.a.WeakSet();
 ```
+
+#### Modifiers
+
+##### excluding
+
+Exclude properties from assertion
+```typescript
+expect({ a: 1, b: 2 }).excluding('a').to.eql({ b: 2 });
+```
