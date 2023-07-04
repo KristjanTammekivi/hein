@@ -17,6 +17,8 @@ export { deepHasProperty, deepNotHasProperty } from './assert/deep-has-property'
 export { startsWith, notStartsWith } from './assert/starts-with';
 export { endsWith, notEndsWith } from './assert/ends-with';
 export { isBefore, notBefore } from './assert/is-before';
+export { isAfter, notAfter } from './assert/is-after';
+export { isBetween, notBetween } from './assert/is-between';
 
 export const assert = () => {
     throw new Error('Not implemented');

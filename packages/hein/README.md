@@ -211,11 +211,26 @@ expect(new Set([1])).to.have.a.lengthOf(1);
 expect('hein').to.have.a.lengthOf(4);
 ```
 
+##### isAfter
+
+Assert that date is before argument
+```typescript
+expect(new Date(2020, 1, 2)).to.be.after(new Date(2020, 1, 1));
+```
+
 ##### isBefore
 
 Assert that date is before argument
 ```typescript
 expect(new Date(2020, 1, 1)).to.be.before(new Date(2020, 1, 2));
+```
+
+##### isBetween
+
+Assert that date or number is between arguments
+```typescript
+expect(new Date(2020, 1, 2)).to.be.between(new Date(2020, 1, 1), new Date(2020, 1, 3));
+expect(2).to.be.between(1, 3);
 ```
 
 ##### lessThan
