@@ -71,7 +71,7 @@ describe('assert/deepEqual', () => {
         throws(() => deepEqual({ a: 1 }, { a: {} }));
     });
     it('should not throw if both values are the same functions', () => {
-        const noop = () => { };
+        const noop = () => {};
         deepEqual(noop, noop);
     });
     it('should throw if both values are empty WeakMaps', () => {
@@ -107,6 +107,20 @@ describe('assert/deepEqual', () => {
         });
         it('should throw with custom message', () => {
             throws(() => notDeepEqual({ a: 1 }, { a: 1 }, 'custom message'), /custom message/);
+        });
+    });
+    describe('buffers', () => {
+        it('should not throw if two buffers are the same', () => {
+            deepEqual(Buffer.from('a'), Buffer.from('a'));
+        });
+        it('should not throw if two buffers are the same in partial comparision', () => {
+            deepEqual(Buffer.from('abc'), Buffer.from('abc'), true);
+        });
+        it('should throw if two buffers are not the same', () => {
+            throws(() => deepEqual(Buffer.from('a'), Buffer.from('b')));
+        });
+        it('should throw if two buffers are not the same in partial comparision', () => {
+            throws(() => deepEqual(Buffer.from('abc'), Buffer.from('abd'), true));
         });
     });
 });
