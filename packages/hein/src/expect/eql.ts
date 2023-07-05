@@ -10,7 +10,7 @@ declare module '../expect.types' {
         /**
          * check for deep equality
          */
-        eql(value: T): this;
+        eql(value: T, message?: string): this;
         partially: ValueExpect<DeepPartial<T>>;
     }
 }
@@ -22,11 +22,11 @@ use({
     },
     eql: {
         type: 'method',
-        value: ({ value, inverted, partial }) => (other: any) => {
+        value: ({ value, inverted, partial }) => (other: any, message) => {
             if (inverted) {
-                notDeepEqual(value, other, partial);
+                notDeepEqual(value, other, partial, message);
             } else {
-                deepEqual(value, other, partial);
+                deepEqual(value, other, partial, message);
             }
         }
     }

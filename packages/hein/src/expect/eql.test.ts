@@ -13,6 +13,11 @@ describe('expect/eql', () => {
             expect({ a: 1 }).to.eql({ a: 2 });
         }).to.throw();
     });
+    it('should accept message argument', () => {
+        expect(() => {
+            expect({ a: 1 }).to.eql({ a: 2 }, 'my message');
+        }).to.throw(/my message/);
+    });
     it('should do a partial deep equality with .partially', () => {
         expect({ a: 1, b: { c: 2, d: 3 } }).to.partially.eql({ b: { c: 2 } });
     });
