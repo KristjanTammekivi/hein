@@ -313,6 +313,15 @@ Assert that provided Promise rejects. At the moment this is the only assertion t
 await expect(Promise.reject()).to.reject();
 ```
 
+##### roundTo
+
+Assert that number can be rounded to target
+```typescript
+expect(5.5).to.be.roundTo(6);
+expect(5.14).to.roundTo(5.1, 1);
+expect(110).to.roundTo(100, -2);
+```
+
 ##### Set
 
 Assert that value is an instance of Set

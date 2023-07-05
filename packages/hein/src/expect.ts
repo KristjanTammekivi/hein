@@ -23,6 +23,7 @@ import './expect/less-than-equal';
 import './expect/less-than';
 import './expect/match';
 import './expect/reject';
+import './expect/round-to';
 import './expect/start-with';
 import './expect/throw';
 import './expect/type-shorthand';

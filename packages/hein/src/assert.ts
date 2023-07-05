@@ -20,6 +20,7 @@ export { isBefore, notBefore } from './assert/is-before';
 export { isAfter, notAfter } from './assert/is-after';
 export { isBetween, notBetween } from './assert/is-between';
 export { inBallpark, notInBallpark } from './assert/in-ballpark';
+export { roundTo, notRoundTo } from './assert/round-to';
 
 export const assert = () => {
     throw new Error('Not implemented');
