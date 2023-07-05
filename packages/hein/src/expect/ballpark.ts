@@ -8,7 +8,7 @@ declare module '../expect.types' {
          * @param ballpark
          * @param multiplier
          */
-        ballpark(ballpark: number, multiplier?: boolean): this;
+        ballpark(ballpark: number, multiplier?: number): this;
     }
 }
 
