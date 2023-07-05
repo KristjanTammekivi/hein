@@ -6,7 +6,9 @@ export const [inBallpark, notInBallpark] = createAssertion({
         not: 'Expected {{actual}} to not be in ballpark of {{expected}}'
     },
     test: (report) => (actual: number, expected: number, allowedDifference = 0.1) => {
-        if (actual <= expected * (1 + allowedDifference) && actual >= expected * (1 - allowedDifference)) {
+        const absActual = Math.abs(actual);
+        const absExpected = Math.abs(expected);
+        if (absActual <= absExpected * (1 + allowedDifference) && absActual >= absExpected * (1 - allowedDifference)) {
             return report({ status: 'ok', expected, actual });
         }
         return report({ status: 'notok', messageId: 'miss', expected, actual });
