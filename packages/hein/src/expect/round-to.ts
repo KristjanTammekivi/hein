@@ -1,4 +1,4 @@
-import { inBallpark, notInBallpark, notRoundTo, roundTo } from '../assert';
+import { notRoundTo, roundTo } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
