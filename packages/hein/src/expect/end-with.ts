@@ -3,7 +3,12 @@ import { use } from '../mixins';
 
 declare module '../expect.types' {
     interface StringExpect {
-        endWith(start: string): this;
+        /**
+         * check if string ends with other string
+         * @param start
+         * @example endsWith('foo', 'o');
+         */
+        endWith(end: string): this;
     }
 }
 
@@ -12,11 +17,11 @@ use({
         type: 'method',
         value:
             ({ value, inverted }) =>
-                (start: string) => {
+                (end: string) => {
                     if (inverted) {
-                        notEndsWith(value, start);
+                        notEndsWith(value, end);
                     } else {
-                        endsWith(value, start);
+                        endsWith(value, end);
                     }
                 }
     }

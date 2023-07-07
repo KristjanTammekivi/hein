@@ -5,6 +5,10 @@ import { Constructor, ErrorPredicate } from '../utils/process-error';
 declare module '../expect.types' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface PromiseExpect<T> {
+        /**
+         * check if promise rejects
+         * @param message
+         */
         reject(message?: string): Promise<void>;
         reject(matcher: RegExp | Constructor<Error> | ErrorPredicate): Promise<void>;
     }

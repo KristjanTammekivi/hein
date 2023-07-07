@@ -1,6 +1,33 @@
 import { isPlainObject } from 'lodash';
 import { createAssertion } from 'hein-assertion-utils';
 
+interface IsEmpty {
+    /**
+     * check if array is empty
+     * @param array
+     * @example isEmpty([]);
+     */
+    <T>(array: T[], message?: string): void;
+    /**
+     * check if object is empty
+     * @param object
+     * @example isEmpty({});
+     */
+    (object: Record<string, unknown>, message?: string): void;
+    /**
+     * check if Map is empty
+     * @param map
+     * @example isEmpty(new Map());
+     */
+    <K, V>(map: Map<K, V>, message?: string): void;
+    /**
+     * check if Set is empty
+     * @param set
+     * @example isEmpty(new Set());
+     */
+    <T>(set: Set<T>, message?: string): void;
+}
+
 export const [isEmpty, notIsEmpty] = createAssertion({
     messages: {
         array: 'Expected array to be empty',
@@ -10,9 +37,10 @@ export const [isEmpty, notIsEmpty] = createAssertion({
         not: 'Expected array to not be empty',
         notObject: 'Expected object to not be empty',
         notMap: 'Expected Map to not be empty',
-        notSet: 'Expected Set to not be empty'
+        notSet: 'Expected Set to not be empty',
+        invalidArgument: 'Expected {{actual}} to be an array, object, Map, or Set'
     },
-    test: (report) => <T>(actual: T, message?: string) => {
+    test: (report): IsEmpty => <T>(actual: T, message?: string) => {
         if (Array.isArray(actual)) {
             if (actual.length === 0) {
                 return report({ message, status: 'ok', actual });
@@ -37,5 +65,7 @@ export const [isEmpty, notIsEmpty] = createAssertion({
             }
             return report({ message, status: 'notok', messageId: 'set', actual });
         }
+        report({ message, status: 'notok', messageId: 'invalidArgument', actual });
+        report({ message, status: 'ok', messageId: 'invalidArgument', actual });
     }
 });

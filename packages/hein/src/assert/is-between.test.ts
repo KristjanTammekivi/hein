@@ -28,6 +28,9 @@ describe('assert/is-between', () => {
         isBetween(2, 1, 3);
         throws(() => isBetween(1, 2, 3), /Expected .* to be between .* and .*/);
     });
+    it('should work when lower bound is greater than upper bound', () => {
+        isBetween(2, 3, 1);
+    });
     describe('assert/notBetween', () => {
         it('should not throw if date is before expected', () => {
             notBetween(earlierDate, laterDate, evenLaterDate);

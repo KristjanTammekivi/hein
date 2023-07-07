@@ -6,9 +6,8 @@ declare module '../expect.types' {
         /**
          * check if date is before other date
          * @param date
-         * @param message
          */
-        before(date: Date, message?: string): this;
+        before(date: Date): this;
     }
 }
 

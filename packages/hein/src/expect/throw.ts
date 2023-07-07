@@ -4,6 +4,10 @@ import { Constructor, ErrorPredicate } from '../utils/process-error';
 
 declare module '../expect.types' {
     interface FunctionExpect<T> {
+        /**
+         * check if function throws
+         * @param message
+         */
         throw(message?: string): this;
         throw(matcher: RegExp | Constructor<Error> | ErrorPredicate, message?: string): this;
     }

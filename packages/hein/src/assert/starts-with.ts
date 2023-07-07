@@ -1,6 +1,12 @@
 import { createAssertion } from 'hein-assertion-utils';
 
 interface StartsWith {
+    /**
+     * check if string starts with start
+     * @param string
+     * @param start
+     * @example startsWith('foo', 'f');
+     */
     (string: string, start: string): void;
 }
 
@@ -9,8 +15,8 @@ export const [startsWith, notStartsWith] = createAssertion({
         wrongStart: 'Expected {{ actual }} to start with {{ expected }}',
         not: 'Expected {{ actual }} to not start with {{ expected }}'
     },
-    test: (report) =>
-        ((actual: string, start: string) => {
+    test: (report): StartsWith =>
+        (actual: string, start: string) => {
             if (actual.startsWith(start)) {
                 report({
                     messageId: 'not',
@@ -26,5 +32,5 @@ export const [startsWith, notStartsWith] = createAssertion({
                     expected: start
                 });
             }
-        }) as StartsWith
+        }
 });

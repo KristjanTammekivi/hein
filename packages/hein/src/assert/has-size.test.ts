@@ -133,4 +133,14 @@ describe('assert/hasSize', () => {
             });
         });
     });
+    describe('None of the Above', () => {
+        it('should throw if value is none of the above', () => {
+            throws(() => hasSize(5 as any, 5), /Expected number to be an array, object, Map, Set or string/);
+        });
+        describe('assert/notHasSize', () => {
+            it('should throw if value is none of the above', () => {
+                throws(() => notHasSize(5 as any, 5), /Expected number to be an array, object, Map, Set or string/);
+            });
+        });
+    });
 });

@@ -5,8 +5,32 @@ import { Constructor, ErrorPredicate, processError } from '../utils/process-erro
 export type ThrowsCallback = () => unknown;
 
 interface Throw {
+    /**
+     * check if function throws an error
+     * @param callback
+     * @example throws(() => { throw new Error('foo'); });
+     * @example throws(() => { throw new TypeError('foo'); }, TypeError);
+     */
     (callback: ThrowsCallback, message?: string): void;
-    (callback: ThrowsCallback, expectedError: Constructor | RegExp | ErrorPredicate, message?: string): void;
+    /**
+     * check if function throws an error matching the constructor
+     * @param callback
+     * @example throws(() => { throw new TypeError('foo'); }, TypeError);
+     */
+    (callback: ThrowsCallback, expectedError: Constructor, message?: string): void;
+    /**
+     * check if function throws an error matching the regex
+     * @param callback
+     * @example throws(() => { throw new Error('foo'); });
+     * @example throws(() => { throw new TypeError('foo'); }, /foo/);
+     */
+    (callback: ThrowsCallback, expectedError: RegExp, message?: string): void;
+    /**
+     * check if function throws an error matching the predicate function
+     * @param callback
+     * @example throws(() => { throw new TypeError('foo'); }, (error) => error.message === 'foo');
+     */
+    (callback: ThrowsCallback, expectedError: ErrorPredicate, message?: string): void;
 }
 
 

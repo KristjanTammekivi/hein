@@ -4,11 +4,11 @@ import { use } from '../mixins';
 declare module '../expect.types' {
     interface ValueExpect<T> {
         /**
-         * check for === equality
+         * check for === equality, NaN is considered equal to NaN
          */
         equal(value: T, message?: string): this;
         /**
-         * check for === equality
+         * check for === equality, NaN is considered equal to NaN
          */
         eq(value: T, message?: string): this;
     }

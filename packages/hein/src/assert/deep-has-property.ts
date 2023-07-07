@@ -1,6 +1,24 @@
 import { createAssertion, stringify } from 'hein-assertion-utils';
 import { get, has } from 'lodash';
 
+interface DeepHasProperty {
+    /**
+     * check if object has a property
+     * @param object
+     * @param property a property in the object. Can be a path like 'a.b.c'
+     * @example deepHasProperty([{a: {b: {c: 1}}}], '[0].a.b.c');
+     */
+    (object: any, property: string): void;
+    /**
+     * check if object has a property with a specific value
+     * @param object
+     * @param property a property in the object. Can be a path like 'a.b.c'
+     * @param value
+     * @example deepHasProperty([{a: {b: {c: 1}}}], '[0].a.b.c', 1);
+     */
+    (object: any, property: string, value: any): void;
+}
+
 export const [deepHasProperty, deepNotHasProperty] = createAssertion({
     messages: {
         noProperty: 'Expected {{actual}} to have property {{expected}}',
@@ -8,7 +26,7 @@ export const [deepHasProperty, deepNotHasProperty] = createAssertion({
         not: 'Expected {{actual}} to not have property {{expected}}',
         notWrongValue: 'Expected {{obj}} to not have property {{expected}} with value {{value}}'
     },
-    test: (report) => (...args: [actual: any, expected: string, value?: any]) => {
+    test: (report): DeepHasProperty => (...args: [actual: any, expected: string, value?: any]) => {
         const [actual, expected, value] = args;
         const actualStringified = stringify(actual);
         if (has(actual, expected)) {

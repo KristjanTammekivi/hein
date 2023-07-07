@@ -1,6 +1,44 @@
 import { isPlainObject } from 'lodash';
 import { createAssertion } from 'hein-assertion-utils';
 
+interface HasSize {
+    /**
+     * check if array has a specific length
+     * @param array
+     * @param length
+     * @example hasSize([1, 2, 3], 3);
+     */
+    (array: any[], length: number, message?: string): void;
+    /**
+     * check if object has a specific amount of keys
+     * @param object
+     * @param length
+     * @example hasSize({a: 1, b: 2}, 2);
+     */
+    (object: Record<string, unknown>, length: number, message?: string): void;
+    /**
+     * check if Map has a specific amount of keys
+     * @param map
+     * @param length
+     * @example hasSize(new Map([['a', 1], ['b', 2]]), 2);
+     */
+    (map: Map<unknown, unknown>, length: number, message?: string): void;
+    /**
+     * check if Set has a specific amount of members
+     * @param set
+     * @param length
+     * @example hasSize(new Set([1, 2, 3]), 3);
+     */
+    (set: Set<unknown>, length: number, message?: string): void;
+    /**
+     * check if string has a specific length
+     * @param string
+     * @param length
+     * @example hasSize('abc', 3);
+     */
+    (string: string, length: number, message?: string): void;
+}
+
 export const [hasSize, notHasSize] = createAssertion({
     messages: {
         array: 'Expected array to have length of {{expected}}',
@@ -12,9 +50,10 @@ export const [hasSize, notHasSize] = createAssertion({
         notObject: 'Expected object to not have size of {{expected}}',
         notMap: 'Expected Map to not have size of {{expected}}',
         notSet: 'Expected Set to not have size of {{expected}}',
-        notString: 'Expected string to not have length of {{expected}}'
+        notString: 'Expected string to not have length of {{expected}}',
+        invalidValue: 'Expected {{actual}} to be an array, object, Map, Set or string'
     },
-    test: (report) => <T>(actual: T, expected: number, message?: string) => {
+    test: (report): HasSize => <T>(actual: T, expected: number, message?: string) => {
         if (Array.isArray(actual)) {
             if (actual.length === expected) {
                 return report({ message, status: 'ok', expected, actual: actual.length });
@@ -45,5 +84,7 @@ export const [hasSize, notHasSize] = createAssertion({
             }
             return report({ message, status: 'notok', messageId: 'string', expected, actual: actual.length });
         }
+        report({ message, status: 'notok', messageId: 'invalidValue', actual: typeof actual, noStringify: true });
+        report({ message, status: 'ok', messageId: 'invalidValue', actual: typeof actual, noStringify: true });
     }
 });

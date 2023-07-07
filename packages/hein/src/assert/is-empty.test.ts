@@ -71,4 +71,8 @@ describe('assert/isEmpty', () => {
             });
         });
     });
+    it('should throw if value is not an array, object, Map, or Set', () => {
+        throws(() => isEmpty(1 as any), /Expected 1 to be an array, object, Map, or Set/);
+        throws(() => notIsEmpty(1 as any), /Expected 1 to be an array, object, Map, or Set/);
+    });
 });

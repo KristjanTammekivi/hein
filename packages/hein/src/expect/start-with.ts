@@ -3,6 +3,11 @@ import { use } from '../mixins';
 
 declare module '../expect.types' {
     interface StringExpect {
+        /**
+         * check if string starts with other string
+         * @param start
+         * @example startsWith('foo', 'f');
+         */
         startWith(start: string): this;
     }
 }

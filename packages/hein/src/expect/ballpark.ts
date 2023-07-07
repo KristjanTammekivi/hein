@@ -6,7 +6,7 @@ declare module '../expect.types' {
         /**
          * check if number close enough (default 10%)
          * @param ballpark
-         * @param multiplier
+         * @param [multiplier=10] - a number between 0 and 1 (exclusive). 0.1 (default) means 10% difference is allowed.
          */
         ballpark(ballpark: number, multiplier?: number): this;
     }

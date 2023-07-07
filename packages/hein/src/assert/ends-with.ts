@@ -1,6 +1,13 @@
 import { createAssertion } from 'hein-assertion-utils';
 
+// TODO: add message
+
 interface EndsWith {
+    /**
+     * check if string ends with a specific string
+     * @param string
+     * @param end
+     */
     (string: string, end: string): void;
 }
 
@@ -9,8 +16,8 @@ export const [endsWith, notEndsWith] = createAssertion({
         wrongEnd: 'Expected {{ actual }} to end with {{ expected }}',
         not: 'Expected {{ actual }} to not end with {{ expected }}'
     },
-    test: (report) =>
-        ((actual: string, end: string) => {
+    test: (report): EndsWith =>
+        (actual: string, end: string) => {
             if (actual.endsWith(end)) {
                 report({
                     messageId: 'not',
@@ -26,5 +33,5 @@ export const [endsWith, notEndsWith] = createAssertion({
                     expected: end
                 });
             }
-        }) as EndsWith
+        }
 });

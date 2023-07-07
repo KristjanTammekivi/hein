@@ -2,7 +2,7 @@ import { createAssertion } from 'hein-assertion-utils';
 
 interface Equal {
     /**
-     * check for === equality, NaN is equal to NaN
+     * check for === equality except here NaN is equal to NaN
      */
     <T>(actual: T, expected: T, message?: string): void;
 }
