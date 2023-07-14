@@ -28,7 +28,8 @@
     "release:hein-assertion-utils:major": "sh release.sh hein-assertion-utils major",
     "release:hein-plugin-sinon:patch": "sh release.sh hein-plugin-sinon patch",
     "release:hein-plugin-sinon:minor": "sh release.sh hein-plugin-sinon minor",
-    "release:hein-plugin-sinon:major": "sh release.sh hein-plugin-sinon major"
+    "release:hein-plugin-sinon:major": "sh release.sh hein-plugin-sinon major",
+    "postinstall": "yarn run build"
   },
   "devDependencies": {
     "auto-changelog": "^2.4.0"
