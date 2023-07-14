@@ -22,6 +22,7 @@ import './expect/length';
 import './expect/less-than-equal';
 import './expect/less-than';
 import './expect/match';
+import './expect/members';
 import './expect/reject';
 import './expect/round-to';
 import './expect/start-with';

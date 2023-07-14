@@ -3,6 +3,8 @@ export interface State<T> {
     value?: T;
     getProperty?: (value: T) => any;
     deep?: boolean;
+    same?: boolean;
+    ordered?: boolean;
     partial?: boolean;
 }
 
