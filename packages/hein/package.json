@@ -40,7 +40,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
     "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
-    "coverage": "nyc npm run test"
+    "coverage": "nyc npm run test",
+    "generate-docs": "typedoc --out docs src/index.ts"
   },
   "author": "Kristjan Tammekivi",
   "license": "MIT",
@@ -59,6 +60,7 @@
     "nyc": "^15.1.0",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.24.8",
     "typescript": "^5.1.3"
   }
 }

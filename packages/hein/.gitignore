@@ -4,3 +4,4 @@ package-lock.json
 yarn.lock
 coverage
 .nyc_output
+docs
