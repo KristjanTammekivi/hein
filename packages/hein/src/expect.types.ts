@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { ThrowsCallback } from './assert/throws';
+import type { fail } from './utils/fail';
 export { State } from './mixins';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -64,4 +65,5 @@ export interface Expect {
     <T extends string>(actual: T): StringExpect;
     <T extends symbol>(actual: T): SymbolExpect<T>;
     <T>(actual: T): ValueExpect<T>;
+    fail: typeof fail;
 }

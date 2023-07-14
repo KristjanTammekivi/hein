@@ -5,3 +5,4 @@ export { use, Alias, Method, Property, State } from './mixins';
 export { AssertionError } from 'hein-assertion-utils';
 export { ValueType } from './utils/get-type';
 export { ErrorPredicate } from './utils/process-error';
+export { fail } from './utils/fail';

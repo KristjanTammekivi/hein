@@ -30,6 +30,7 @@ import './expect/throw';
 import './expect/type-shorthand';
 import './expect/type';
 import { mapValues } from 'lodash';
+import { fail } from './utils/fail';
 
 use({
     to: { type: 'property', value: () => null },
@@ -80,3 +81,5 @@ export const expectChain = <T>(state: State<T>) => {
 export const expect = (<T>(actual: T) => {
     return expectChain({ value: actual });
 }) as Expect;
+
+expect.fail = fail;
