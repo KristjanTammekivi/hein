@@ -2,6 +2,7 @@ import { isEmpty, notIsEmpty } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ObjectExpect<T> {
         /**
          * check if object/array/Map/Set is empty

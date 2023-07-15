@@ -2,6 +2,7 @@ import { match, notMatch } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface StringExpect<T> {
         /**
          * check if string matches regex

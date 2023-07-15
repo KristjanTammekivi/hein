@@ -3,6 +3,7 @@ import { use } from '../mixins';
 import { ValueType } from '../utils/get-type';
 
 declare module '../expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ValueExpect<T> {
         /**
          * check if value is of certain type

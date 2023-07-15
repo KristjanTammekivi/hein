@@ -10,6 +10,11 @@ declare module '../expect.types' {
         members(value: T, message?: string): this;
         same: ArrayExpect<T>;
         ordered: ArrayExpect<T>;
+        /**
+         * Use partial matching for objects
+         * @example
+         * expect({ a: 1, b: 2 }).to.partially.eql({ a: 1 });
+         */
         partially: ArrayExpect<DeepPartial<T>>;
     }
 }

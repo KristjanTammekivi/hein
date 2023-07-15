@@ -2,6 +2,7 @@ import { hasSize, notHasSize } from '../assert';
 import { use } from '../mixins';
 
 declare module '../expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ObjectExpect<T> {
         /**
          * check for object/array/Map/Set/string to have a certain size
@@ -14,6 +15,7 @@ declare module '../expect.types' {
          */
         lengthOf(length: number, message?: string): this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ArrayExpect<T> {
         /**
          * check for array length

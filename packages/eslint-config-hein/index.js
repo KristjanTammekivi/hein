@@ -5,12 +5,14 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:mocha/recommended',
-        'plugin:unicorn/recommended'
+        'plugin:unicorn/recommended',
+        'plugin:jsdoc/recommended'
     ],
     plugins: [
         'import',
         'mocha',
-        'unicorn'
+        'unicorn',
+        'jsdoc'
     ],
     parserOptions: {
         ecmaVersion: 2018,
@@ -153,7 +155,8 @@ module.exports = {
             'error',
             'never'
         ],
-        '@typescript-eslint/member-delimiter-style': ['error']
+        '@typescript-eslint/member-delimiter-style': ['error'],
+        // 'jsdoc/check-examples': 'error'
     },
     overrides: [
         {

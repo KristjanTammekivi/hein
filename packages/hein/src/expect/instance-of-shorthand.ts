@@ -8,6 +8,7 @@ declare module '../expect.types' {
          */
         Date(): this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ObjectExpect<T> {
         /**
          * check if value is an instance of Map

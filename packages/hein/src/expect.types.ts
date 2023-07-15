@@ -14,6 +14,9 @@ export interface ValueExpect<T> {
     have: this;
     in: this;
     of: this;
+    /**
+     * Use deep equality for object checks
+     */
     deep: this;
 }
 
