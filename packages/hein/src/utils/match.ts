@@ -99,6 +99,9 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         if (actual.length !== expected.length && !partial) {
             result = false;
         }
+        if (partial && actual.length < expected.length) {
+            result = false;
+        }
         for (const [index, value] of actual.entries()) {
             if (index >= expected.length) {
                 continue;

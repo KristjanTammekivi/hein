@@ -21,11 +21,17 @@ describe('expect/eql', () => {
     it('should do a partial deep equality with .partially', () => {
         expect({ a: 1, b: { c: 2, d: 3 } }).to.partially.eql({ b: { c: 2 } });
     });
+    it('should work with arrays and partiality', () => {
+        expect({ a: [1] }).to.partially.eql({ a: [] });
+    });
     describe('not', () => {
         it('should invert the assertion', () => {
             expect(() => {
                 expect({ a: 1 }).not.to.eql({ a: 1 });
             }).to.throw();
+        });
+        it('should work with arrays and partiality', () => {
+            expect({ a: [] }).to.not.partially.eql({ a: [1] });
         });
     });
 });
