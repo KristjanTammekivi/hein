@@ -2,12 +2,14 @@ import { hasMembers, notHasMembers } from '../assert';
 import { use } from '../mixins';
 import { DeepPartial } from '../utils/types';
 
+type InferArray<T> = T extends Array<infer U> ? U : never;
+
 declare module '../expect.types' {
     interface ArrayExpect<T> {
         /**
          * check that the members in second array are present in the first one
          */
-        members(value: T, message?: string): this;
+        members(value: InferArray<T>[], message?: string): this;
         same: ArrayExpect<T>;
         ordered: ArrayExpect<T>;
         /**

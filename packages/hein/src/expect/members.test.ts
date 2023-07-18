@@ -47,4 +47,8 @@ describe('expect/members', () => {
             expect([1]).to.not.have.members([2]);
         });
     });
+    it('should throw if non-array is passed', () => {
+        // @ts-expect-error testing if non-array is caught
+        expect(() => expect([1]).to.have.members(1)).to.throw();
+    });
 });
