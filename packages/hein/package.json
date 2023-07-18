@@ -47,7 +47,7 @@
   "author": "Kristjan Tammekivi",
   "license": "MIT",
   "dependencies": {
-    "hein-assertion-utils": "^1.0.2",
+    "hein-assertion-utils": "^1.0.4",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
