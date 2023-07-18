@@ -19,6 +19,9 @@ export class AssertionError extends Error {
             let foreignCallsiteFound = false;
             callsites = callsites
                 .filter(x => {
+                    if (!x.getFileName()) {
+                        return false;
+                    }
                     if (x.getFileName().includes('.test.')) {
                         foreignCallsiteFound = true;
                         return true;
