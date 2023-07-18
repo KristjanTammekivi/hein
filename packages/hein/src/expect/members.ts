@@ -2,7 +2,7 @@ import { hasMembers, notHasMembers } from '../assert';
 import { use } from '../mixins';
 import { DeepPartial } from '../utils/types';
 
-type InferArray<T> = T extends Array<infer U> ? U : never;
+type InferArray<T> = T extends Array<infer U> ? U : any;
 
 declare module '../expect.types' {
     interface ArrayExpect<T> {

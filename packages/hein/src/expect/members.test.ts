@@ -51,4 +51,7 @@ describe('expect/members', () => {
         // @ts-expect-error testing if non-array is caught
         expect(() => expect([1]).to.have.members(1)).to.throw();
     });
+    it('should not produce a typescript error if passed any with partially', () => {
+        expect([{ a: 1 }] as any).to.partially.have.members([{ a: 1 }]);
+    });
 });
