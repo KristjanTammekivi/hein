@@ -47,6 +47,7 @@ use({
     have: { type: 'property', value: () => null },
     in: { type: 'property', value: () => null },
     not: { type: 'property', value: (state) => ({ ...state, inverted: !state.inverted }) },
+    of: { type: 'property', value: () => null },
 
     length: { type: 'property', value: (state) => ({ ...state, getProperty: getSize }) },
     deep: { type: 'property', value: (state) => ({ ...state, deep: true }) }

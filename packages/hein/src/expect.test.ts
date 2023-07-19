@@ -6,6 +6,9 @@ describe('expect', () => {
             expect([1, 2]).length.to.be.above(1);
         });
     });
+    it('should work with of', () => {
+        expect([1, 2]).to.be.of.type('array');
+    });
     describe('and', () => {
         it('should clear state', () => {
             expect(true).to.not.be.false().and.be.a.boolean();
