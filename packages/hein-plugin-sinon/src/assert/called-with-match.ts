@@ -9,7 +9,6 @@ export const [calledWithMatch, notCalledWithMatch] = createAssertion({
     test: (report) => (spy: SinonSpy, ...args: any[]) => {
         if (spy.calledWithMatch(...args)) {
             report({
-                messageId: 'assert',
                 status: 'ok'
             });
             return;

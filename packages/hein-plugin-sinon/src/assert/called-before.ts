@@ -9,7 +9,6 @@ export const [calledBefore, notCalledBefore] = createAssertion({
     test: (report) => (spy: SinonSpy, otherSpy: SinonSpy) => {
         if (spy.calledBefore(otherSpy)) {
             report({
-                messageId: 'assert',
                 status: 'ok'
             });
             return;

@@ -9,7 +9,6 @@ export const [calledAfter, notCalledAfter] = createAssertion({
     test: (report) => (spy: SinonSpy, otherSpy: SinonSpy) => {
         if (spy.calledAfter(otherSpy)) {
             report({
-                messageId: 'assert',
                 status: 'ok'
             });
             return;

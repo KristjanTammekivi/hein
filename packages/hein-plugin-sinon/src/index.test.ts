@@ -33,7 +33,7 @@ describe('called', () => {
         it('should throw if spy was called', () => {
             const s = spy();
             s();
-            expect(() => expect(s).to.not.have.been.called()).to.throw();
+            expect(() => expect(s).to.not.have.been.called()).to.throw(/Expected spy to not have been called/);
         });
         it('should throw if callCount is equal to expected', () => {
             const s = spy();

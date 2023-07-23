@@ -22,7 +22,6 @@ export const [called, notCalled] = createAssertion({
         report({
             actual: spy.callCount,
             expected: 1,
-            messageId: 'assert',
             status: 'ok'
         });
     }
