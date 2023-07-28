@@ -35,13 +35,15 @@ declare module '../expect.types' {
 use({
     greaterThan: {
         type: 'method',
-        value: ({ value, inverted }) => (other: any) => {
-            if (inverted) {
-                notGreaterThan(value, other);
-            } else {
-                greaterThan(value, other);
+        value:
+            ({ value, inverted }) =>
+            (other: any) => {
+                if (inverted) {
+                    notGreaterThan(value, other);
+                } else {
+                    greaterThan(value, other);
+                }
             }
-        }
     },
     gt: { type: 'alias', value: 'greaterThan' },
     above: { type: 'alias', value: 'greaterThan' }

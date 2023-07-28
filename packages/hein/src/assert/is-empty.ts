@@ -40,32 +40,34 @@ export const [isEmpty, notIsEmpty] = createAssertion({
         notSet: 'Expected Set to not be empty',
         invalidArgument: 'Expected {{actual}} to be an array, object, Map, or Set'
     },
-    test: (report): IsEmpty => <T>(actual: T, message?: string) => {
-        if (Array.isArray(actual)) {
-            if (actual.length === 0) {
-                return report({ message, status: 'ok', actual });
+    test:
+        (report): IsEmpty =>
+        <T>(actual: T, message?: string) => {
+            if (Array.isArray(actual)) {
+                if (actual.length === 0) {
+                    return report({ message, status: 'ok', actual });
+                }
+                return report({ message, status: 'notok', messageId: 'array', actual });
             }
-            return report({ message, status: 'notok', messageId: 'array', actual });
-        }
-        if (isPlainObject(actual)) {
-            if (Object.keys(actual).length === 0) {
-                return report({ message, status: 'ok', messageId: 'notObject', actual });
+            if (isPlainObject(actual)) {
+                if (Object.keys(actual).length === 0) {
+                    return report({ message, status: 'ok', messageId: 'notObject', actual });
+                }
+                return report({ message, status: 'notok', messageId: 'object', actual });
             }
-            return report({ message, status: 'notok', messageId: 'object', actual });
-        }
-        if (actual instanceof Map) {
-            if (actual.size === 0) {
-                return report({ message, status: 'ok', messageId: 'notMap', actual });
+            if (actual instanceof Map) {
+                if (actual.size === 0) {
+                    return report({ message, status: 'ok', messageId: 'notMap', actual });
+                }
+                return report({ message, status: 'notok', messageId: 'map', actual });
             }
-            return report({ message, status: 'notok', messageId: 'map', actual });
-        }
-        if (actual instanceof Set) {
-            if (actual.size === 0) {
-                return report({ message, status: 'ok', messageId: 'notSet', actual });
+            if (actual instanceof Set) {
+                if (actual.size === 0) {
+                    return report({ message, status: 'ok', messageId: 'notSet', actual });
+                }
+                return report({ message, status: 'notok', messageId: 'set', actual });
             }
-            return report({ message, status: 'notok', messageId: 'set', actual });
+            report({ message, status: 'notok', messageId: 'invalidArgument', actual });
+            report({ message, status: 'ok', messageId: 'invalidArgument', actual });
         }
-        report({ message, status: 'notok', messageId: 'invalidArgument', actual });
-        report({ message, status: 'ok', messageId: 'invalidArgument', actual });
-    }
 });

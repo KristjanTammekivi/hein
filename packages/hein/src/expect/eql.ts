@@ -19,12 +19,14 @@ use({
     },
     eql: {
         type: 'method',
-        value: ({ value, inverted, partial }) => (other: any, message) => {
-            if (inverted) {
-                notDeepEqual(value, other, partial, message);
-            } else {
-                deepEqual(value, other, partial, message);
+        value:
+            ({ value, inverted, partial }) =>
+            (other: any, message) => {
+                if (inverted) {
+                    notDeepEqual(value, other, partial, message);
+                } else {
+                    deepEqual(value, other, partial, message);
+                }
             }
-        }
     }
 });

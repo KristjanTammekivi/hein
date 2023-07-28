@@ -14,12 +14,14 @@ declare module '../expect.types' {
 use({
     match: {
         type: 'method',
-        value: ({ value, inverted }) => (regex: RegExp) => {
-            if (inverted) {
-                notMatch(value, regex);
-            } else {
-                match(value, regex);
+        value:
+            ({ value, inverted }) =>
+            (regex: RegExp) => {
+                if (inverted) {
+                    notMatch(value, regex);
+                } else {
+                    match(value, regex);
+                }
             }
-        }
     }
 });

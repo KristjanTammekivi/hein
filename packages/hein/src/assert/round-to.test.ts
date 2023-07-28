@@ -15,7 +15,10 @@ describe('assert/roundTo', () => {
         throws(() => roundTo(15, 10, -1), /Expected 15 to round to 10/);
     });
     it('should throw if target has more decimal places than requested decimals', () => {
-        throws(() => roundTo(1.11, 1.1, 0), /Invalid argument for target, decimals for target \(1.1\) cannot be less than rounding decimals \(0\)/);
+        throws(
+            () => roundTo(1.11, 1.1, 0),
+            /Invalid argument for target, decimals for target \(1.1\) cannot be less than rounding decimals \(0\)/
+        );
     });
     describe('assert/notRoundTo', () => {
         it('should not throw if value does not round to target', () => {
@@ -25,7 +28,10 @@ describe('assert/roundTo', () => {
             throws(() => notRoundTo(1.0002, 1, 1), /Expected 1\.0002 to not round to 1/);
         });
         it('should throw if target has more decimal places than requested decimals', () => {
-            throws(() => notRoundTo(1.11, 1.1, 0), /Invalid argument for target, decimals for target \(1.1\) cannot be less than rounding decimals \(0\)/);
+            throws(
+                () => notRoundTo(1.11, 1.1, 0),
+                /Invalid argument for target, decimals for target \(1.1\) cannot be less than rounding decimals \(0\)/
+            );
         });
     });
 });

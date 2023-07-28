@@ -29,23 +29,26 @@ declare module '../expect.types' {
     }
 }
 
-const constructors = [
-    Date,
-    Map,
-    Set,
-    WeakMap,
-    WeakSet
-];
+const constructors = [Date, Map, Set, WeakMap, WeakSet];
 
-use(Object.fromEntries(constructors.map((constructor) => {
-    return [constructor.name, {
-        type: 'method',
-        value: ({ inverted, value }) => () => {
-            if (inverted) {
-                notInstanceOf(value, constructor);
-            } else {
-                instanceOf(value, constructor);
-            }
-        }
-    }];
-})));
+use(
+    Object.fromEntries(
+        constructors.map((constructor) => {
+            return [
+                constructor.name,
+                {
+                    type: 'method',
+                    value:
+                        ({ inverted, value }) =>
+                        () => {
+                            if (inverted) {
+                                notInstanceOf(value, constructor);
+                            } else {
+                                instanceOf(value, constructor);
+                            }
+                        }
+                }
+            ];
+        })
+    )
+);

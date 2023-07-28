@@ -54,38 +54,45 @@ export const [hasMembers, notHasMembers] = createAssertion({
         not: 'Expected {{actual}} to not have members {{expected}}',
         notSame: 'Expected {{actual}} to not have same members as {{expected}}'
     },
-    test: (report): HasMembers => <T>(actual: T[], expected: T[], { deep = false, partial = false, ordered = false, same = false }: HasMembersOptions = {}, message?: string) => {
-        let lastIndex = -1;
-        for (const item of expected) {
-            if (deep || partial) {
-                // eslint-disable-next-line @typescript-eslint/no-loop-func
-                const actualIndex = actual.findIndex((actualItem, index) => {
-                    if (!ordered) {
+    test:
+        (report): HasMembers =>
+        <T>(
+            actual: T[],
+            expected: T[],
+            { deep = false, partial = false, ordered = false, same = false }: HasMembersOptions = {},
+            message?: string
+        ) => {
+            let lastIndex = -1;
+            for (const item of expected) {
+                if (deep || partial) {
+                    // eslint-disable-next-line @typescript-eslint/no-loop-func
+                    const actualIndex = actual.findIndex((actualItem, index) => {
+                        if (!ordered) {
+                            return match(actualItem, item, { partial });
+                        }
+                        if (lastIndex >= index) {
+                            return false;
+                        }
                         return match(actualItem, item, { partial });
+                    });
+                    lastIndex = actualIndex;
+                    if (actualIndex === -1) {
+                        return report({ status: 'notok', messageId: ordered ? 'order' : 'hasMembers', actual, expected, message });
                     }
-                    if (lastIndex >= index) {
-                        return false;
-                    }
-                    return match(actualItem, item, { partial });
-                });
-                lastIndex = actualIndex;
-                if (actualIndex === -1) {
-                    return report({ status: 'notok', messageId: ordered ? 'order' : 'hasMembers', actual, expected, message });
-                }
-            } else {
-                if (actual.includes(item)) {
-                    if (ordered && lastIndex >= actual.indexOf(item, lastIndex + 1)) {
-                        return report({ status: 'notok', messageId: 'order', actual, expected, message });
-                    }
-                    lastIndex = actual.indexOf(item, lastIndex + 1);
                 } else {
-                    return report({ status: 'notok', messageId: 'hasMembers', actual, expected, message });
+                    if (actual.includes(item)) {
+                        if (ordered && lastIndex >= actual.indexOf(item, lastIndex + 1)) {
+                            return report({ status: 'notok', messageId: 'order', actual, expected, message });
+                        }
+                        lastIndex = actual.indexOf(item, lastIndex + 1);
+                    } else {
+                        return report({ status: 'notok', messageId: 'hasMembers', actual, expected, message });
+                    }
                 }
             }
+            if (same && actual.length !== expected.length) {
+                return report({ status: 'notok', messageId: 'same', actual, expected, message });
+            }
+            return report({ status: 'ok', messageId: same ? 'notSame' : 'not', actual, expected, message });
         }
-        if (same && actual.length !== expected.length) {
-            return report({ status: 'notok', messageId: 'same', actual, expected, message });
-        }
-        return report({ status: 'ok', messageId: same ? 'notSame' : 'not', actual, expected, message });
-    }
 });

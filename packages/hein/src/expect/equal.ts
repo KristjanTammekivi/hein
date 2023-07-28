@@ -17,21 +17,23 @@ declare module '../expect.types' {
 use({
     equal: {
         type: 'method',
-        value: ({ value, inverted, deep }) => (other: any, message?: string) => {
-            if (deep) {
-                if (inverted) {
-                    notDeepEqual(value, other, message);
-                } else {
-                    deepEqual(value, other, message);
+        value:
+            ({ value, inverted, deep }) =>
+            (other: any, message?: string) => {
+                if (deep) {
+                    if (inverted) {
+                        notDeepEqual(value, other, message);
+                    } else {
+                        deepEqual(value, other, message);
+                    }
+                    return;
                 }
-                return;
+                if (inverted) {
+                    notEqual(value, other, message);
+                } else {
+                    equal(value, other, message);
+                }
             }
-            if (inverted) {
-                notEqual(value, other, message);
-            } else {
-                equal(value, other, message);
-            }
-        }
     },
     eq: { type: 'alias', value: 'equal' }
 });

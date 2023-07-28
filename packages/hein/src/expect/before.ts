@@ -14,12 +14,14 @@ declare module '../expect.types' {
 use({
     before: {
         type: 'method',
-        value: ({ value, inverted }) => (date: Date) => {
-            if (inverted) {
-                notBefore(value, date);
-            } else {
-                isBefore(value, date);
+        value:
+            ({ value, inverted }) =>
+            (date: Date) => {
+                if (inverted) {
+                    notBefore(value, date);
+                } else {
+                    isBefore(value, date);
+                }
             }
-        }
     }
 });

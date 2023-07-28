@@ -6,7 +6,9 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:mocha/recommended',
         'plugin:unicorn/recommended',
-        'plugin:jsdoc/recommended'
+        'plugin:jsdoc/recommended',
+        'plugin:prettier/recommended',
+        'plugin:eslint-comments/recommended'
     ],
     plugins: [
         'import',
@@ -20,6 +22,16 @@ module.exports = {
         project: './tsconfig.json'
     },
     rules: {
+        'prettier/prettier': [
+            'error',
+            {
+                singleQuote: true,
+                tabWidth: 4,
+                printWidth: 140,
+                trailingComma: 'none',
+                endOfLine: 'lf'
+            }
+        ],
         'no-multi-spaces': 'error',
         'spaced-comment': [
             'error',
@@ -42,18 +54,8 @@ module.exports = {
         ],
         'no-trailing-spaces': 'error',
         'eol-last': 'error',
-        '@typescript-eslint/indent': [
-            'error',
-            4,
-            {
-                ignoredNodes: [
-                    'TSUnionType',
-                    'TSTypeLiteral'
-                ],
-                SwitchCase: 1
-            }
-        ],
         '@typescript-eslint/comma-dangle': 'off',
+        '@typescript-eslint/no-unnecessary-type-assertion': 'error',
         '@typescript-eslint/no-use-before-define': [
             'error',
             {
@@ -157,6 +159,9 @@ module.exports = {
         ],
         '@typescript-eslint/member-delimiter-style': ['error'],
         // 'jsdoc/check-examples': 'error'
+
+        'eslint-comments/no-unused-disable': 'error',
+        'eslint-comments/disable-enable-pair': 'off'
     },
     overrides: [
         {

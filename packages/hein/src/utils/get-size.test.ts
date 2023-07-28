@@ -12,7 +12,14 @@ describe('getSize', () => {
         expect(getSize(new Set([1, 2, 3]))).to.equal(3);
     });
     it('should get the key count of a Map', () => {
-        expect(getSize(new Map([['a', 1], ['b', 2]]))).to.equal(2);
+        expect(
+            getSize(
+                new Map([
+                    ['a', 1],
+                    ['b', 2]
+                ])
+            )
+        ).to.equal(2);
     });
     it('should get the length of a string', () => {
         expect(getSize('abc')).to.equal(3);

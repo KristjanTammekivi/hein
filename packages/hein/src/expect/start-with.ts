@@ -17,12 +17,12 @@ use({
         type: 'method',
         value:
             ({ value, inverted }) =>
-                (start: string) => {
-                    if (inverted) {
-                        notStartsWith(value, start);
-                    } else {
-                        startsWith(value, start);
-                    }
+            (start: string) => {
+                if (inverted) {
+                    notStartsWith(value, start);
+                } else {
+                    startsWith(value, start);
                 }
+            }
     }
 });

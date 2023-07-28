@@ -13,11 +13,13 @@ export const [greaterThan, notGreaterThan] = createAssertion({
         smaller: 'Expected {{actual}} to be greater than {{expected}}',
         not: 'Expected {{actual}} to not be greater than {{expected}}'
     },
-    test: (report): GreaterThan => (actual: any, expected: any) => {
-        validateNumericsAndDates(actual, expected);
-        if (actual < expected) {
-            return report({ status: 'notok', messageId: 'smaller', actual, expected, noStringify: true });
+    test:
+        (report): GreaterThan =>
+        (actual: any, expected: any) => {
+            validateNumericsAndDates(actual, expected);
+            if (actual < expected) {
+                return report({ status: 'notok', messageId: 'smaller', actual, expected, noStringify: true });
+            }
+            return report({ status: 'ok', messageId: 'not', expected, actual });
         }
-        return report({ status: 'ok', messageId: 'not', expected, actual });
-    }
 });

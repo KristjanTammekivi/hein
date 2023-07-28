@@ -17,12 +17,12 @@ use({
         type: 'method',
         value:
             ({ value, inverted }) =>
-                (end: string) => {
-                    if (inverted) {
-                        notEndsWith(value, end);
-                    } else {
-                        endsWith(value, end);
-                    }
+            (end: string) => {
+                if (inverted) {
+                    notEndsWith(value, end);
+                } else {
+                    endsWith(value, end);
                 }
+            }
     }
 });

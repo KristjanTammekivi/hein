@@ -16,7 +16,8 @@ export const [endsWith, notEndsWith] = createAssertion({
         wrongEnd: 'Expected {{ actual }} to end with {{ expected }}',
         not: 'Expected {{ actual }} to not end with {{ expected }}'
     },
-    test: (report): EndsWith =>
+    test:
+        (report): EndsWith =>
         (actual: string, end: string) => {
             if (actual.endsWith(end)) {
                 report({

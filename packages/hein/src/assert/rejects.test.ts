@@ -1,13 +1,13 @@
 import { notRejects, rejects } from '../assert';
 
-class FailError extends Error { }
+class FailError extends Error {}
 
 const fail = () => {
     throw new FailError('Expected promise to reject');
 };
 
 describe('assert/rejects', () => {
-    class CustomError extends Error { }
+    class CustomError extends Error {}
     const reject = async (message = 'Things are bad') => {
         throw new Error(message);
     };
@@ -42,7 +42,10 @@ describe('assert/rejects', () => {
         await rejects(rejectCustomError(), /Things are bad/);
     });
     it(`should throw if error message doesn't match the provided RegExp`, async () => {
-        await rejects(rejects(rejectCustomError(), /Things are good/), /Expected Promise to reject with an error matching \/Things are good\//);
+        await rejects(
+            rejects(rejectCustomError(), /Things are good/),
+            /Expected Promise to reject with an error matching \/Things are good\//
+        );
     });
     it(`should throw with the provide message if error message doesn't match the provided RegExp`, async () => {
         await rejects(rejects(rejectCustomError(), /Things are good/, 'Damn'), /Damn/);
@@ -57,13 +60,19 @@ describe('assert/rejects', () => {
         await rejects(rejects(Promise.reject(new Error()), CustomError), /Expected Promise to reject with CustomError/);
     });
     it('should throw if error predicate function returns false for the thrown error', async () => {
-        await rejects(rejects(Promise.reject(new Error('oops')), () => false), /Expected Error: oops to match predicate function/);
+        await rejects(
+            rejects(Promise.reject(new Error('oops')), () => false),
+            /Expected Error: oops to match predicate function/
+        );
     });
     it('should not throw if error predicate function returns true for the thrown error', async () => {
         await rejects(Promise.reject(new Error()), () => true);
     });
     it('should throw with the provided message if error predicate function returns false for the thrown error', async () => {
-        await rejects(rejects(Promise.reject(new Error()), () => false, 'Damn'), /Damn/);
+        await rejects(
+            rejects(Promise.reject(new Error()), () => false, 'Damn'),
+            /Damn/
+        );
     });
     describe('assert/notRejects', () => {
         it(`should not reject if promise resolves`, async () => {
@@ -88,7 +97,10 @@ describe('assert/rejects', () => {
             await notRejects(notRejects(reject(), CustomError));
         });
         it('should throw when error matches the provided predicate', async () => {
-            await rejects(notRejects(reject(), () => true), /Expected Error: Things are bad to not match predicate function/);
+            await rejects(
+                notRejects(reject(), () => true),
+                /Expected Error: Things are bad to not match predicate function/
+            );
         });
         it(`should not throw when error doesn't match the provided predicate`, async () => {
             await notRejects(reject(), () => false);

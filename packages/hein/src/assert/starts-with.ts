@@ -15,7 +15,8 @@ export const [startsWith, notStartsWith] = createAssertion({
         wrongStart: 'Expected {{ actual }} to start with {{ expected }}',
         not: 'Expected {{ actual }} to not start with {{ expected }}'
     },
-    test: (report): StartsWith =>
+    test:
+        (report): StartsWith =>
         (actual: string, start: string) => {
             if (actual.startsWith(start)) {
                 report({

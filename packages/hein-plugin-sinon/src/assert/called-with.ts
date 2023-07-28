@@ -6,16 +6,22 @@ export const [calledWith, notCalledWith] = createAssertion({
         assert: 'Expected spy to have been called with arguments',
         not: 'Expected spy to not have been called with arguments'
     },
-    test: (report) => (spy: SinonSpy, ...args: any[]) => {
-        if (spy.calledWith(...args)) {
+    test:
+        (report) =>
+        (spy: SinonSpy, ...args: any[]) => {
+            if (spy.calledWith(...args)) {
+                report({
+                    status: 'ok',
+                    expected: args,
+                    actual: spy.args
+                });
+                return;
+            }
             report({
-                status: 'ok'
+                messageId: 'assert',
+                expected: args,
+                actual: spy.args,
+                status: 'notok'
             });
-            return;
         }
-        report({
-            messageId: 'assert',
-            status: 'notok'
-        });
-    }
 });

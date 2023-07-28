@@ -33,7 +33,6 @@ interface Throw {
     (callback: ThrowsCallback, expectedError: ErrorPredicate, message?: string): void;
 }
 
-
 const messages = {
     nonError: 'Expected function to throw an instance of Error',
     throws: 'Expected function to throw',
@@ -48,17 +47,22 @@ const messages = {
 
 export const [throws, notThrows] = createAssertion({
     messages: messages,
-    test: (report) => ((callback, narrowerOrMessage, message) => {
-        const argumentType = getType(callback);
-        if (argumentType !== 'function') {
-            throw new AssertionError(argumentType, 'function', `Expected ${ argumentType } to be a function`);
-        }
-        try {
-            callback();
-        } catch (error) {
-            return processError(report, error, narrowerOrMessage, message);
-        }
-        return report({ noStringify: true, status: 'notok', messageId: 'throws', message: typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message });
-    }) as Throw
+    test: (report) =>
+        ((callback, narrowerOrMessage, message) => {
+            const argumentType = getType(callback);
+            if (argumentType !== 'function') {
+                throw new AssertionError(argumentType, 'function', `Expected ${ argumentType } to be a function`);
+            }
+            try {
+                callback();
+            } catch (error) {
+                return processError(report, error, narrowerOrMessage, message);
+            }
+            return report({
+                noStringify: true,
+                status: 'notok',
+                messageId: 'throws',
+                message: typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message
+            });
+        }) as Throw
 });
-

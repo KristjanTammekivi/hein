@@ -56,27 +56,78 @@ describe('assert/hasSize', () => {
     });
     describe('assert/Map', () => {
         it('should not throw if Map has correct size', () => {
-            hasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 3);
+            hasSize(
+                new Map([
+                    ['a', 1],
+                    ['b', 2],
+                    ['c', 3]
+                ]),
+                3
+            );
         });
         it('should throw if Map has incorrect size', () => {
-            throws(() => hasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 2), /Expected Map to have size of 2/);
+            throws(
+                () =>
+                    hasSize(
+                        new Map([
+                            ['a', 1],
+                            ['b', 2],
+                            ['c', 3]
+                        ]),
+                        2
+                    ),
+                /Expected Map to have size of 2/
+            );
         });
         it('should throw with provided message', () => {
-            throws(() => hasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 2, 'Expected Map to be almost full'),
-                /Expected Map to be almost full/);
+            throws(
+                () =>
+                    hasSize(
+                        new Map([
+                            ['a', 1],
+                            ['b', 2],
+                            ['c', 3]
+                        ]),
+                        2,
+                        'Expected Map to be almost full'
+                    ),
+                /Expected Map to be almost full/
+            );
         });
         describe('assert/notHasSize', () => {
             it('should throw if Map has correct size', () => {
                 throws(() => {
-                    notHasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 3);
+                    notHasSize(
+                        new Map([
+                            ['a', 1],
+                            ['b', 2],
+                            ['c', 3]
+                        ]),
+                        3
+                    );
                 }, /Expected Map to not have size of 3/);
             });
             it('should not throw if Map has incorrect size', () => {
-                notHasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 2);
+                notHasSize(
+                    new Map([
+                        ['a', 1],
+                        ['b', 2],
+                        ['c', 3]
+                    ]),
+                    2
+                );
             });
             it('should throw with provided message', () => {
                 throws(() => {
-                    notHasSize(new Map([['a', 1], ['b', 2], ['c', 3]]), 3, 'Expected Map to be almost full');
+                    notHasSize(
+                        new Map([
+                            ['a', 1],
+                            ['b', 2],
+                            ['c', 3]
+                        ]),
+                        3,
+                        'Expected Map to be almost full'
+                    );
                 }, /Expected Map to be almost full/);
             });
         });

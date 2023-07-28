@@ -29,13 +29,15 @@ declare module '../expect.types' {
 use({
     include: {
         type: 'method',
-        value: ({ value, inverted }) => (...elements: any[]) => {
-            if (inverted) {
-                notIncludes(value, ...elements);
-            } else {
-                includes(value, ...elements);
+        value:
+            ({ value, inverted }) =>
+            (...elements: any[]) => {
+                if (inverted) {
+                    notIncludes(value, ...elements);
+                } else {
+                    includes(value, ...elements);
+                }
             }
-        }
     },
     contain: {
         type: 'alias',

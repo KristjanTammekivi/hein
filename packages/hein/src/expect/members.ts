@@ -24,13 +24,15 @@ declare module '../expect.types' {
 use({
     members: {
         type: 'method',
-        value: ({ value, inverted, same, deep, ordered, partial }) => (other: any, message?: string) => {
-            if (inverted) {
-                notHasMembers(value, other, { deep, same, ordered, partial }, message);
-            } else {
-                hasMembers(value, other, { deep, same, ordered, partial }, message);
+        value:
+            ({ value, inverted, same, deep, ordered, partial }) =>
+            (other: any, message?: string) => {
+                if (inverted) {
+                    notHasMembers(value, other, { deep, same, ordered, partial }, message);
+                } else {
+                    hasMembers(value, other, { deep, same, ordered, partial }, message);
+                }
             }
-        }
     },
     same: {
         type: 'property',

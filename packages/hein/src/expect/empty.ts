@@ -14,12 +14,14 @@ declare module '../expect.types' {
 use({
     empty: {
         type: 'method',
-        value: ({ value, inverted }) => (message?: string) => {
-            if (inverted) {
-                notIsEmpty(value, message);
-            } else {
-                isEmpty(value, message);
+        value:
+            ({ value, inverted }) =>
+            (message?: string) => {
+                if (inverted) {
+                    notIsEmpty(value, message);
+                } else {
+                    isEmpty(value, message);
+                }
             }
-        }
     }
 });

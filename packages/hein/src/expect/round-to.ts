@@ -15,12 +15,14 @@ declare module '../expect.types' {
 use({
     roundTo: {
         type: 'method',
-        value: ({ value, inverted }) => (target, decimal = 0) => {
-            if (inverted) {
-                notRoundTo(value, target, decimal);
-            } else {
-                roundTo(value, target, decimal);
+        value:
+            ({ value, inverted }) =>
+            (target, decimal = 0) => {
+                if (inverted) {
+                    notRoundTo(value, target, decimal);
+                } else {
+                    roundTo(value, target, decimal);
+                }
             }
-        }
     }
 });

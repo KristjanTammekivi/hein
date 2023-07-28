@@ -1,6 +1,6 @@
 import { notThrows, throws } from '../assert';
 
-class FailError extends Error { }
+class FailError extends Error {}
 
 const fail = () => {
     throw new FailError('Expected function to throw');
@@ -9,7 +9,7 @@ const fail = () => {
 describe('assert/throws', () => {
     it(`should throw if the callback doesn't throw`, () => {
         try {
-            throws(() => { });
+            throws(() => {});
             fail();
         } catch {
             return;
@@ -22,7 +22,7 @@ describe('assert/throws', () => {
     });
     it('should throw with provided message', () => {
         try {
-            throws(() => { }, 'Things are bad');
+            throws(() => {}, 'Things are bad');
             fail();
         } catch (error) {
             if (error instanceof FailError) {
@@ -47,38 +47,68 @@ describe('assert/throws', () => {
     });
     it(`should throw with the provide message if error message doesn't match the provided RegExp`, () => {
         throws(() => {
-            throws(() => {
-                throw new Error('Things are bad');
-            }, /Things are good/, 'Damn');
+            throws(
+                () => {
+                    throw new Error('Things are bad');
+                },
+                /Things are good/,
+                'Damn'
+            );
         }, /Damn/);
     });
     it(`should throw if error isn't an instance of the provided constructor`, () => {
-        class CustomError extends Error { }
+        class CustomError extends Error {}
         throws(() => {
-            throws(() => { throw new Error(); }, CustomError);
+            throws(() => {
+                throw new Error();
+            }, CustomError);
         }, /Expected function to throw CustomError/);
     });
     it('should not throw if error is an instance of the provided constructor', () => {
-        class CustomError extends Error { }
-        throws(() => { throw new CustomError(); }, CustomError);
+        class CustomError extends Error {}
+        throws(() => {
+            throw new CustomError();
+        }, CustomError);
     });
     it(`should throw with the provided message if error isn't an instance of the provided constructor`, () => {
-        class CustomError extends Error { }
+        class CustomError extends Error {}
         throws(() => {
-            throws(() => { throw new Error(); }, CustomError, 'Damn');
+            throws(
+                () => {
+                    throw new Error();
+                },
+                CustomError,
+                'Damn'
+            );
         }, /Damn/);
     });
     it('should throw if error predicate function returns false for the thrown error', () => {
         throws(() => {
-            throws(() => { throw new Error('oops'); }, () => false);
+            throws(
+                () => {
+                    throw new Error('oops');
+                },
+                () => false
+            );
         }, /Expected Error: oops to match predicate function/);
     });
     it('should not throw if error predicate function returns true for the thrown error', () => {
-        throws(() => { throw new Error('oops'); }, () => true);
+        throws(
+            () => {
+                throw new Error('oops');
+            },
+            () => true
+        );
     });
     it('should throw with the provided message if error predicate function returns false for the thrown error', () => {
         throws(() => {
-            throws(() => { throw new Error('oops'); }, () => false, 'Damn');
+            throws(
+                () => {
+                    throw new Error('oops');
+                },
+                () => false,
+                'Damn'
+            );
         }, /Damn/);
     });
     it('should throw if first argument is not a function', () => {
@@ -99,7 +129,7 @@ describe('assert/throws', () => {
             throw new Error('Correct');
         };
         it(`should not throw error if callback doesn't throw`, () => {
-            notThrows(() => { });
+            notThrows(() => {});
         });
         it('should throw error if callback throws', () => {
             throws(() => notThrows(errorCallback));
@@ -114,18 +144,42 @@ describe('assert/throws', () => {
             notThrows(errorCallback, /Incorrect/);
         });
         it('should throw when error matches the provided constructor', () => {
-            class CustomError extends Error { }
-            throws(() => notThrows(() => { throw new CustomError(); }, CustomError), /Expected function to not throw a CustomError/);
+            class CustomError extends Error {}
+            throws(
+                () =>
+                    notThrows(() => {
+                        throw new CustomError();
+                    }, CustomError),
+                /Expected function to not throw a CustomError/
+            );
         });
         it(`should not throw when error doesn't match the provided constructor`, () => {
-            class CustomError extends Error { }
-            notThrows(() => notThrows(() => { throw new Error(); }, CustomError));
+            class CustomError extends Error {}
+            notThrows(() =>
+                notThrows(() => {
+                    throw new Error();
+                }, CustomError)
+            );
         });
         it('should throw when error matches the provided predicate', () => {
-            throws(() => notThrows(() => { throw new Error(); }, () => true), /Expected function to not throw/);
+            throws(
+                () =>
+                    notThrows(
+                        () => {
+                            throw new Error();
+                        },
+                        () => true
+                    ),
+                /Expected function to not throw/
+            );
         });
         it(`should not throw when error doesn't match the provided predicate`, () => {
-            notThrows(() => { throw new Error(); }, () => false);
+            notThrows(
+                () => {
+                    throw new Error();
+                },
+                () => false
+            );
         });
         it('should throw if first argument is not a function', () => {
             try {

@@ -67,8 +67,14 @@ describe('utils/match', () => {
         it(`should return false if one value matches and the other doesn't`, () => {
             const key1 = {};
             const key2 = {};
-            const map = new Map([[key1, 1], [key2, 2]]);
-            const map2 = new Map([[key1, 1], [key2, 3]]);
+            const map = new Map([
+                [key1, 1],
+                [key2, 2]
+            ]);
+            const map2 = new Map([
+                [key1, 1],
+                [key2, 3]
+            ]);
             equal(match(map, map2), false);
         });
     });
@@ -162,11 +168,17 @@ describe('utils/match', () => {
     });
     describe('function', () => {
         it('should return true if both functions are the same instance', () => {
-            const callback = () => { };
+            const callback = () => {};
             equal(match(callback, callback), true);
         });
         it('should return false if functions are different', () => {
-            equal(match(() => 5, () => 4), false);
+            equal(
+                match(
+                    () => 5,
+                    () => 4
+                ),
+                false
+            );
         });
     });
     describe('any', () => {
@@ -235,7 +247,10 @@ describe('utils/match', () => {
             const key = {};
             const key2 = {};
             const expected = new Map([[key, any]]);
-            const actual = new Map([[key, 2], [key2, 4]]);
+            const actual = new Map([
+                [key, 2],
+                [key2, 4]
+            ]);
             match(actual, expected, { mutate: true });
             equal(expected.get(key), 2);
             hasSize(expected, 1);
@@ -265,7 +280,10 @@ describe('utils/match', () => {
         });
         it('should match partial Maps', () => {
             const object = [{}, {}];
-            const map1 = new Map([[object[0], 1], [object[1], 2]]);
+            const map1 = new Map([
+                [object[0], 1],
+                [object[1], 2]
+            ]);
             const map2 = new Map([[object[0], 1]]);
             equal(match(map1, map2, { partial: true }), true);
         });
@@ -273,7 +291,10 @@ describe('utils/match', () => {
             const key1 = {};
             const key2 = {};
             const map = new Map([[key1, 1]]);
-            const map2 = new Map([[key1, 1], [key2, 3]]);
+            const map2 = new Map([
+                [key1, 1],
+                [key2, 3]
+            ]);
             equal(match(map, map2, { partial: true }), false);
         });
         it('should match partial Sets', () => {
@@ -284,9 +305,9 @@ describe('utils/match', () => {
     });
     describe('evaluation', () => {
         // eslint-disable-next-line mocha/no-setup-in-describe
-        const trueEvaluation = createEvaluation(() => true) as any;
+        const trueEvaluation = createEvaluation(() => true);
         // eslint-disable-next-line mocha/no-setup-in-describe
-        const falseEvaluation = createEvaluation(() => false) as any;
+        const falseEvaluation = createEvaluation(() => false);
         it('should evaluate evaluation', () => {
             equal(match(1, trueEvaluation), true);
             equal(match(1, falseEvaluation), false);

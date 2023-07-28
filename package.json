@@ -17,6 +17,7 @@
     "lint:hein-plugin-sinon": "yarn workspace hein-plugin-sinon run lint",
     "lint:eslint-config-hein": "yarn workspace eslint-config-hein run lint",
     "lint": "yarn lint:hein && yarn lint:hein-assertion-utils && yarn lint:hein-plugin-sinon && yarn lint:eslint-config-hein",
+    "lint:fix": "yarn lint:hein --fix && yarn lint:hein-assertion-utils --fix && yarn lint:hein-plugin-sinon --fix && yarn lint:eslint-config-hein --fix",
     "release:eslint-config-hein:patch": "sh release.sh eslint-config-hein patch",
     "release:eslint-config-hein:minor": "sh release.sh eslint-config-hein minor",
     "release:eslint-config-hein:major": "sh release.sh eslint-config-hein major",
@@ -33,5 +34,8 @@
   },
   "devDependencies": {
     "auto-changelog": "^2.4.0"
+  },
+  "resolutions": {
+    "**/prettier": "npm:@staycool/prettier@^3.0.1"
   }
 }

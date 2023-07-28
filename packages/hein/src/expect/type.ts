@@ -15,12 +15,14 @@ declare module '../expect.types' {
 use({
     type: {
         type: 'method',
-        value: ({ value, inverted }) => (type: ValueType) => {
-            if (inverted) {
-                notIsType(value, type);
-            } else {
-                isType(value, type);
+        value:
+            ({ value, inverted }) =>
+            (type: ValueType) => {
+                if (inverted) {
+                    notIsType(value, type);
+                } else {
+                    isType(value, type);
+                }
             }
-        }
     }
 });

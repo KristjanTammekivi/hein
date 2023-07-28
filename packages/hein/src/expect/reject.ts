@@ -17,8 +17,10 @@ declare module '../expect.types' {
 use({
     reject: {
         type: 'method',
-        value: ({ value, inverted }: State<any>) => (...args: any[]) => {
-            return inverted ? notRejects(value, ...args) : rejects(value, ...args);
-        }
+        value:
+            ({ value, inverted }: State<any>) =>
+            (...args: any[]) => {
+                return inverted ? notRejects(value, ...args) : rejects(value, ...args);
+            }
     }
 });

@@ -53,38 +53,40 @@ export const [hasSize, notHasSize] = createAssertion({
         notString: 'Expected string to not have length of {{expected}}',
         invalidValue: 'Expected {{actual}} to be an array, object, Map, Set or string'
     },
-    test: (report): HasSize => <T>(actual: T, expected: number, message?: string) => {
-        if (Array.isArray(actual)) {
-            if (actual.length === expected) {
-                return report({ message, status: 'ok', expected, actual: actual.length });
+    test:
+        (report): HasSize =>
+        <T>(actual: T, expected: number, message?: string) => {
+            if (Array.isArray(actual)) {
+                if (actual.length === expected) {
+                    return report({ message, status: 'ok', expected, actual: actual.length });
+                }
+                return report({ message, status: 'notok', messageId: 'array', expected, actual: actual.length });
             }
-            return report({ message, status: 'notok', messageId: 'array', expected, actual: actual.length });
-        }
-        if (isPlainObject(actual)) {
-            if (Object.keys(actual).length === expected) {
-                return report({ message, status: 'ok', messageId: 'notObject', expected, actual: Object.keys(actual).length });
+            if (isPlainObject(actual)) {
+                if (Object.keys(actual).length === expected) {
+                    return report({ message, status: 'ok', messageId: 'notObject', expected, actual: Object.keys(actual).length });
+                }
+                return report({ message, status: 'notok', messageId: 'object', expected, actual: Object.keys(actual).length });
             }
-            return report({ message, status: 'notok', messageId: 'object', expected, actual: Object.keys(actual).length });
-        }
-        if (actual instanceof Map) {
-            if (actual.size === expected) {
-                return report({ message, status: 'ok', messageId: 'notMap', expected, actual: actual.size });
+            if (actual instanceof Map) {
+                if (actual.size === expected) {
+                    return report({ message, status: 'ok', messageId: 'notMap', expected, actual: actual.size });
+                }
+                return report({ message, status: 'notok', messageId: 'map', expected, actual: actual.size });
             }
-            return report({ message, status: 'notok', messageId: 'map', expected, actual: actual.size });
-        }
-        if (actual instanceof Set) {
-            if (actual.size === expected) {
-                return report({ message, status: 'ok', messageId: 'notSet', expected, actual: actual.size });
+            if (actual instanceof Set) {
+                if (actual.size === expected) {
+                    return report({ message, status: 'ok', messageId: 'notSet', expected, actual: actual.size });
+                }
+                return report({ message, status: 'notok', messageId: 'set', expected, actual: actual.size });
             }
-            return report({ message, status: 'notok', messageId: 'set', expected, actual: actual.size });
-        }
-        if (typeof actual === 'string') {
-            if (actual.length === expected) {
-                return report({ message, status: 'ok', messageId: 'notString', expected, actual: actual.length });
+            if (typeof actual === 'string') {
+                if (actual.length === expected) {
+                    return report({ message, status: 'ok', messageId: 'notString', expected, actual: actual.length });
+                }
+                return report({ message, status: 'notok', messageId: 'string', expected, actual: actual.length });
             }
-            return report({ message, status: 'notok', messageId: 'string', expected, actual: actual.length });
+            report({ message, status: 'notok', messageId: 'invalidValue', actual: typeof actual, noStringify: true });
+            report({ message, status: 'ok', messageId: 'invalidValue', actual: typeof actual, noStringify: true });
         }
-        report({ message, status: 'notok', messageId: 'invalidValue', actual: typeof actual, noStringify: true });
-        report({ message, status: 'ok', messageId: 'invalidValue', actual: typeof actual, noStringify: true });
-    }
 });

@@ -44,19 +44,26 @@ export const [rejects, notRejects] = createAssertion({
         notPredicate: 'Expected {{actual}} to not match predicate function',
         notRegex: 'Expected Promise to not reject with an error matching {{expected}}'
     },
-    test: (report): Rejects => async (promise: Promise<any>, narrowerOrMessage?, message?) => {
-        // TODO: invalid argument in not case
-        if (!promise || typeof promise.then !== 'function') {
-            report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof promise, expected: 'Promise' });
+    test:
+        (report): Rejects =>
+        async (promise: Promise<any>, narrowerOrMessage?, message?) => {
+            // TODO: invalid argument in not case
+            if (!promise || typeof promise.then !== 'function') {
+                report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof promise, expected: 'Promise' });
+                return;
+            }
+            try {
+                await promise;
+            } catch (error) {
+                processError(report, error, narrowerOrMessage, message);
+                return;
+            }
+            report({
+                noStringify: true,
+                status: 'notok',
+                messageId: 'throws',
+                message: typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message
+            });
             return;
         }
-        try {
-            await promise;
-        } catch (error) {
-            processError(report, error, narrowerOrMessage, message);
-            return;
-        }
-        report({ noStringify: true, status: 'notok', messageId: 'throws', message: typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message });
-        return;
-    }
 });

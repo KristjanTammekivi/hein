@@ -12,13 +12,15 @@ export const [equal, notEqual] = createAssertion({
         equal: 'Expected {{actual}} to equal {{expected}}',
         not: 'Expected {{actual}} to not equal {{expected}}'
     },
-    test: (report): Equal => <T>(a: T, b: T, message?: string) => {
-        if (Number.isNaN(a) && Number.isNaN(b)) {
-            return report({ status: 'ok', expected: b, actual: a, message });
+    test:
+        (report): Equal =>
+        <T>(a: T, b: T, message?: string) => {
+            if (Number.isNaN(a) && Number.isNaN(b)) {
+                return report({ status: 'ok', expected: b, actual: a, message });
+            }
+            if (a !== b) {
+                return report({ status: 'notok', messageId: 'equal', actual: a, expected: b, message });
+            }
+            return report({ status: 'ok', expected: a, actual: b, message });
         }
-        if (a !== b) {
-            return report({ status: 'notok', messageId: 'equal', actual: a, expected: b, message });
-        }
-        return report({ status: 'ok', expected: a, actual: b, message });
-    }
 });

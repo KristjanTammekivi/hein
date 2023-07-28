@@ -31,7 +31,9 @@ describe('expect/members', () => {
             expect([{ a: 1 }]).to.have.deep.members([{ a: 1 }]);
         });
         it('should throw if deep flag is enabled and members are objects but do not match', () => {
-            expect(() => expect([{ a: 1 }]).to.have.deep.members([{ a: 2 }])).to.throw(/Expected \[ { a: 1 } ] to have members \[ { a: 2 } ]/);
+            expect(() => expect([{ a: 1 }]).to.have.deep.members([{ a: 2 }])).to.throw(
+                /Expected \[ { a: 1 } ] to have members \[ { a: 2 } ]/
+            );
         });
     });
     describe('partial', () => {
@@ -39,7 +41,9 @@ describe('expect/members', () => {
             expect([{ a: 1, b: 2 }]).to.have.partially.members([{ a: 1 }]);
         });
         it('should throw if partial flag is enabled and members are objects but do not match', () => {
-            expect(() => expect([{ a: 1, b: 2 }]).to.have.partially.members([{ a: 2 }])).to.throw(/Expected \[ { a: 1, b: 2 } ] to have members \[ { a: 2 } ]/);
+            expect(() => expect([{ a: 1, b: 2 }]).to.have.partially.members([{ a: 2 }])).to.throw(
+                /Expected \[ { a: 1, b: 2 } ] to have members \[ { a: 2 } ]/
+            );
         });
     });
     describe('not', () => {

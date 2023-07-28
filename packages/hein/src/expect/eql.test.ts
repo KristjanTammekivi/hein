@@ -5,7 +5,7 @@ describe('expect/eql', () => {
         expect({ a: 1 }).to.eql({ a: 1 });
     });
     it('should not throw with functions', () => {
-        const x = () => { };
+        const x = () => {};
         expect(x).to.eql(x);
     });
     it('should throw when one object has a different value for the same property', () => {

@@ -70,10 +70,9 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
         if (actual.size !== expected.size && !partial) {
             return false;
         }
-        return [...expected.values()]
-            .every(value => {
-                return actual.has(value);
-            });
+        return [...expected.values()].every((value) => {
+            return actual.has(value);
+        });
     }
     if (actual instanceof WeakSet || expected instanceof WeakSet) {
         return false;

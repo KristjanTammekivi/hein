@@ -14,19 +14,19 @@ export const [isBefore, notBefore] = createAssertion({
     },
     test:
         (report): IsBefore =>
-            (actual: Date, expected: Date) => {
-                if (actual >= expected) {
-                    return report({
-                        messageId: 'after',
-                        status: 'notok',
-                        actual,
-                        expected
-                    });
-                }
+        (actual: Date, expected: Date) => {
+            if (actual >= expected) {
                 return report({
-                    status: 'ok',
+                    messageId: 'after',
+                    status: 'notok',
                     actual,
                     expected
                 });
             }
+            return report({
+                status: 'ok',
+                actual,
+                expected
+            });
+        }
 });

@@ -7,34 +7,33 @@ const { render } = mustache;
 export class AssertionError extends Error {
     public showDiff = true;
 
-    constructor(public actual: any, public expected: any, message: string) {
+    constructor(
+        public actual: any,
+        public expected: any,
+        message: string
+    ) {
         super(message);
         const originalPrepareStackTrace = Error.prepareStackTrace;
         Error.prepareStackTrace = (error, callsites) => {
-            const filteredStacks = [
-                '/hein-assertion-utils/',
-                '/node_modules/',
-                '/hein/'
-            ];
+            const filteredStacks = ['/hein-assertion-utils/', '/node_modules/', '/hein/'];
             let foreignCallsiteFound = false;
-            callsites = callsites
-                .filter(x => {
-                    if (!x.getFileName()) {
-                        return false;
-                    }
-                    if (x.getFileName().includes('.test.')) {
-                        foreignCallsiteFound = true;
-                        return true;
-                    }
-                    if (foreignCallsiteFound) {
-                        return true;
-                    }
-                    if (filteredStacks.some(filter => x.getFileName().includes(filter))) {
-                        return false;
-                    }
+            callsites = callsites.filter((x) => {
+                if (!x.getFileName()) {
+                    return false;
+                }
+                if (x.getFileName().includes('.test.')) {
                     foreignCallsiteFound = true;
                     return true;
-                });
+                }
+                if (foreignCallsiteFound) {
+                    return true;
+                }
+                if (filteredStacks.some((filter) => x.getFileName().includes(filter))) {
+                    return false;
+                }
+                foreignCallsiteFound = true;
+                return true;
+            });
             return originalPrepareStackTrace(this, callsites);
         };
 
@@ -74,10 +73,18 @@ export const createAssertion = <T extends string, U extends (...args: any[]) => 
     const factory = ({ inverted }: { inverted?: boolean } = {}) => {
         const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify, data }) => {
             if (inverted && status === 'ok') {
-                throw new AssertionError(actual, expected, format(message || messages[messageId] || messages.not, { actual, expected, ...data }, noStringify));
+                throw new AssertionError(
+                    actual,
+                    expected,
+                    format(message || messages[messageId] || messages.not, { actual, expected, ...data }, noStringify)
+                );
             }
             if (!inverted && status === 'notok') {
-                throw new AssertionError(actual, expected, format(message || messages[messageId], { actual, expected, ...data }, noStringify));
+                throw new AssertionError(
+                    actual,
+                    expected,
+                    format(message || messages[messageId], { actual, expected, ...data }, noStringify)
+                );
             }
             return true;
         };

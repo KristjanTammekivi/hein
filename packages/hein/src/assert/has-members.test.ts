@@ -36,7 +36,10 @@ describe('assert/hasMembers', () => {
                 hasMembers([{ a: 1 }, { b: 2 }], [{ a: 1 }, { b: 2 }], { deep: true, ordered: true });
             });
             it('should throw if deep and ordered flags are enabled and members are objects in different order', () => {
-                throws(() => hasMembers([{ a: 1 }, { b: 2 }], [{ b: 2 }, { a: 1 }], { deep: true, ordered: true }), /Expected \[ { a: 1 }, { b: 2 } ] to have ordered members \[ { b: 2 }, { a: 1 } ]/);
+                throws(
+                    () => hasMembers([{ a: 1 }, { b: 2 }], [{ b: 2 }, { a: 1 }], { deep: true, ordered: true }),
+                    /Expected \[ { a: 1 }, { b: 2 } ] to have ordered members \[ { b: 2 }, { a: 1 } ]/
+                );
             });
         });
     });

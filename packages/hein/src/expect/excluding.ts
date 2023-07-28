@@ -15,8 +15,10 @@ declare module '../expect.types' {
 use({
     excluding: {
         type: 'method',
-        value: (state) => (...keys: string[]) => {
-            return expectChain({ ...state, value: omit(state.value, keys) });
-        }
+        value:
+            (state) =>
+            (...keys: string[]) => {
+                return expectChain({ ...state, value: omit(state.value, keys) });
+            }
     }
 });

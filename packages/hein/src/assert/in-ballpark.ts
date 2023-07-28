@@ -18,16 +18,18 @@ export const [inBallpark, notInBallpark] = createAssertion({
         not: 'Expected {{actual}} to not be in ballpark of {{expected}}',
         invalidMultiplier: 'Expected multiplier to be between 0 and 1'
     },
-    test: (report): InBallpark => (actual: number, expected: number, allowedDifference = 0.1) => {
-        const absActual = Math.abs(actual);
-        const absExpected = Math.abs(expected);
-        if (allowedDifference <= 0 || allowedDifference >= 1) {
-            report({ status: 'ok', messageId: 'invalidMultiplier', actual: allowedDifference });
-            return report({ status: 'notok', messageId: 'invalidMultiplier', actual: allowedDifference });
+    test:
+        (report): InBallpark =>
+        (actual: number, expected: number, allowedDifference = 0.1) => {
+            const absActual = Math.abs(actual);
+            const absExpected = Math.abs(expected);
+            if (allowedDifference <= 0 || allowedDifference >= 1) {
+                report({ status: 'ok', messageId: 'invalidMultiplier', actual: allowedDifference });
+                return report({ status: 'notok', messageId: 'invalidMultiplier', actual: allowedDifference });
+            }
+            if (absActual <= absExpected * (1 + allowedDifference) && absActual >= absExpected * (1 - allowedDifference)) {
+                return report({ status: 'ok', expected, actual });
+            }
+            return report({ status: 'notok', messageId: 'miss', expected, actual });
         }
-        if (absActual <= absExpected * (1 + allowedDifference) && absActual >= absExpected * (1 - allowedDifference)) {
-            return report({ status: 'ok', expected, actual });
-        }
-        return report({ status: 'notok', messageId: 'miss', expected, actual });
-    }
 });

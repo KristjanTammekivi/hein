@@ -16,12 +16,14 @@ declare module '../expect.types' {
 use({
     instanceOf: {
         type: 'method',
-        value: ({ value, inverted }) => (constructor: Constructor) => {
-            if (inverted) {
-                notInstanceOf(value, constructor);
-            } else {
-                instanceOf(value, constructor);
+        value:
+            ({ value, inverted }) =>
+            (constructor: Constructor) => {
+                if (inverted) {
+                    notInstanceOf(value, constructor);
+                } else {
+                    instanceOf(value, constructor);
+                }
             }
-        }
     }
 });
