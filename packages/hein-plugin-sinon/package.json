@@ -18,7 +18,7 @@
     "hein-assertion-utils": "^1.0.4"
   },
   "devDependencies": {
-    "eslint": "^8.45.0",
+    "eslint": "^8.46.0",
     "eslint-config-hein": "^1.0.1",
     "hein": "*",
     "mocha": "^10.1.0",
