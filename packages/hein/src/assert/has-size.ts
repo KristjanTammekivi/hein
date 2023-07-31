@@ -64,9 +64,21 @@ export const [hasSize, notHasSize] = createAssertion({
             }
             if (isPlainObject(actual)) {
                 if (Object.keys(actual).length === expected) {
-                    return report({ message, status: 'ok', messageId: 'notObject', expected, actual: Object.keys(actual).length });
+                    return report({
+                        message,
+                        status: 'ok',
+                        messageId: 'notObject',
+                        expected,
+                        actual: Object.keys(actual).length
+                    });
                 }
-                return report({ message, status: 'notok', messageId: 'object', expected, actual: Object.keys(actual).length });
+                return report({
+                    message,
+                    status: 'notok',
+                    messageId: 'object',
+                    expected,
+                    actual: Object.keys(actual).length
+                });
             }
             if (actual instanceof Map) {
                 if (actual.size === expected) {

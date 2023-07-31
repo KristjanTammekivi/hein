@@ -85,13 +85,19 @@ describe('assert/rejects', () => {
             await rejects(notRejects(reject(), 'Error happened'), /Error happened/);
         });
         it('should throw when error matches the provided RegExp', async () => {
-            await rejects(notRejects(reject('Correct'), /Correct/), /Expected Promise to not reject with an error matching \/Correct\//);
+            await rejects(
+                notRejects(reject('Correct'), /Correct/),
+                /Expected Promise to not reject with an error matching \/Correct\//
+            );
         });
         it(`should not throw when error doesn't match the provided RegExp`, async () => {
             await notRejects(reject('Correct'), /Incorrect/);
         });
         it('should throw when error matches the provided constructor', async () => {
-            await rejects(notRejects(rejectCustomError(), CustomError), /Expected Promise to not reject with a CustomError/);
+            await rejects(
+                notRejects(rejectCustomError(), CustomError),
+                /Expected Promise to not reject with a CustomError/
+            );
         });
         it(`should not throw when error doesn't match the provided constructor`, async () => {
             await notRejects(notRejects(reject(), CustomError));

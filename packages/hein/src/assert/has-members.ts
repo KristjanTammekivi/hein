@@ -77,7 +77,13 @@ export const [hasMembers, notHasMembers] = createAssertion({
                     });
                     lastIndex = actualIndex;
                     if (actualIndex === -1) {
-                        return report({ status: 'notok', messageId: ordered ? 'order' : 'hasMembers', actual, expected, message });
+                        return report({
+                            status: 'notok',
+                            messageId: ordered ? 'order' : 'hasMembers',
+                            actual,
+                            expected,
+                            message
+                        });
                     }
                 } else {
                     if (actual.includes(item)) {

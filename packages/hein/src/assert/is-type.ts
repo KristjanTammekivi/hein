@@ -103,8 +103,20 @@ export const [isType, notIsType] = createAssertion({
         (value: any, expectedType: ValueType) => {
             const actualType = getType(value);
             if (actualType !== expectedType) {
-                return report({ status: 'notok', messageId: 'wrongType', actual: actualType, expected: expectedType, noStringify: true });
+                return report({
+                    status: 'notok',
+                    messageId: 'wrongType',
+                    actual: actualType,
+                    expected: expectedType,
+                    noStringify: true
+                });
             }
-            return report({ status: 'ok', messageId: 'not', actual: actualType, expected: expectedType, noStringify: true });
+            return report({
+                status: 'ok',
+                messageId: 'not',
+                actual: actualType,
+                expected: expectedType,
+                noStringify: true
+            });
         }
 });

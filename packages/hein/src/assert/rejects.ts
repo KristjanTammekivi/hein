@@ -49,7 +49,13 @@ export const [rejects, notRejects] = createAssertion({
         async (promise: Promise<any>, narrowerOrMessage?, message?) => {
             // TODO: invalid argument in not case
             if (!promise || typeof promise.then !== 'function') {
-                report({ noStringify: true, status: 'notok', messageId: 'invalidArgument', actual: typeof promise, expected: 'Promise' });
+                report({
+                    noStringify: true,
+                    status: 'notok',
+                    messageId: 'invalidArgument',
+                    actual: typeof promise,
+                    expected: 'Promise'
+                });
                 return;
             }
             try {

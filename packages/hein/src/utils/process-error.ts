@@ -30,7 +30,13 @@ export const processError = (report: Report<ThrowsMessages>, error: Error, narro
     message = (typeof narrowerOrMessage === 'string' ? narrowerOrMessage : message) ?? null;
 
     if (!(error instanceof Error)) {
-        return report({ noStringify: true, status: 'notok', messageId: 'nonError', actual: typeof error, expected: 'Error' });
+        return report({
+            noStringify: true,
+            status: 'notok',
+            messageId: 'nonError',
+            actual: typeof error,
+            expected: 'Error'
+        });
     }
     if (narrowerOrMessage) {
         if (isConstructor(narrowerOrMessage)) {
@@ -54,11 +60,31 @@ export const processError = (report: Report<ThrowsMessages>, error: Error, narro
             });
         } else if (typeof narrowerOrMessage === 'function') {
             if (!(narrowerOrMessage as ErrorPredicate)(error)) {
-                return report({ noStringify: true, status: 'notok', messageId: 'predicate', actual: error, expected: null, message });
+                return report({
+                    noStringify: true,
+                    status: 'notok',
+                    messageId: 'predicate',
+                    actual: error,
+                    expected: null,
+                    message
+                });
             }
-            return report({ noStringify: true, status: 'ok', messageId: 'notPredicate', actual: error, expected: null, message });
+            return report({
+                noStringify: true,
+                status: 'ok',
+                messageId: 'notPredicate',
+                actual: error,
+                expected: null,
+                message
+            });
         } else if (typeof narrowerOrMessage === 'string') {
-            return report({ noStringify: true, status: 'ok', messageId: 'throws', actual: error, message: narrowerOrMessage });
+            return report({
+                noStringify: true,
+                status: 'ok',
+                messageId: 'throws',
+                actual: error,
+                message: narrowerOrMessage
+            });
         } else if (narrowerOrMessage instanceof RegExp) {
             if (!narrowerOrMessage.test(error.message)) {
                 return report({

@@ -27,7 +27,10 @@ export const [inBallpark, notInBallpark] = createAssertion({
                 report({ status: 'ok', messageId: 'invalidMultiplier', actual: allowedDifference });
                 return report({ status: 'notok', messageId: 'invalidMultiplier', actual: allowedDifference });
             }
-            if (absActual <= absExpected * (1 + allowedDifference) && absActual >= absExpected * (1 - allowedDifference)) {
+            if (
+                absActual <= absExpected * (1 + allowedDifference) &&
+                absActual >= absExpected * (1 - allowedDifference)
+            ) {
                 return report({ status: 'ok', expected, actual });
             }
             return report({ status: 'notok', messageId: 'miss', expected, actual });

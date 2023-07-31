@@ -55,6 +55,12 @@ export const [deepHasProperty, deepNotHasProperty] = createAssertion({
                 }
                 return report({ status: 'ok', noStringify: true, expected, actual: actualStringified });
             }
-            return report({ status: 'notok', messageId: 'noProperty', expected, actual: actualStringified, noStringify: true });
+            return report({
+                status: 'notok',
+                messageId: 'noProperty',
+                expected,
+                actual: actualStringified,
+                noStringify: true
+            });
         }
 });

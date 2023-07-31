@@ -69,7 +69,10 @@ export const format = (message: string, data: Record<any, any>, noStringify: boo
     return result;
 };
 
-export const createAssertion = <T extends string, U extends (...args: any[]) => void>({ messages, test }: AssertionArguments<T, U>) => {
+export const createAssertion = <T extends string, U extends (...args: any[]) => void>({
+    messages,
+    test
+}: AssertionArguments<T, U>) => {
     const factory = ({ inverted }: { inverted?: boolean } = {}) => {
         const report: Report<T> = ({ status, messageId, message, actual, expected, noStringify, data }) => {
             if (inverted && status === 'ok') {

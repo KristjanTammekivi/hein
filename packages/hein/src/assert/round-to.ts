@@ -22,8 +22,22 @@ export const [roundTo, notRoundTo] = createAssertion({
         (report): RoundTo =>
         (actual: number, expected: number, decimals = 0) => {
             if (expected.toString().split('.')[1]?.length > decimals) {
-                report({ status: 'notok', messageId: 'tooManyDecimals', expected, actual, data: { decimals }, noStringify: true });
-                report({ status: 'ok', messageId: 'tooManyDecimals', expected, actual, data: { decimals }, noStringify: true });
+                report({
+                    status: 'notok',
+                    messageId: 'tooManyDecimals',
+                    expected,
+                    actual,
+                    data: { decimals },
+                    noStringify: true
+                });
+                report({
+                    status: 'ok',
+                    messageId: 'tooManyDecimals',
+                    expected,
+                    actual,
+                    data: { decimals },
+                    noStringify: true
+                });
                 return true;
             }
             if (round(actual, decimals) === expected) {

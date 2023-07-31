@@ -8,14 +8,18 @@ describe('expect/members', () => {
         expect(() => expect([1]).to.have.members([2])).to.throw(/Expected \[ 1 ] to have members \[ 2 ]/);
     });
     it('should throw if deep flag is not enabled and members are objects', () => {
-        expect(() => expect([{ a: 1 }]).to.have.members([{ a: 1 }])).to.throw(/Expected \[ { a: 1 } ] to have members \[ { a: 1 } ]/);
+        expect(() => expect([{ a: 1 }]).to.have.members([{ a: 1 }])).to.throw(
+            /Expected \[ { a: 1 } ] to have members \[ { a: 1 } ]/
+        );
     });
     describe('same', () => {
         it('should not throw if same flag is enabled and both arrays have same members', () => {
             expect([1]).to.have.same.members([1]);
         });
         it('should throw if first array has more members than second array', () => {
-            expect(() => expect([1, 2]).to.have.same.members([1])).to.throw(/Expected \[ 1, 2 ] to have same members as \[ 1 ]/);
+            expect(() => expect([1, 2]).to.have.same.members([1])).to.throw(
+                /Expected \[ 1, 2 ] to have same members as \[ 1 ]/
+            );
         });
     });
     describe('ordered', () => {
@@ -23,7 +27,9 @@ describe('expect/members', () => {
             expect([1, 2]).to.have.ordered.members([1, 2]);
         });
         it('should throw if ordered flag is enabled and both arrays have same members in different order', () => {
-            expect(() => expect([1, 2]).to.have.ordered.members([2, 1])).to.throw(/Expected \[ 1, 2 ] to have ordered members \[ 2, 1 ]/);
+            expect(() => expect([1, 2]).to.have.ordered.members([2, 1])).to.throw(
+                /Expected \[ 1, 2 ] to have ordered members \[ 2, 1 ]/
+            );
         });
     });
     describe('deep', () => {

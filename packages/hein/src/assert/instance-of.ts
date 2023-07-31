@@ -33,6 +33,12 @@ export const [instanceOf, notInstanceOf] = createAssertion({
                     noStringify: true
                 });
             }
-            return report({ status: 'ok', expected: expected.name, actual: actual.constructor.name, messageId: 'not', noStringify: true });
+            return report({
+                status: 'ok',
+                expected: expected.name,
+                actual: actual.constructor.name,
+                messageId: 'not',
+                noStringify: true
+            });
         }
 });

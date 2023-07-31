@@ -39,7 +39,10 @@ describe('assert/is-between', () => {
             throws(() => notBetween(laterDate, earlierDate, evenLaterDate), /Expected .* to not be between .* and .*/);
         });
         it('should throw if date is equal to lower bound', () => {
-            throws(() => notBetween(laterDate, new Date(laterDate), evenLaterDate), /Expected .* to not be between .* and .*/);
+            throws(
+                () => notBetween(laterDate, new Date(laterDate), evenLaterDate),
+                /Expected .* to not be between .* and .*/
+            );
         });
     });
 });

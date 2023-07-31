@@ -29,7 +29,10 @@ describe('assert/hasMembers', () => {
             hasMembers([1, 2], [1, 2], { ordered: true });
         });
         it('should throw if ordered flag is enabled and both arrays have same members in different order', () => {
-            throws(() => hasMembers([1, 2], [2, 1], { ordered: true }), /Expected \[ 1, 2 ] to have ordered members \[ 2, 1 ]/);
+            throws(
+                () => hasMembers([1, 2], [2, 1], { ordered: true }),
+                /Expected \[ 1, 2 ] to have ordered members \[ 2, 1 ]/
+            );
         });
         describe('deep', () => {
             it('should not throw if deep and ordered flags are enabled and members are objects in the same order', () => {
@@ -48,7 +51,10 @@ describe('assert/hasMembers', () => {
             hasMembers([{ a: 1 }], [{ a: 1 }], { deep: true });
         });
         it('should throw if deep flag is enabled and members are objects but do not match', () => {
-            throws(() => hasMembers([{ a: 1 }], [{ a: 2 }], { deep: true }), /Expected \[ { a: 1 } ] to have members \[ { a: 2 } ]/);
+            throws(
+                () => hasMembers([{ a: 1 }], [{ a: 2 }], { deep: true }),
+                /Expected \[ { a: 1 } ] to have members \[ { a: 2 } ]/
+            );
         });
     });
     describe('partial', () => {
@@ -71,7 +77,10 @@ describe('assert/hasMembers', () => {
                 notHasMembers([1, 2], [1], { same: true });
             });
             it('should throw if same flag is enabled and arrays are equal', () => {
-                throws(() => notHasMembers([1, 2], [1, 2], { same: true }), /Expected \[ 1, 2 ] to not have same members as \[ 1, 2 ]/);
+                throws(
+                    () => notHasMembers([1, 2], [1, 2], { same: true }),
+                    /Expected \[ 1, 2 ] to not have same members as \[ 1, 2 ]/
+                );
             });
         });
         describe('ordered', () => {
@@ -79,7 +88,10 @@ describe('assert/hasMembers', () => {
                 notHasMembers([1, 2], [2, 1], { ordered: true });
             });
             it('should throw if ordered flag is enabled and arrays are in correct order', () => {
-                throws(() => notHasMembers([1, 2], [1, 2], { ordered: true }), /Expected \[ 1, 2 ] to not have members \[ 1, 2 ]/);
+                throws(
+                    () => notHasMembers([1, 2], [1, 2], { ordered: true }),
+                    /Expected \[ 1, 2 ] to not have members \[ 1, 2 ]/
+                );
             });
         });
     });

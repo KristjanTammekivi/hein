@@ -18,7 +18,14 @@ export const [lessThanEqual, notLessThanEqual] = createAssertion({
         (actual: any, expected: any, message?: string) => {
             validateNumericsAndDates(actual, expected);
             if (actual > expected) {
-                return report({ status: 'notok', messageId: 'lesserThanEqual', actual, expected, message, noStringify: true });
+                return report({
+                    status: 'notok',
+                    messageId: 'lesserThanEqual',
+                    actual,
+                    expected,
+                    message,
+                    noStringify: true
+                });
             }
             return report({ status: 'ok', actual, expected, message, messageId: 'not', noStringify: true });
         }

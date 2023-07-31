@@ -36,7 +36,10 @@ describe('assert/hasSize', () => {
             throws(() => hasSize({ a: 1, b: 2, c: 3 }, 2), /Expected object to have size of 2/);
         });
         it('should throw with provided message', () => {
-            throws(() => hasSize({ a: 1, b: 2, c: 3 }, 2, 'Expected object to be almost full'), /Expected object to be almost full/);
+            throws(
+                () => hasSize({ a: 1, b: 2, c: 3 }, 2, 'Expected object to be almost full'),
+                /Expected object to be almost full/
+            );
         });
         describe('assert/notHasSize', () => {
             it('should throw if object has correct size', () => {
@@ -140,7 +143,10 @@ describe('assert/hasSize', () => {
             throws(() => hasSize(new Set([1, 2, 3]), 2), /Expected Set to have size of 2/);
         });
         it('should throw with provided message', () => {
-            throws(() => hasSize(new Set([1, 2, 3]), 2, 'Expected Set to be almost full'), /Expected Set to be almost full/);
+            throws(
+                () => hasSize(new Set([1, 2, 3]), 2, 'Expected Set to be almost full'),
+                /Expected Set to be almost full/
+            );
         });
         describe('assert/notHasSize', () => {
             it('should throw if Set has correct size', () => {

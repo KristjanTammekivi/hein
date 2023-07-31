@@ -75,7 +75,19 @@ declare module '../expect.types' {
     }
 }
 
-const types: ValueType[] = ['NaN', 'array', 'bigint', 'boolean', 'function', 'null', 'number', 'object', 'string', 'symbol', 'undefined'];
+const types: ValueType[] = [
+    'NaN',
+    'array',
+    'bigint',
+    'boolean',
+    'function',
+    'null',
+    'number',
+    'object',
+    'string',
+    'symbol',
+    'undefined'
+];
 
 use(
     Object.fromEntries(
