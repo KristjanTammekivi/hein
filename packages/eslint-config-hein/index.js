@@ -27,7 +27,7 @@ module.exports = {
             {
                 singleQuote: true,
                 tabWidth: 4,
-                printWidth: 140,
+                printWidth: 120,
                 trailingComma: 'none',
                 endOfLine: 'lf'
             }
@@ -81,6 +81,7 @@ module.exports = {
             }
         ],
         '@typescript-eslint/no-floating-promises': 'error',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         'mocha/no-mocha-arrows': 'off',
         'unicorn/no-null': 'off',
         'unicorn/prevent-abbreviations': [
@@ -94,7 +95,7 @@ module.exports = {
         'unicorn/consistent-function-scoping': 'off',
         'unicorn/empty-brace-spaces': 'off',
         'unicorn/error-message': 'off',
-        '@typescript-eslint/no-extra-parens': 'error',
+        '@typescript-eslint/no-extra-parens': 'off',
         '@typescript-eslint/no-extra-semi': 'error',
         '@typescript-eslint/naming-convention': [
             'error',

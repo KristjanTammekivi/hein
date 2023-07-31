@@ -24,6 +24,9 @@ describe('expect/eql', () => {
     it('should work with arrays and partiality', () => {
         expect({ a: [1] }).to.partially.eql({ a: [] });
     });
+    it('should work when expected value has more keys than actual', () => {
+        expect(() => expect<any>({}).to.partially.eql({ prefetch: 4 })).to.throw();
+    });
     describe('not', () => {
         it('should invert the assertion', () => {
             expect(() => {

@@ -125,6 +125,12 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     if (global.Buffer && actual instanceof global.Buffer && expected instanceof global.Buffer) {
         return Buffer.compare(actual, expected) === 0;
     }
+    for (const key in expected) {
+        if (!(key in (actual as object))) {
+            result &&= false;
+            continue;
+        }
+    }
     for (const index in actual) {
         const expectedValue = expected[index];
         const actualValue = actual[index];
