@@ -156,6 +156,135 @@ describe('calledWith', () => {
         // @ts-expect-error - should produce error due to wrong type
         expect(s.foo).to.have.been.calledWith('1', 2);
     });
+    it('should be type safe with fewer elements', () => {
+        const fn = (a: number, b: string) => {
+            return `${ a }${ b }`;
+        };
+        const s = spy({ foo: fn });
+        s.foo(1, '2');
+        expect(s.foo).to.have.been.calledWith(1);
+        // @ts-expect-error - should produce error due to wrong type
+        expect(s.foo).to.have.been.calledWith('1');
+    });
+    it('should work with obscenely large number of arguments', () => {
+        const fn = (
+            a: number,
+            b: string,
+            c: boolean,
+            d: number,
+            // eslint-disable-next-line unicorn/prevent-abbreviations
+            e: string,
+            f: boolean,
+            g: number,
+            h: string,
+            index: boolean,
+            index_: number,
+            k: string,
+            l: boolean,
+            m: number,
+            n: string,
+            o: boolean,
+            p: number,
+            q: string,
+            r: boolean,
+            s: number,
+            t: string,
+            u: boolean,
+            v: number,
+            w: string,
+            x: boolean,
+            y: number,
+            z: string
+        ) => {
+            return z;
+        };
+        const s = spy({ foo: fn });
+        s.foo(
+            1,
+            '2',
+            true,
+            4,
+            '5',
+            false,
+            7,
+            '8',
+            true,
+            10,
+            '11',
+            false,
+            13,
+            '14',
+            true,
+            16,
+            '17',
+            false,
+            19,
+            '20',
+            true,
+            22,
+            '23',
+            false,
+            25,
+            '26'
+        );
+        expect(s.foo).to.have.been.calledWith(
+            1,
+            '2',
+            true,
+            4,
+            '5',
+            false,
+            7,
+            '8',
+            true,
+            10,
+            '11',
+            false,
+            13,
+            '14',
+            true,
+            16,
+            '17',
+            false,
+            19,
+            '20',
+            true,
+            22,
+            '23',
+            false,
+            25,
+            '26'
+        );
+        expect(s.foo).to.have.been.calledWith(
+            // @ts-expect-error - should produce error due to wrong type
+            1,
+            '2',
+            true,
+            4,
+            '5',
+            false,
+            7,
+            '8',
+            true,
+            10,
+            '11',
+            false,
+            13,
+            '14',
+            true,
+            16,
+            '17',
+            false,
+            19,
+            '20',
+            true,
+            22,
+            '23',
+            false,
+            25,
+            26
+        );
+    });
     describe('not', () => {
         it('should throw if spy was called with arg', () => {
             const s = spy();

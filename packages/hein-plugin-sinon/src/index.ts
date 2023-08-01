@@ -19,6 +19,25 @@ type MaybeSinonMatch<T> = T extends SinonMatcher
           [K in keyof T]: MaybeSinonMatch<T[K]>;
       }
     : T | SinonMatcher;
+
+type PrefixContiguousSubsets<T extends any[]> = T extends []
+    ? never
+    : T extends [infer A, ...infer B]
+    ? [A] | [A, ...PrefixContiguousSubsets<B>]
+    : any;
+
+type TupleLength<T extends any[]> = T['length'];
+
+type ExcludeTupleLength<T extends any[], L extends number> = T extends infer U
+    ? U extends any[]
+        ? TupleLength<U> extends L
+            ? never
+            : U
+        : never
+    : never;
+
+type PrefixOrOriginal<T extends any[]> = ExcludeTupleLength<PrefixContiguousSubsets<T>, TupleLength<T>> | T;
+
 declare module 'hein/expect.types' {
     interface ValueExpect<T> {
         called(callCount?: number): this;
@@ -27,7 +46,7 @@ declare module 'hein/expect.types' {
         calledThrice(): this;
         calledBefore(spy: SinonSpy): this;
         calledAfter(spy: SinonSpy): this;
-        calledWith: (...args: T extends SinonSpy ? Parameters<T> : any) => this;
+        calledWith: (...args: T extends SinonSpy ? Parameters<T> | PrefixOrOriginal<Parameters<T>> : any) => this;
         calledWithMatch: (...args: T extends SinonSpy ? MaybeSinonMatch<Parameters<T>> : any) => this;
         been: this;
     }
