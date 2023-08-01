@@ -88,7 +88,9 @@ module.exports = {
             'error',
             {
                 replacements: {
-                    args: false
+                    args: false,
+                    fn: false,
+                    cb: false
                 }
             }
         ],

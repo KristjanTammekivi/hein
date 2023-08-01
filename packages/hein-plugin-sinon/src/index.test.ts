@@ -146,6 +146,16 @@ describe('calledWith', () => {
         s(2, 1);
         expect(() => expect(s).to.have.been.calledWith(1, 2)).to.throw();
     });
+    it('should be type safe', () => {
+        const fn = (a: number, b: string) => {
+            return `${ a }${ b }`;
+        };
+        const s = spy({ foo: fn });
+        s.foo(1, '2');
+        expect(s.foo).to.have.been.calledWith(1, '2');
+        // @ts-expect-error - should produce error due to wrong type
+        expect(s.foo).to.have.been.calledWith('1', 2);
+    });
     describe('not', () => {
         it('should throw if spy was called with arg', () => {
             const s = spy();
@@ -182,5 +192,23 @@ describe('calledWithMatch', () => {
                 d: 2
             });
         }).to.throw();
+    });
+    it('should be type safe', () => {
+        const fn = ({ a, b }: { a: number; b: string; c: [a: string, b: number, c: boolean] }) => {
+            return `${ a }${ b }`;
+        };
+        const s = spy({ foo: fn });
+        s.foo({ a: 1, b: 'b', c: ['c', 1, true] });
+        expect(s.foo).to.have.been.calledWithMatch({
+            a: 1,
+            b: match.string,
+            c: [match.number, match.string, match.bool]
+        });
+        expect(s.foo).to.have.been.calledWithMatch({
+            // @ts-expect-error - should produce error due to wrong type
+            a: '1',
+            b: match.string,
+            c: [match.number, match.string, match.bool]
+        });
     });
 });
