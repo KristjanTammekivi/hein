@@ -32,9 +32,6 @@
       ]
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "rimraf dist && tsc -b .",
     "lint": "eslint src/**/*.ts",

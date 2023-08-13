@@ -3,3 +3,7 @@ dist/**/*.test.*
 coverage
 .nyc_output
 dist/tsconfig.tsbuildinfo
+docs
+.vscode
+.*
+tsconfig.json
