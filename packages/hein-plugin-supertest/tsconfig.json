@@ -8,6 +8,7 @@
         "declaration": true,
         "target": "ES2018",
         "noUnusedLocals": true,
+        "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
         "lib": [
             "ES2022"
         ]

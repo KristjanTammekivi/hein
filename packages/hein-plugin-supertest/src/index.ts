@@ -1,7 +1,20 @@
-import './types';
-import { AssertionError } from 'hein-assertion-utils';
-import { CONTENT_TYPE } from './constants';
 import type { Method, Property } from 'hein';
+import { AssertionError } from 'hein-assertion-utils';
+
+import 'hein/expect.types';
+
+declare module 'hein/expect.types' {
+    interface ValueExpect<T> {
+        status(status: number): ValueExpect<T>;
+        json(): ValueExpect<T>;
+        xml(): ValueExpect<T>;
+    }
+}
+
+const CONTENT_TYPE = {
+    JSON: 'application/json',
+    XML: 'application/xml'
+};
 
 export const supertestPlugin: Record<string, Method | Property> = {
     status: {
