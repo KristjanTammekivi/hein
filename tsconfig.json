@@ -4,9 +4,14 @@
         {
             "path": "./packages/hein-assertion-utils"
         },
-        { "path": "./packages/hein"},
+        {
+            "path": "./packages/hein"
+        },
         {
             "path": "./packages/hein-plugin-sinon"
+        },
+        {
+            "path": "./packages/hein-plugin-supertest"
         }
     ],
     "files": []

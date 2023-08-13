@@ -2,8 +2,8 @@ import { AssertionError } from 'hein-assertion-utils';
 
 /**
  * Throw an AssertionError
- * @param {string} message - The message to pass to the AssertionError
+ * @param  message - The message to pass to the AssertionError
  */
-export const fail = (message?: string) => {
+export const fail = (message = 'Fail') => {
     throw new AssertionError(undefined, undefined, message);
 };
