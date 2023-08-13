@@ -1,0 +1,28 @@
+{
+  "name": "hein-plugin-supertest",
+  "version": "0.0.1",
+  "description": "hein plugin for supertest assertions",
+  "main": "dist/index.js",
+  "author": "Kristjan Tammekivi",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc -b .",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
+    "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
+    "coverage": "nyc npm run test"
+  },
+  "dependencies": {
+    "hein-assertion-utils": "^1.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.46.0",
+    "eslint-config-hein": "^1.0.1",
+    "hein": "*",
+    "mocha": "^10.1.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1"
+  }
+}
