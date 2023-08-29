@@ -2592,10 +2592,10 @@ minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimatch@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.0.tgz#bfc8e88a1c40ffd40c172ddac3decb8451503b56"
-  integrity sha512-0jJj8AvgKqWN05mrwuqi8QYKx1WmYSUoKSxu5Qhs9prezTz10sxAHGNZe9J9cqIJzta8DWsleh2KaVaLl6Ru2w==
+minimatch@^9.0.0, minimatch@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.3.tgz#a6e00c3de44c3a542bfaae70abfc22420a6da825"
+  integrity sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==
   dependencies:
     brace-expansion "^2.0.1"
 
@@ -3025,9 +3025,9 @@ prettier-linter-helpers@^1.0.0:
     fast-diff "^1.1.2"
 
 prettier@^3.0.0, "prettier@npm:@staycool/prettier@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@staycool/prettier/-/prettier-3.0.1.tgz#18947f063abfcc15bcce420b12c5cb5bc8c78dbd"
-  integrity sha512-Cz8zzNAZ8tdnsmJ3Ff5uwxF8vKyXiicjAdZv0F2D2fz+qNfZ44gepWa2t7ZiB2Rmkoz+mV1DLCy/NQmpt/s4ZQ==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@staycool/prettier/-/prettier-3.0.2.tgz#890e7ff42ed00b709f1b8c27b5d111cdaa605828"
+  integrity sha512-suZos7Ip/269mipKqlTKLoVewUSHMlEn3t8A2ftvY3SWlDl0i59AM40RSMQOWvLUkbeXsDnMkgzcSzvoKXUqQg==
 
 process-on-spawn@^1.0.0:
   version "1.0.0"
@@ -3662,14 +3662,14 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typedoc@^0.24.8:
-  version "0.24.8"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.24.8.tgz#cce9f47ba6a8d52389f5e583716a2b3b4335b63e"
-  integrity sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==
+typedoc@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.25.0.tgz#287f83d01c1c2186766884f4e04d698820d68115"
+  integrity sha512-FvCYWhO1n5jACE0C32qg6b3dSfQ8f2VzExnnRboowHtqUD6ARzM2r8YJeZFYXhcm2hI4C2oCRDgNPk/yaQUN9g==
   dependencies:
     lunr "^2.3.9"
     marked "^4.3.0"
-    minimatch "^9.0.0"
+    minimatch "^9.0.3"
     shiki "^0.14.1"
 
 typescript@^5.1.3:
