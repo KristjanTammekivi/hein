@@ -90,7 +90,8 @@ module.exports = {
                 replacements: {
                     args: false,
                     fn: false,
-                    cb: false
+                    cb: false,
+                    params: false
                 }
             }
         ],
