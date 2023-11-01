@@ -18,6 +18,7 @@ import './expect/has-property';
 import './expect/include';
 import './expect/instance-of-shorthand';
 import './expect/instance-of';
+import './expect/keys';
 import './expect/length';
 import './expect/less-than-equal';
 import './expect/less-than';
@@ -40,7 +41,7 @@ use({
     and: {
         type: 'property',
         value: ({ value, ...rest }) => {
-            const values = mapValues(rest, () => { }) as any;
+            const values = mapValues(rest, () => {}) as any;
             return { value, ...values };
         }
     },

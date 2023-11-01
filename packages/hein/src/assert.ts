@@ -22,6 +22,7 @@ export { isBetween, notBetween } from './assert/is-between';
 export { inBallpark, notInBallpark } from './assert/in-ballpark';
 export { roundTo, notRoundTo } from './assert/round-to';
 export { hasMembers, notHasMembers } from './assert/has-members';
+export { hasKeys, notHasKeys } from './assert/has-keys';
 
 export const assert = () => {
     throw new Error('Not implemented');

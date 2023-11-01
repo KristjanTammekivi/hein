@@ -219,6 +219,15 @@ Assert that value is an instance of provided constructor
 expect(new Error()).to.be.an.instanceOf(Error);
 ```
 
+#### keys
+
+Assert that object has keys
+
+```typescript
+expect({ a: 1, b: 2 }).to.have.keys(['a', 'b']);
+expect({ a: 1, b: 2 }).to.have.keys('a');
+```
+
 ##### lengthOf
 
 Assert that value has a length equal to argument
