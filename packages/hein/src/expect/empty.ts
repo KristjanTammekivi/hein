@@ -9,6 +9,13 @@ declare module '../expect.types' {
          */
         empty(message?: string): this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface MapExpect<T> {
+        /**
+         * check if Map is empty
+         */
+        empty(message?: string): this;
+    }
 }
 
 use({

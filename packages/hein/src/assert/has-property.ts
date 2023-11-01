@@ -37,7 +37,7 @@ export const [hasProperty, notHasProperty] = createAssertion({
                             status: 'ok',
                             messageId: 'notWrongValue',
                             expected,
-                            actual: actualStringified,
+                            actual: actualStringified as any,
                             data: { value, expected, obj: actual }
                         });
                     }
@@ -45,18 +45,18 @@ export const [hasProperty, notHasProperty] = createAssertion({
                         status: 'notok',
                         messageId: 'wrongValue',
                         expected,
-                        actual: actualStringified,
-                        data: { value, obj: actualStringified },
+                        actual: actualStringified as any,
+                        data: { value, obj: actualStringified as any },
                         noStringify: true
                     });
                 }
-                return report({ status: 'ok', noStringify: true, expected, actual: actualStringified });
+                return report({ status: 'ok', noStringify: true, expected, actual: actualStringified as any });
             }
             return report({
                 status: 'notok',
                 messageId: 'noProperty',
                 expected,
-                actual: actualStringified,
+                actual: actualStringified as any,
                 noStringify: true
             });
         }

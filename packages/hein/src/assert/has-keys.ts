@@ -1,4 +1,4 @@
-import { createAssertion, stringify } from 'hein-assertion-utils';
+import { createAssertion } from 'hein-assertion-utils';
 import { castArray } from 'lodash';
 
 interface HasKeys {
@@ -10,29 +10,48 @@ interface HasKeys {
      * @example hasKeys({a: 1, b: 2}, ['a', 'b']);
      */
     <T extends Record<string, any>, K extends keyof T>(object: T, keys: K[] | K, message?: string): void;
+    <K, T extends Map<K, any>>(object: T, keys: K[] | K, message?: string): void;
 }
 
 export const [hasKeys, notHasKeys] = createAssertion({
     messages: {
-        noKey: 'Expected {{actual}} to have keys {{expected}}',
-        not: 'Expected {{actual}} to not have keys {{expected}}'
+        noKey: 'Expected {{object}} to have keys {{expected}}',
+        not: 'Expected {{object}} to not have keys {{expected}}'
     },
     test:
         (report): HasKeys =>
         (object, keys, message) => {
             const keysArray = castArray(keys);
+            if (object instanceof Map) {
+                for (const key of keysArray) {
+                    if (!object.has(key)) {
+                        report({
+                            status: 'notok',
+                            message,
+                            messageId: 'noKey',
+                            data: { object },
+                            actual: [...object.keys()],
+                            expected: keysArray
+                        });
+                        return;
+                    }
+                }
+                report({ status: 'ok', data: { object }, actual: [...object.keys()], expected: keysArray });
+                return;
+            }
             for (const key of keysArray) {
                 if (!(key in object)) {
                     report({
                         status: 'notok',
                         message,
                         messageId: 'noKey',
-                        actual: stringify(object),
+                        data: { object },
+                        actual: object,
                         expected: keysArray
                     });
                     return;
                 }
             }
-            report({ status: 'ok', actual: stringify(object), expected: keysArray });
+            report({ status: 'ok', data: { object }, actual: Object.keys(object), expected: keysArray });
         }
 });

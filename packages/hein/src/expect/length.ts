@@ -9,6 +9,13 @@ declare module '../expect.types' {
          */
         sizeOf(size: number, message?: string): this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface MapExpect<T> {
+        /**
+         * check for Map to have a certain size
+         */
+        sizeOf(size: number, message?: string): this;
+    }
     interface StringExpect {
         /**
          * check for string to have a certain size

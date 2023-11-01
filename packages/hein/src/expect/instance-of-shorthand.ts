@@ -27,6 +27,13 @@ declare module '../expect.types' {
          */
         WeakSet(): this;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface MapExpect<T> {
+        /**
+         * check if value is an instance of Map
+         */
+        Map(): this;
+    }
 }
 
 const constructors = [Date, Map, Set, WeakMap, WeakSet];
