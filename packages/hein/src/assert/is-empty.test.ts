@@ -1,5 +1,4 @@
-import { isEmpty, notIsEmpty } from '../assert';
-import { throws } from '../assert';
+import { deepEqual, isEmpty, notIsEmpty, throws } from '../assert';
 
 describe('assert/isEmpty', () => {
     describe('assert/array', () => {
@@ -8,6 +7,15 @@ describe('assert/isEmpty', () => {
         });
         it('should throw if array is not empty', () => {
             throws(() => isEmpty([1]), /Expected array to be empty/);
+        });
+        it('should set expected as an empty array', () => {
+            throws(
+                () => isEmpty([1]),
+                (error) => {
+                    deepEqual(error.expected, []);
+                    return true;
+                }
+            );
         });
         describe('assert/notIsEmpty', () => {
             it('should throw if array is empty', () => {
@@ -27,6 +35,15 @@ describe('assert/isEmpty', () => {
         it('should throw if object is not empty', () => {
             throws(() => isEmpty({ a: 1 }), /Expected object to be empty/);
         });
+        it('should set expected as an empty object', () => {
+            throws(
+                () => isEmpty({ a: 1 }),
+                (error) => {
+                    deepEqual(error.expected, {});
+                    return true;
+                }
+            );
+        });
         describe('assert/notIsEmpty', () => {
             it('should throw if object is empty', () => {
                 throws(() => {
@@ -44,6 +61,15 @@ describe('assert/isEmpty', () => {
         });
         it('should throw if map is not empty', () => {
             throws(() => isEmpty(new Map([['a', 1]])), /Expected Map to be empty/);
+        });
+        it('should set expected as an empty Map', () => {
+            throws(
+                () => isEmpty(new Map([['a', 1]])),
+                (error) => {
+                    deepEqual(error.expected, new Map());
+                    return true;
+                }
+            );
         });
         describe('assert/notIsEmpty', () => {
             it('should throw if map is empty', () => {

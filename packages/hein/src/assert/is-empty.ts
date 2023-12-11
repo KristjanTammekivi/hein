@@ -45,21 +45,21 @@ export const [isEmpty, notIsEmpty] = createAssertion({
         <T>(actual: T, message?: string) => {
             if (Array.isArray(actual)) {
                 if (actual.length === 0) {
-                    return report({ message, status: 'ok', actual });
+                    return report({ message, status: 'ok', actual, expected: [] as any });
                 }
-                return report({ message, status: 'notok', messageId: 'array', actual });
+                return report({ message, status: 'notok', messageId: 'array', actual, expected: [] as any });
             }
             if (isPlainObject(actual)) {
                 if (Object.keys(actual).length === 0) {
                     return report({ message, status: 'ok', messageId: 'notObject', actual });
                 }
-                return report({ message, status: 'notok', messageId: 'object', actual });
+                return report({ message, status: 'notok', messageId: 'object', actual, expected: {} });
             }
             if (actual instanceof Map) {
                 if (actual.size === 0) {
                     return report({ message, status: 'ok', messageId: 'notMap', actual });
                 }
-                return report({ message, status: 'notok', messageId: 'map', actual });
+                return report({ message, status: 'notok', messageId: 'map', actual, expected: new Map() });
             }
             if (actual instanceof Set) {
                 if (actual.size === 0) {
