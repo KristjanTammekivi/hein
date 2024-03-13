@@ -3131,7 +3131,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^3.1.0, "prettier@npm:@staycool/prettier@^3.0.1":
+prettier@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@staycool/prettier/-/prettier-3.1.0.tgz#378df5f820ae220df31ada5cb956136751c606dd"
   integrity sha512-YD769sZpVow0X69ArCb+SyKLQBogRkrG4rgCGIimNODkj19gT8wmFumKcmv4HBqEMiDgcPFMsk/2QUSyIvVBYQ==
