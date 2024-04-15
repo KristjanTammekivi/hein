@@ -21,18 +21,22 @@ describe('expect/type shorthands', () => {
     for (const [method, value] of Object.entries(types)) {
         describe(method, () => {
             const incorrectValue = method === 'string' ? types.object : types.string;
+
             it(`should not throw if value is a(n) ${ method }`, () => {
                 expect(value).to.be.a[method]();
             });
+
             it(`should throw if value is not a(n) ${ method }`, () => {
                 const incorrectType = method === 'string' ? 'object' : 'string';
                 const validator = new RegExp(`Expected ${ incorrectType } to be a\\(n\\) ${ method }`);
                 expect(() => expect(incorrectValue).to.be.a[method]()).to.throw(validator);
             });
+
             describe('not', () => {
                 it(`should not throw if value is not a(n) ${ method }`, () => {
                     expect(incorrectValue).to.not.be.a[method]();
                 });
+
                 it(`should throw if value is a(n) ${ method }`, () => {
                     const validator = new RegExp(`Expected ${ method } to not be a\\(n\\) ${ method }`);
                     expect(() => expect(value).to.not.be.a[method]()).to.throw(validator);
