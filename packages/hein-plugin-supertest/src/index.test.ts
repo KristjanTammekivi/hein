@@ -11,6 +11,7 @@ describe('supertestPlugin', () => {
             };
             expect(request).to.have.status(200);
         });
+
         it('should fail if status is not equal to expected', () => {
             const request = {
                 status: 500,
@@ -20,6 +21,7 @@ describe('supertestPlugin', () => {
                 /Expected status 200 but got 500, body: "InternalServerError"/
             );
         });
+
         describe('not', () => {
             it('should not throw if status is not equal to expected', () => {
                 const request = {
@@ -28,6 +30,7 @@ describe('supertestPlugin', () => {
                 };
                 expect(request).to.not.have.status(200);
             });
+
             it('should throw if status is equal to expected', () => {
                 const request = {
                     status: 200,
@@ -39,6 +42,7 @@ describe('supertestPlugin', () => {
             });
         });
     });
+
     describe('json', () => {
         it('should pass if Content-Type is application/json', () => {
             const request = {
@@ -48,6 +52,7 @@ describe('supertestPlugin', () => {
             };
             expect(request).to.be.json();
         });
+
         it('should fail if Content-Type is not application/json', () => {
             const request = {
                 headers: {
@@ -58,6 +63,7 @@ describe('supertestPlugin', () => {
                 /Expected content type to be application\/json, received text\/html/
             );
         });
+
         describe('not', () => {
             it('should pass if Content-Type is not application/json', () => {
                 const request = {
@@ -67,6 +73,7 @@ describe('supertestPlugin', () => {
                 };
                 expect(request).to.not.be.json();
             });
+
             it('should fail if Content-Type is application/json', () => {
                 const request = {
                     headers: {
@@ -79,6 +86,7 @@ describe('supertestPlugin', () => {
             });
         });
     });
+
     describe('xml', () => {
         it('should pass if Content-Type is application/xml', () => {
             const request = {
@@ -88,6 +96,7 @@ describe('supertestPlugin', () => {
             };
             expect(request).to.be.xml();
         });
+
         it('should fail if Content-Type is not application/xml', () => {
             const request = {
                 headers: {
@@ -98,6 +107,7 @@ describe('supertestPlugin', () => {
                 /Expected content type to be application\/xml, received text\/html/
             );
         });
+
         describe('not', () => {
             it('should pass if Content-Type is not application/xml', () => {
                 const request = {
@@ -107,6 +117,7 @@ describe('supertestPlugin', () => {
                 };
                 expect(request).to.not.be.xml();
             });
+
             it('should fail if Content-Type is application/xml', () => {
                 const request = {
                     headers: {

@@ -15,17 +15,21 @@ describe('expect/instanceOf shorthands', () => {
         describe(method, () => {
             // eslint-disable-next-line unicorn/new-for-builtins
             const wrongInstance = new String();
+
             it(`should not throw if value is an instance of ${ method }`, () => {
                 expect(instance).to.be.a[method]();
             });
+
             it(`should throw if value is not an instance of ${ method }`, () => {
                 const regexp = new RegExp(`Expected String to be an instance of ${ method }`);
                 expect(() => expect(wrongInstance).to.be.a[method]()).to.throw(regexp);
             });
+
             describe('not', () => {
                 it(`should not throw if value is not an instance of ${ method }`, () => {
                     expect(wrongInstance).to.not.be.a[method]();
                 });
+
                 it(`should throw if value is an instance of ${ method }`, () => {
                     const regexp = new RegExp(`Expected ${ method } to not be an instance of ${ method }`);
                     expect(() => expect(instance).to.not.be.a[method]()).to.throw(regexp);

@@ -13,14 +13,17 @@ describe('expect/equal shorthands', () => {
             it(`should not throw if value is ${ method }`, () => {
                 expect(value).to.be[method]();
             });
+
             it(`should throw if value is not ${ method }`, () => {
                 const regex = new RegExp(`Expected ${ !value } to be ${ method }`);
                 expect(() => expect(!value).to.be[method]()).to.throw(regex);
             });
+
             describe('not', () => {
                 it(`should not throw if value is ${ !value }`, () => {
                     expect(!value).to.not.be[method]();
                 });
+
                 it(`should throw if value is ${ value }`, () => {
                     const regex = new RegExp(`Expected ${ value } to not be ${ method }`);
                     expect(() => expect(value).to.not.be[method]()).to.throw(regex);
