@@ -3132,10 +3132,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^3.1.0, "prettier@npm:@staycool/prettier@^3.0.1":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@staycool/prettier/-/prettier-3.1.0.tgz#378df5f820ae220df31ada5cb956136751c606dd"
-  integrity sha512-YD769sZpVow0X69ArCb+SyKLQBogRkrG4rgCGIimNODkj19gT8wmFumKcmv4HBqEMiDgcPFMsk/2QUSyIvVBYQ==
+prettier@^3.2.5, "prettier@npm:@staycool/prettier@^3.0.1":
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/@staycool/prettier/-/prettier-3.2.5.tgz#34e3d017487e6f45cba4fb5617b4bb6726efaf2d"
+  integrity sha512-yZZ4mQUvIuImpO3OkyLZNArqy87/qp6Pi1Y2BJul4EZ88bR2ZxUkFJSWr0lqaDojqdM+uQUbEkPQmOijQ5ZQdA==
 
 process-on-spawn@^1.0.0:
   version "1.0.0"
