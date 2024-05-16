@@ -14,7 +14,7 @@
     "coverage": "nyc npm run test"
   },
   "dependencies": {
-    "@types/sinon": "^10.0.13",
+    "@types/sinon": "^17.0.3",
     "hein-assertion-utils": "^1.0.4"
   },
   "devDependencies": {
