@@ -1,6 +1,6 @@
 {
   "name": "hein-plugin-supertest",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "hein plugin for supertest assertions",
   "main": "dist/index.js",
   "author": "Kristjan Tammekivi",
