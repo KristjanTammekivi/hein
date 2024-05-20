@@ -46,48 +46,48 @@ describe('supertestPlugin', () => {
     describe('json', () => {
         const jsonRequest = {
             headers: {
-                'Content-Type': 'application/json'
+                'content-type': 'application/json'
             }
         };
 
         const htmlRequest = {
             headers: {
-                'Content-Type': 'text/html'
+                'content-type': 'text/html'
             }
         };
 
         const jsonWithCharsetRequest = {
             headers: {
-                'Content-Type': 'application/json; charset=utf-8'
+                'content-type': 'application/json; charset=utf-8'
             }
         };
 
-        it('should pass if Content-Type is application/json', () => {
+        it('should pass if content-type is application/json', () => {
             expect(jsonRequest).to.be.json();
         });
 
-        it('should fail if Content-Type is not application/json', () => {
+        it('should fail if content-type is not application/json', () => {
             expect(() => expect(htmlRequest).to.be.json()).to.throw(
                 /Expected content type to be application\/json, received text\/html/
             );
         });
 
-        it(`should not fail if Content-Type is 'application/json; charset=utf-8'`, () => {
+        it(`should not fail if content-type is 'application/json; charset=utf-8'`, () => {
             expect(jsonWithCharsetRequest).to.be.json();
         });
 
         describe('not', () => {
-            it('should pass if Content-Type is not application/json', () => {
+            it('should pass if content-type is not application/json', () => {
                 expect(htmlRequest).to.not.be.json();
             });
 
-            it('should fail if Content-Type is application/json', () => {
+            it('should fail if content-type is application/json', () => {
                 expect(() => expect(jsonRequest).to.not.be.json()).to.throw(
                     /Expected content type to not be application\/json, received application\/json/
                 );
             });
 
-            it(`should fail if Content-Type is 'application/json; charset=utf-8'`, () => {
+            it(`should fail if content-type is 'application/json; charset=utf-8'`, () => {
                 expect(() => expect(jsonWithCharsetRequest).to.not.be.json()).to.throw(
                     /Expected content type to not be application\/json, received application\/json/
                 );
@@ -98,48 +98,48 @@ describe('supertestPlugin', () => {
     describe('xml', () => {
         const xmlRequest = {
             headers: {
-                'Content-Type': 'application/xml'
+                'content-type': 'application/xml'
             }
         };
 
         const htmlRequest = {
             headers: {
-                'Content-Type': 'text/html'
+                'content-type': 'text/html'
             }
         };
 
         const xmlWithCharsetRequest = {
             headers: {
-                'Content-Type': 'application/xml; charset=utf-8'
+                'content-type': 'application/xml; charset=utf-8'
             }
         };
 
-        it('should pass if Content-Type is application/xml', () => {
+        it('should pass if content-type is application/xml', () => {
             expect(xmlRequest).to.be.xml();
         });
 
-        it('should fail if Content-Type is not application/xml', () => {
+        it('should fail if content-type is not application/xml', () => {
             expect(() => expect(htmlRequest).to.be.xml()).to.throw(
                 /Expected content type to be application\/xml, received text\/html/
             );
         });
 
-        it(`should pass if Content-Type is ${ xmlWithCharsetRequest.headers['Content-Type'] }`, () => {
+        it(`should pass if content-type is ${ xmlWithCharsetRequest.headers['content-type'] }`, () => {
             expect(xmlWithCharsetRequest).to.be.xml();
         });
 
         describe('not', () => {
-            it('should pass if Content-Type is not application/xml', () => {
+            it('should pass if content-type is not application/xml', () => {
                 expect(htmlRequest).to.not.be.xml();
             });
 
-            it('should fail if Content-Type is application/xml', () => {
+            it('should fail if content-type is application/xml', () => {
                 expect(() => expect(xmlRequest).to.not.be.xml()).to.throw(
                     /Expected content type to not be application\/xml, received application\/xml/
                 );
             });
 
-            it(`should fail if Content-Type is ${ xmlWithCharsetRequest.headers['Content-Type'] }`, () => {
+            it(`should fail if content-type is ${ xmlWithCharsetRequest.headers['content-type'] }`, () => {
                 expect(() => expect(xmlWithCharsetRequest).to.not.be.xml()).to.throw(
                     /Expected content type to not be application\/xml, received application\/xml/
                 );

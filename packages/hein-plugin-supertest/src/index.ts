@@ -49,18 +49,18 @@ export const supertestPlugin: Record<string, Method | Property> = {
             ({ value, inverted }) =>
             () => {
                 if (inverted) {
-                    if (value.headers['Content-Type']?.includes(CONTENT_TYPE.JSON)) {
+                    if (value.headers['content-type']?.includes(CONTENT_TYPE.JSON)) {
                         throw new AssertionError(
-                            value.headers['Content-Type'],
+                            value.headers['content-type'],
                             CONTENT_TYPE.JSON,
-                            `Expected content type to not be application/json, received ${ value.headers['Content-Type'] }`
+                            `Expected content type to not be application/json, received ${ value.headers['content-type'] }`
                         );
                     }
-                } else if (!value.headers['Content-Type']?.includes(CONTENT_TYPE.JSON)) {
+                } else if (!value.headers['content-type']?.includes(CONTENT_TYPE.JSON)) {
                     throw new AssertionError(
-                        value.headers['Content-Type'],
+                        value.headers['content-type'],
                         CONTENT_TYPE.JSON,
-                        `Expected content type to be application/json, received ${ value.headers['Content-Type'] }`
+                        `Expected content type to be application/json, received ${ value.headers['content-type'] }`
                     );
                 }
             }
@@ -71,18 +71,18 @@ export const supertestPlugin: Record<string, Method | Property> = {
             ({ value, inverted }) =>
             () => {
                 if (inverted) {
-                    if (value.headers['Content-Type']?.includes(CONTENT_TYPE.XML)) {
+                    if (value.headers['content-type']?.includes(CONTENT_TYPE.XML)) {
                         throw new AssertionError(
-                            value.headers['Content-Type'],
+                            value.headers['content-type'],
                             CONTENT_TYPE.XML,
-                            `Expected content type to not be application/xml, received ${ value.headers['Content-Type'] }`
+                            `Expected content type to not be application/xml, received ${ value.headers['content-type'] }`
                         );
                     }
-                } else if (!value.headers['Content-Type']?.includes(CONTENT_TYPE.XML)) {
+                } else if (!value.headers['content-type']?.includes(CONTENT_TYPE.XML)) {
                     throw new AssertionError(
-                        value.headers['Content-Type'],
+                        value.headers['content-type'],
                         CONTENT_TYPE.XML,
-                        `Expected content type to be application/xml, received ${ value.headers['Content-Type'] }`
+                        `Expected content type to be application/xml, received ${ value.headers['content-type'] }`
                     );
                 }
             }
