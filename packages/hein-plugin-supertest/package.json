@@ -20,7 +20,7 @@
     "eslint": "^8.57.0",
     "eslint-config-hein": "^1.0.1",
     "hein": "*",
-    "mocha": "^10.6.0",
+    "mocha": "^10.7.0",
     "nyc": "^17.0.0",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1"
