@@ -75,7 +75,7 @@ interface IsType {
      * @param expectedType
      * @example isType(() => {}, 'function');
      */
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     (value: Function, expectedType: 'function'): void;
     /**
      * check if value is of a specific type, nulls, NaN and arrays are specially handled
