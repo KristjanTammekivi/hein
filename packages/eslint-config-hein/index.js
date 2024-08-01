@@ -8,13 +8,15 @@ module.exports = {
         'plugin:unicorn/recommended',
         'plugin:jsdoc/recommended',
         'plugin:prettier/recommended',
-        'plugin:eslint-comments/recommended'
+        'plugin:eslint-comments/recommended',
+        'plugin:@stylistic/disable-legacy'
     ],
     plugins: [
         'import',
         'mocha',
         'unicorn',
-        'jsdoc'
+        'jsdoc',
+        '@stylistic'
     ],
     parserOptions: {
         ecmaVersion: 2018,
@@ -63,16 +65,16 @@ module.exports = {
             }
         ],
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/space-before-function-paren': [
+        '@stylistic/space-before-function-paren': [
             'error',
             {
                 named: 'never'
             }
         ],
-        '@typescript-eslint/space-before-blocks': 'error',
-        '@typescript-eslint/type-annotation-spacing': 'error',
+        '@stylistic/space-before-blocks': 'error',
+        '@stylistic/type-annotation-spacing': 'error',
         'arrow-spacing': 'error',
-        '@typescript-eslint/quotes': [
+        '@stylistic/quotes': [
             'error',
             'single',
             {
@@ -99,7 +101,7 @@ module.exports = {
         'unicorn/empty-brace-spaces': 'off',
         'unicorn/error-message': 'off',
         '@typescript-eslint/no-extra-parens': 'off',
-        '@typescript-eslint/no-extra-semi': 'error',
+        '@stylistic/no-extra-semi': 'error',
         '@typescript-eslint/naming-convention': [
             'error',
             {
@@ -156,16 +158,20 @@ module.exports = {
             'error',
             'all'
         ],
-        '@typescript-eslint/semi': 'error',
+        '@stylistic/semi': 'error',
         'comma-dangle': [
             'error',
             'never'
         ],
-        '@typescript-eslint/member-delimiter-style': ['error'],
+        '@stylistic/member-delimiter-style': ['error'],
         // 'jsdoc/check-examples': 'error'
 
         'eslint-comments/no-unused-disable': 'error',
-        'eslint-comments/disable-enable-pair': 'off'
+        'eslint-comments/disable-enable-pair': 'off',
+
+        // Rule was renamed
+        '@typescript-eslint/no-throw-literal': 'off',
+        '@typescript-eslint/only-throw-error': 'error'
     },
     overrides: [
         {
