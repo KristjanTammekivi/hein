@@ -6,6 +6,8 @@ export interface State<T> {
     same?: boolean;
     ordered?: boolean;
     partial?: boolean;
+
+    every?: boolean;
 }
 
 export interface Property {

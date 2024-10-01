@@ -40,9 +40,9 @@ use({
     an: { type: 'property', value: () => null },
     and: {
         type: 'property',
-        value: ({ value, ...rest }) => {
+        value: ({ value, every, ...rest }) => {
             const values = mapValues(rest, () => {}) as any;
-            return { value, ...values };
+            return { value, every, ...values };
         }
     },
     have: { type: 'property', value: () => null },
@@ -51,7 +51,9 @@ use({
     of: { type: 'property', value: () => null },
 
     length: { type: 'property', value: (state) => ({ ...state, getProperty: getSize }) },
-    deep: { type: 'property', value: (state) => ({ ...state, deep: true }) }
+    deep: { type: 'property', value: (state) => ({ ...state, deep: true }) },
+
+    every: { type: 'property', value: (state) => ({ ...state, every: true }) }
 });
 
 export const expectChain = <T>(state: State<T>) => {
@@ -67,6 +69,10 @@ export const expectChain = <T>(state: State<T>) => {
             registerMethod(chain, key, (...args: any[]) => {
                 if (state.getProperty) {
                     definition.value({ value: state.getProperty(state.value), inverted: state.inverted })(...args);
+                } else if (state.every) {
+                    for (const value of state.value as any) {
+                        definition.value({ ...state, value })(...args);
+                    }
                 } else {
                     const result = definition.value({ ...state })(...args);
                     if (result as any) {

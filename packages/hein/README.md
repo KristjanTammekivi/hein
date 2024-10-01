@@ -40,13 +40,52 @@ expect(1).to.equal(1);
 
 #### Chainable properties
 
--   a
--   an
--   and - used to chain multiple assertions, clears the state (so .not will be reset)
--   be
--   have
--   not - inverts the expectation (ie `expect(5).to.not.equal(5)` will throw)
--   to
+##### Language chains
+
+There are multiple side-effect free tokens to chain assertions together. These include:
+- to
+- be
+- a
+- an
+- have
+- in
+- of
+
+```typescript
+expect(5).to.be.a.number(); // same as expect(5).number();
+```
+
+##### not
+
+Not inverts the conditions inside the expectation.
+
+```typescript
+expect(5).to.not.equal(4);
+```
+
+##### every
+
+Run the assertion for each member of an array
+
+```typescript
+expect([1, 2, 3]).every.to.be.a.number();
+```
+
+##### length
+
+Run the assertion on the length of an array
+
+```typescript
+expect([1, 2, 3]).length.to.be.greaterThan(2);
+```
+
+##### and
+
+Clears most of the state in the chain (with the exception of the effects of .every);
+
+```typescript
+expect(1).to.not.be.greaterThan(5).and.be.greaterThan(0);
+```
 
 #### Assertions
 

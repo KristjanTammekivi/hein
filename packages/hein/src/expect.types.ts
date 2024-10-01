@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import { ThrowsCallback } from './assert/throws';
 import type { fail } from './utils/fail';
 export { State } from './mixins';
@@ -19,9 +20,12 @@ export interface ValueExpect<T> {
     deep: this;
 }
 
+type ArrayType<T> = T extends (infer U)[] ? U : never;
+
 export interface ArrayExpect<T> extends ValueExpect<T>, ObjectExpect<T> {
     length: NumberExpect<number> & this;
     array(): this;
+    every: GetExpectType<ArrayType<T>>;
 }
 export interface BigIntExpect<T = bigint> extends NumberExpect<T> {}
 export interface BooleanExpect<T = boolean> extends ValueExpect<T> {}
@@ -73,3 +77,5 @@ export interface Expect {
     <T>(actual: T): ValueExpect<T>;
     fail: typeof fail;
 }
+
+type GetExpectType<T> = T extends number ? NumberExpect<T> : AllExpects<T>;
