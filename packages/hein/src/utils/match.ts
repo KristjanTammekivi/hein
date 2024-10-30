@@ -122,7 +122,7 @@ export const match = <T>(actual: T, expected: T, { mutate = false, partial = fal
     if (Object.keys(actual).length !== Object.keys(expected).length && !partial) {
         result = false;
     }
-    if (global.Buffer && actual instanceof global.Buffer && expected instanceof global.Buffer) {
+    if (globalThis.Buffer && actual instanceof globalThis.Buffer && expected instanceof globalThis.Buffer) {
         return Buffer.compare(actual, expected) === 0;
     }
     for (const key in expected) {
