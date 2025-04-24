@@ -52,7 +52,7 @@
     "@types/lodash": "^4.17.0",
     "@types/mocha": "^10.0.9",
     "@types/mustache": "^4.2.1",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.15.0",
     "eslint": "^8.57.0",
     "eslint-config-hein": "^1.0.4",
     "mocha": "^11.1.0",
