@@ -21,7 +21,7 @@
     "eslint": "^8.57.0",
     "eslint-config-hein": "^1.0.1",
     "hein": "*",
-    "mocha": "^11.2.2",
+    "mocha": "^11.4.0",
     "nyc": "^17.1.0",
     "sinon": "^20.0.0",
     "ts-node": "^10.9.1"
