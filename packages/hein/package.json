@@ -55,7 +55,7 @@
     "@types/node": "^22.15.3",
     "eslint": "^8.57.0",
     "eslint-config-hein": "^1.0.4",
-    "mocha": "^11.2.2",
+    "mocha": "^11.7.1",
     "nyc": "^17.1.0",
     "rimraf": "^5.0.1",
     "source-map-support": "^0.5.21",
