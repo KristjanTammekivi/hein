@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable mocha/no-setup-in-describe */
 import { expect } from '../expect';
 
 const instances = {
@@ -11,6 +9,7 @@ const instances = {
 };
 
 describe('expect/instanceOf shorthands', () => {
+    // eslint-disable-next-line mocha/no-setup-in-describe
     for (const [method, instance] of Object.entries(instances)) {
         describe(method, () => {
             // eslint-disable-next-line unicorn/new-for-builtins
@@ -37,9 +36,12 @@ describe('expect/instanceOf shorthands', () => {
             });
         });
     }
-    expect(new Date()).to.be.a.Date;
-    expect(new Map()).to.be.a.Map;
-    expect(new Set()).to.be.a.Set;
-    expect(new WeakMap()).to.be.a.WeakMap;
-    expect(new WeakSet()).to.be.a.WeakSet;
+
+    it('should survive type checks', () => {
+        expect(new Date()).to.be.a.Date();
+        expect(new Map()).to.be.a.Map();
+        expect(new Set()).to.be.a.Set();
+        expect(new WeakMap()).to.be.a.WeakMap();
+        expect(new WeakSet()).to.be.a.WeakSet();
+    });
 });

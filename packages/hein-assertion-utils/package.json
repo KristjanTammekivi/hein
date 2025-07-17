@@ -8,14 +8,14 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src",
+    "lint": "eslint src/**/*.ts",
     "lint:fix": "yarn run lint -- --fix",
     "test": "mocha src/**/test.ts",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-hein": "^1.0.1",
+    "eslint": "^9.31.0",
+    "eslint-config-hein": "^2.0.0-alpha.0",
     "mocha": "^11.7.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.8.2"
