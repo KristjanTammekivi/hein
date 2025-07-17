@@ -1,6 +1,5 @@
 import { any } from '../utils/match';
-import { deepEqual, notDeepEqual } from '../assert';
-import { throws } from '../assert';
+import { deepEqual, notDeepEqual, throws } from '../assert';
 
 describe('assert/deepEqual', () => {
     it('should not throw for NaN', () => {

@@ -1,5 +1,4 @@
-import { notIncludes, throws } from '../assert';
-import { includes } from '../assert';
+import { includes, notIncludes, throws } from '../assert';
 
 describe('assert/includes', () => {
     describe('arrays', () => {

@@ -124,6 +124,7 @@ describe('supertestPlugin', () => {
             );
         });
 
+        // eslint-disable-next-line mocha/no-setup-in-describe
         it(`should pass if content-type is ${ xmlWithCharsetRequest.headers['content-type'] }`, () => {
             expect(xmlWithCharsetRequest).to.be.xml();
         });
@@ -139,6 +140,7 @@ describe('supertestPlugin', () => {
                 );
             });
 
+            // eslint-disable-next-line mocha/no-setup-in-describe
             it(`should fail if content-type is ${ xmlWithCharsetRequest.headers['content-type'] }`, () => {
                 expect(() => expect(xmlWithCharsetRequest).to.not.be.xml()).to.throw(
                     /Expected content type to not be application\/xml, received application\/xml/

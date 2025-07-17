@@ -1,5 +1,4 @@
-import { throws } from '../assert';
-import { isType, notIsType } from '../assert';
+import { isType, notIsType, throws } from '../assert';
 
 describe('assert/isType', () => {
     it('should not throw if actual is of correct type', () => {

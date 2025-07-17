@@ -1,5 +1,3 @@
-/* eslint-disable mocha/no-setup-in-describe */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { expect } from '../expect';
 
 const values = {
@@ -8,6 +6,7 @@ const values = {
 };
 
 describe('expect/equal shorthands', () => {
+    // eslint-disable-next-line mocha/no-setup-in-describe
     for (const [method, value] of Object.entries(values)) {
         describe(method, () => {
             it(`should not throw if value is ${ method }`, () => {
@@ -31,6 +30,9 @@ describe('expect/equal shorthands', () => {
             });
         });
     }
-    expect(false).to.be.false;
-    expect(true).to.be.true;
+
+    it('shorthands should survive type checks', () => {
+        expect(false).to.be.false();
+        expect(true).to.be.true();
+    });
 });

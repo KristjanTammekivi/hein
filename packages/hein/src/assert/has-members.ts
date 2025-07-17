@@ -65,7 +65,6 @@ export const [hasMembers, notHasMembers] = createAssertion({
             let lastIndex = -1;
             for (const item of expected) {
                 if (deep || partial) {
-                    // eslint-disable-next-line @typescript-eslint/no-loop-func
                     const actualIndex = actual.findIndex((actualItem, index) => {
                         if (!ordered) {
                             return match(actualItem, item, { partial });

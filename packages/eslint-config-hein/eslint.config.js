@@ -2,19 +2,19 @@ import { globalIgnores, defineConfig } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
 import json from '@eslint/json';
-import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
 import prettier from 'eslint-plugin-prettier/recommended';
 import mocha from 'eslint-plugin-mocha';
 import unicorn from 'eslint-plugin-unicorn';
 import comments from '@eslint-community/eslint-plugin-eslint-comments/configs';
+import importPlugin from 'eslint-plugin-import';
 
 const jsTsPattern = '**/*.{js,mjs,cjs,ts}';
 const tsPattern = '**/*.ts';
 export default defineConfig([
     globalIgnores(['.*', 'dist', '**/*.d.ts']),
-    eslint.configs.recommended,
+    js.configs.recommended,
     tseslint.configs.recommended,
     { files: [jsTsPattern] },
     {
@@ -45,6 +45,8 @@ export default defineConfig([
         ...comments.recommended,
         files: [jsTsPattern]
     },
+    importPlugin.flatConfigs.recommended,
+    importPlugin.flatConfigs.typescript,
     {
         plugins: {
             json
@@ -198,7 +200,9 @@ export default defineConfig([
             '@eslint-community/eslint-comments/no-unused-disable': 'error',
             '@eslint-community/eslint-comments/disable-enable-pair': 'off',
 
-            'mocha/no-mocha-arrows': 'off'
+            'mocha/no-mocha-arrows': 'off',
+
+            'import/no-unresolved': 'off'
         }
     }
 ]);
