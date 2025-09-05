@@ -14,7 +14,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
-    "eslint": "^9.34.0",
+    "eslint": "^9.35.0",
     "eslint-config-hein": "^2.0.0-alpha.0",
     "mocha": "^11.7.1",
     "ts-node": "^10.9.1",
