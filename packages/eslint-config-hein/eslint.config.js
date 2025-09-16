@@ -167,7 +167,7 @@ export default defineConfig([
                 'single',
                 {
                     avoidEscape: true,
-                    allowTemplateLiterals: true
+                    allowTemplateLiterals: 'always'
                 }
             ],
             '@stylistic/no-extra-semi': 'error',

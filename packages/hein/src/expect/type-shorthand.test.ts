@@ -4,7 +4,7 @@ import { ValueType } from '../utils/get-type';
 const types: Record<ValueType, any> = {
     NaN: Number.NaN,
     array: [],
-    bigint: BigInt(5),
+    bigint: 5n,
     boolean: true,
     function: () => {},
     null: null,
@@ -48,7 +48,7 @@ describe('expect/type shorthands', () => {
     it('should survive type checks', () => {
         expect(Number.NaN).to.be.a.NaN();
         expect([]).to.be.an.array();
-        expect(BigInt(5)).to.be.a.bigint();
+        expect(5n).to.be.a.bigint();
         expect(true).to.be.a.boolean();
         expect(() => {}).to.be.a.function();
         expect(null).to.be.a.null();

@@ -32,11 +32,11 @@ describe('assert/deepEqual', () => {
     });
 
     it('should throw if values are BigInts', () => {
-        throws(() => deepEqual(BigInt(1), BigInt(2)));
+        throws(() => deepEqual(1n, 2n));
     });
 
     it('should not throw if values are BigInts', () => {
-        deepEqual(BigInt(1), BigInt(1));
+        deepEqual(1n, 1n);
     });
 
     it('should throw if one value is null', () => {
