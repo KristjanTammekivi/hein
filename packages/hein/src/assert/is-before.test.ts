@@ -1,4 +1,4 @@
-import { isBefore, notBefore, throws } from '../assert';
+import { isBefore, notBefore, throws } from '../assert.js';
 
 describe('assert/is-before', () => {
     let earlierDate: Date;

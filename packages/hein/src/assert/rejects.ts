@@ -1,5 +1,5 @@
 import { createAssertion } from 'hein-assertion-utils';
-import { Constructor, ErrorPredicate, processError } from '../utils/process-error';
+import { type Constructor, type ErrorPredicate, processError } from '../utils/process-error.js';
 
 interface Rejects {
     /**

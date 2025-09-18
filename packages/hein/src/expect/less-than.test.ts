@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/lessThan', () => {
     it('should not throw if actual is smaller than expected', () => {

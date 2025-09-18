@@ -1,5 +1,5 @@
-import { expect } from '../expect';
-import { getSize } from './get-size';
+import { expect } from '../expect.js';
+import { getSize } from './get-size.js';
 
 describe('getSize', () => {
     it('should get the size of an array', () => {

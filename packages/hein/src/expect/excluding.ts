@@ -1,6 +1,6 @@
-import { omit } from 'lodash';
-import { use } from '../mixins';
-import { expectChain } from '../expect';
+import omit from 'lodash/omit.js';
+import { use } from '../mixins.js';
+import { expectChain } from '../expect.js';
 
 declare module '../expect.types' {
     interface ObjectExpect<T> {

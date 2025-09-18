@@ -1,5 +1,5 @@
-import { instanceOf, notInstanceOf } from '../assert';
-import { use } from '../mixins';
+import { instanceOf, notInstanceOf } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     interface DateExpect {

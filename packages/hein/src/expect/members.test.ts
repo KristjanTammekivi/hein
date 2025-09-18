@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/members', () => {
     it('should not throw if arrays have same members', () => {

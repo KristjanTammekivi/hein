@@ -1,4 +1,4 @@
-import { isBetween, notBetween, throws } from '../assert';
+import { isBetween, notBetween, throws } from '../assert.js';
 
 describe('assert/is-between', () => {
     let earlierDate: Date;

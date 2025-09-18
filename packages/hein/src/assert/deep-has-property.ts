@@ -1,5 +1,6 @@
 import { createAssertion, stringify } from 'hein-assertion-utils';
-import { get, has } from 'lodash';
+import get from 'lodash/get.js';
+import has from 'lodash/has.js';
 
 interface DeepHasProperty {
     /**

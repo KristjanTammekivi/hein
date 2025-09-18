@@ -1,4 +1,4 @@
-import { deepHasProperty, deepNotHasProperty, throws } from '../assert';
+import { deepHasProperty, deepNotHasProperty, throws } from '../assert.js';
 
 describe('assert/deepHasProperty', () => {
     it('should not throw if value exists at lodash selector', () => {

@@ -1,4 +1,4 @@
-import { includes, notIncludes, throws } from '../assert';
+import { includes, notIncludes, throws } from '../assert.js';
 
 describe('assert/includes', () => {
     describe('arrays', () => {

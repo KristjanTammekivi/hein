@@ -1,4 +1,4 @@
-import { instanceOf, notInstanceOf, throws } from '../assert';
+import { instanceOf, notInstanceOf, throws } from '../assert.js';
 
 describe('assert/instanceOf', () => {
     it('should not throw if actual is an instance of the constructor', () => {

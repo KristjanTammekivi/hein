@@ -1,6 +1,6 @@
 import { AssertionError } from 'hein-assertion-utils';
-import { expect } from '../expect';
-import { fail } from './fail';
+import { expect } from '../expect.js';
+import { fail } from './fail.js';
 
 describe('fail', () => {
     it('should throw an AssertionError', () => {

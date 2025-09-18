@@ -1,5 +1,5 @@
 import { createAssertion } from 'hein-assertion-utils';
-import { ValueType, getType } from '../utils/get-type';
+import { type ValueType, getType } from '../utils/get-type.js';
 
 interface IsType {
     /**

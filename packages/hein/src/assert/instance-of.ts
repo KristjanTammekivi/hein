@@ -1,7 +1,7 @@
-import { isObjectLike } from 'lodash';
+import isObjectLike from 'lodash/isObjectLike.js';
 import { AssertionError, createAssertion } from 'hein-assertion-utils';
-import { getType } from '../utils/get-type';
-import { Constructor } from '../utils/process-error';
+import { getType } from '../utils/get-type.js';
+import { type Constructor } from '../utils/process-error.js';
 
 interface InstanceOf {
     /**

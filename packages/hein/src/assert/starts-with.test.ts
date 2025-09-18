@@ -1,4 +1,4 @@
-import { notStartsWith, startsWith, throws } from '../assert';
+import { notStartsWith, startsWith, throws } from '../assert.js';
 
 describe('assert/startsWith', () => {
     it('should not throw if string starts with value', () => {

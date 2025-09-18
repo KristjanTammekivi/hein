@@ -1,5 +1,5 @@
-import { throws } from '../assert';
-import { expect } from '../expect';
+import { throws } from '../assert.js';
+import { expect } from '../expect.js';
 
 describe('expect/throw', () => {
     it(`should throw if the callback doesn't throw`, () => {

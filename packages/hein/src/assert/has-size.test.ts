@@ -1,4 +1,4 @@
-import { hasSize, notHasSize, throws } from '../assert';
+import { hasSize, notHasSize, throws } from '../assert.js';
 
 describe('assert/hasSize', () => {
     describe('assert/array', () => {

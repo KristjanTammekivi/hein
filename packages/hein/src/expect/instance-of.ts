@@ -1,6 +1,6 @@
-import { notInstanceOf, instanceOf } from '../assert';
-import { use } from '../mixins';
-import { Constructor } from '../utils/process-error';
+import { notInstanceOf, instanceOf } from '../assert.js';
+import { use } from '../mixins.js';
+import { type Constructor } from '../utils/process-error.js';
 
 declare module '../expect.types' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('sizeOf', () => {
     it('should not throw if array is of correct size', () => {

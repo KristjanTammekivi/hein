@@ -1,5 +1,5 @@
-import { equal, notEqual } from '../assert';
-import { State, use } from '../mixins';
+import { equal, notEqual } from '../assert.js';
+import { type State, use } from '../mixins.js';
 import { format } from 'hein-assertion-utils';
 
 declare module '../expect.types' {

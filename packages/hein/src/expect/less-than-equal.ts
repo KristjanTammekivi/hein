@@ -1,5 +1,5 @@
-import { lessThanEqual, notLessThanEqual } from '../assert';
-import { use } from '../mixins';
+import { lessThanEqual, notLessThanEqual } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     interface NumberExpect<T> {

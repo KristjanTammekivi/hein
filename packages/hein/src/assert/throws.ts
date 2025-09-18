@@ -1,6 +1,6 @@
 import { AssertionError, createAssertion } from 'hein-assertion-utils';
-import { getType } from '../utils/get-type';
-import { Constructor, ErrorPredicate, processError } from '../utils/process-error';
+import { getType } from '../utils/get-type.js';
+import { type Constructor, type ErrorPredicate, processError } from '../utils/process-error.js';
 
 export type ThrowsCallback = () => unknown;
 

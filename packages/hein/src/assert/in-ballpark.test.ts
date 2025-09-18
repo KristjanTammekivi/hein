@@ -1,4 +1,4 @@
-import { inBallpark, notInBallpark, throws } from '../assert';
+import { inBallpark, notInBallpark, throws } from '../assert.js';
 
 describe('assert/inBallpark', () => {
     it('should not throw if value is equal to ballpark', () => {

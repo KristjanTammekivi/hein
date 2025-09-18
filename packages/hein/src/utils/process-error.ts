@@ -1,4 +1,4 @@
-import { Report } from 'hein-assertion-utils';
+import { type Report } from 'hein-assertion-utils';
 
 export interface Constructor<T = any> {
     new (...args: any[]): T;

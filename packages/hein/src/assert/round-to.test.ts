@@ -1,4 +1,4 @@
-import { notRoundTo, roundTo, throws } from '../assert';
+import { notRoundTo, roundTo, throws } from '../assert.js';
 
 describe('assert/roundTo', () => {
     it('should not throw if value rounds target integer', () => {

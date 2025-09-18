@@ -1,4 +1,4 @@
-import { hasMembers, notHasMembers, throws } from '../assert';
+import { hasMembers, notHasMembers, throws } from '../assert.js';
 
 describe('assert/hasMembers', () => {
     it('should not throw if array has members', () => {

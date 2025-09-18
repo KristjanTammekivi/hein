@@ -1,4 +1,4 @@
-import { match, notMatch, throws } from '../assert';
+import { match, notMatch, throws } from '../assert.js';
 
 describe('assert/match', () => {
     it('should not throw if regex matches actual', () => {

@@ -1,5 +1,5 @@
-import { any } from '../utils/match';
-import { deepEqual, notDeepEqual, throws } from '../assert';
+import { any } from '../utils/match.js';
+import { deepEqual, notDeepEqual, throws } from '../assert.js';
 
 describe('assert/deepEqual', () => {
     it('should not throw for NaN', () => {
@@ -123,7 +123,7 @@ describe('assert/deepEqual', () => {
         throws(() => deepEqual({ a: 1, b: 2 }, { a: 1, b: 3 }), /Expected { a: 1, b: 2 } to deep equal { a: 1, b: 3 }/);
     });
 
-    it('should not throw for patial equal if expected has missing props', () => {
+    it('should not throw for partial equal if expected has missing props', () => {
         deepEqual({ a: 1, b: 2 }, { a: 1 }, true);
     });
 
@@ -146,7 +146,7 @@ describe('assert/deepEqual', () => {
             deepEqual(Buffer.from('a'), Buffer.from('a'));
         });
 
-        it('should not throw if two buffers are the same in partial comparision', () => {
+        it('should not throw if two buffers are the same in partial comparison', () => {
             deepEqual(Buffer.from('abc'), Buffer.from('abc'), true);
         });
 
@@ -154,7 +154,7 @@ describe('assert/deepEqual', () => {
             throws(() => deepEqual(Buffer.from('a'), Buffer.from('b')));
         });
 
-        it('should throw if two buffers are not the same in partial comparision', () => {
+        it('should throw if two buffers are not the same in partial comparison', () => {
             throws(() => deepEqual(Buffer.from('abc'), Buffer.from('abd'), true));
         });
     });

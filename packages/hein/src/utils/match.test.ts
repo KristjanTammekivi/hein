@@ -1,5 +1,5 @@
-import { equal, hasSize } from '../assert';
-import { any, createEvaluation, match } from './match';
+import { equal, hasSize } from '../assert.js';
+import { any, createEvaluation, match } from './match.js';
 
 describe('utils/match', () => {
     describe('number', () => {

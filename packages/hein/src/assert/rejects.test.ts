@@ -1,4 +1,4 @@
-import { notRejects, rejects } from '../assert';
+import { notRejects, rejects } from '../assert.js';
 
 class FailError extends Error {}
 

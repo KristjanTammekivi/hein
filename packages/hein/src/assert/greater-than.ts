@@ -1,5 +1,5 @@
 import { createAssertion } from 'hein-assertion-utils';
-import { validateNumericsAndDates } from '../utils/validate-numeric-and-dates';
+import { validateNumericsAndDates } from '../utils/validate-numeric-and-dates.js';
 
 interface GreaterThan {
     /**

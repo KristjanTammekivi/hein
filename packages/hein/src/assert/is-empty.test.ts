@@ -1,4 +1,4 @@
-import { deepEqual, isEmpty, notIsEmpty, throws } from '../assert';
+import { deepEqual, isEmpty, notIsEmpty, throws } from '../assert.js';
 
 describe('assert/isEmpty', () => {
     describe('assert/array', () => {

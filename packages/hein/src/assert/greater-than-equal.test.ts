@@ -1,4 +1,4 @@
-import { greaterThanEqual, throws } from '../assert';
+import { greaterThanEqual, throws } from '../assert.js';
 
 describe('assert/greaterThanEqual', () => {
     it('should not throw if actual is greater than expected', () => {

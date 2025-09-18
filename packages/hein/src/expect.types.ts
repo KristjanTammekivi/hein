@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-import { ThrowsCallback } from './assert/throws';
-import type { fail } from './utils/fail';
-export { State } from './mixins';
+import { ThrowsCallback } from './assert/throws.js';
+import type { fail } from './utils/fail.js';
+export { State } from './mixins.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface ValueExpect<T> {

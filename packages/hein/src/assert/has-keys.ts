@@ -1,5 +1,5 @@
 import { createAssertion } from 'hein-assertion-utils';
-import { castArray } from 'lodash';
+import castArray from 'lodash/castArray.js';
 
 interface HasKeys {
     /**

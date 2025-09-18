@@ -1,5 +1,5 @@
-import { expect } from '../expect';
-import { ValueType } from '../utils/get-type';
+import { expect } from '../expect.js';
+import { type ValueType } from '../utils/get-type.js';
 
 const types: Record<ValueType, any> = {
     NaN: Number.NaN,

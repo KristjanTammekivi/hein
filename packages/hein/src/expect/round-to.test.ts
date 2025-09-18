@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/roundTo', () => {
     it('should not throw if value rounds target integer', () => {

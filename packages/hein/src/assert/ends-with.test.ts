@@ -1,4 +1,4 @@
-import { endsWith, notEndsWith, throws } from '../assert';
+import { endsWith, notEndsWith, throws } from '../assert.js';
 
 describe('assert/endsWith', () => {
     it('should not throw if string ends with value', () => {

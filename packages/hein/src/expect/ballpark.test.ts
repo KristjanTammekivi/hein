@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/ballpark', () => {
     it('should not throw if value is close to ballpark', () => {

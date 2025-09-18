@@ -1,4 +1,4 @@
-import { isPlainObject } from 'lodash';
+import isPlainObject from 'lodash/isPlainObject.js';
 import { createAssertion } from 'hein-assertion-utils';
 
 interface IsEmpty {

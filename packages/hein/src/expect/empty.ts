@@ -1,5 +1,5 @@
-import { isEmpty, notIsEmpty } from '../assert';
-import { use } from '../mixins';
+import { isEmpty, notIsEmpty } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

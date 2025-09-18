@@ -1,5 +1,5 @@
-import { deepEqual, equal, notDeepEqual, notEqual } from '../assert';
-import { use } from '../mixins';
+import { deepEqual, equal, notDeepEqual, notEqual } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     interface ValueExpect<T> {

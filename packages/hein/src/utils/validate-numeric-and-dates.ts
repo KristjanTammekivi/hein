@@ -1,5 +1,5 @@
 import { AssertionError } from 'hein-assertion-utils';
-import { ValueType, getType } from './get-type';
+import { type ValueType, getType } from './get-type.js';
 
 const allowedTypes: (ValueType | 'date')[] = ['number', 'bigint', 'date'];
 

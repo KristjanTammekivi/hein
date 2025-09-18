@@ -1,6 +1,6 @@
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep.js';
 import { createAssertion } from 'hein-assertion-utils';
-import { match } from '../utils/match';
+import { match } from '../utils/match.js';
 
 export const [deepEqual, notDeepEqual] = createAssertion({
     messages: {

@@ -1,5 +1,5 @@
-import { hasKeys, notHasKeys } from '../assert';
-import { use } from '../mixins';
+import { hasKeys, notHasKeys } from '../assert.js';
+import { use } from '../mixins.js';
 
 type InferMapKeys<T> = T extends Map<infer K, any> ? K : never;
 

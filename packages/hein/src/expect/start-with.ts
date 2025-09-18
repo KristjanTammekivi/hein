@@ -1,5 +1,5 @@
-import { startsWith, notStartsWith } from '../assert';
-import { use } from '../mixins';
+import { startsWith, notStartsWith } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     interface StringExpect {

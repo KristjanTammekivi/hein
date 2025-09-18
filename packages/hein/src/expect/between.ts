@@ -1,5 +1,5 @@
-import { isBetween, notBetween } from '../assert';
-import { use } from '../mixins';
+import { isBetween, notBetween } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     interface DateExpect {

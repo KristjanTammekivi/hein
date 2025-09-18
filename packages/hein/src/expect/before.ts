@@ -1,5 +1,5 @@
-import { isBefore, notBefore } from '../assert';
-import { use } from '../mixins';
+import { isBefore, notBefore } from '../assert.js';
+import { use } from '../mixins.js';
 
 declare module '../expect.types' {
     interface DateExpect {

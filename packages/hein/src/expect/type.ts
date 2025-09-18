@@ -1,6 +1,6 @@
-import { notIsType, isType } from '../assert';
-import { use } from '../mixins';
-import { ValueType } from '../utils/get-type';
+import { notIsType, isType } from '../assert.js';
+import { use } from '../mixins.js';
+import { type ValueType } from '../utils/get-type.js';
 
 declare module '../expect.types' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

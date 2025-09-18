@@ -1,5 +1,5 @@
 import { createAssertion } from 'hein-assertion-utils';
-import { match } from '../utils/match';
+import { match } from '../utils/match.js';
 
 interface HasMembersOptions {
     /**

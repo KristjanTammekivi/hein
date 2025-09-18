@@ -1,4 +1,4 @@
-import { isPlainObject } from 'lodash';
+import isPlainObject from 'lodash/isPlainObject.js';
 
 export const getSize = (value: any) => {
     if (Array.isArray(value)) {

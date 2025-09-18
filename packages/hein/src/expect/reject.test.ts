@@ -1,5 +1,5 @@
-import { rejects } from '../assert';
-import { expect } from '../expect';
+import { rejects } from '../assert.js';
+import { expect } from '../expect.js';
 
 describe('expect/rejects', () => {
     it('should not reject if promise rejects', async () => {

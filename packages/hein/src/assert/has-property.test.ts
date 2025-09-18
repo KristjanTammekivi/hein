@@ -1,4 +1,4 @@
-import { hasProperty, notHasProperty, throws } from '../assert';
+import { hasProperty, notHasProperty, throws } from '../assert.js';
 
 describe('assert/hasProperty', () => {
     it('should not throw if object has property', () => {

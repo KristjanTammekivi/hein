@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/startWith', () => {
     it('should not throw if string starts with value', () => {

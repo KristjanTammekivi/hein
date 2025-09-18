@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/equal', () => {
     it('should not throw for strict equality', () => {

@@ -1,4 +1,4 @@
-import { lessThanEqual, notLessThanEqual, throws } from '../assert';
+import { lessThanEqual, notLessThanEqual, throws } from '../assert.js';
 
 describe('assert/lessThanEqual', () => {
     it('should not throw if less than expected', () => {

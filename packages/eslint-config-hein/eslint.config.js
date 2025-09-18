@@ -68,6 +68,7 @@ export default defineConfig([
             }
         },
         rules: {
+            '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
             '@typescript-eslint/no-unnecessary-type-assertion': 'error',
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/only-throw-error': 'error'

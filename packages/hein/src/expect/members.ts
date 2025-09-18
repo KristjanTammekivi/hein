@@ -1,6 +1,6 @@
-import { hasMembers, notHasMembers } from '../assert';
-import { use } from '../mixins';
-import { DeepPartial } from '../utils/types';
+import { hasMembers, notHasMembers } from '../assert.js';
+import { use } from '../mixins.js';
+import { type DeepPartial } from '../utils/types.js';
 
 type InferArray<T> = T extends Array<infer U> ? U : any;
 

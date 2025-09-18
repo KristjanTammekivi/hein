@@ -1,5 +1,5 @@
-import { includes, notIncludes } from '../assert';
-import { use } from '../mixins';
+import { includes, notIncludes } from '../assert.js';
+import { use } from '../mixins.js';
 
 type ArrayType<T> = T extends (infer U)[] ? U : T;
 

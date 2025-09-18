@@ -1,5 +1,5 @@
-import { isObjectLike } from 'lodash';
-import { xor } from './xor';
+import isObjectLike from 'lodash/isObjectLike.js';
+import { xor } from './xor.js';
 
 const evaluationSymbol: unique symbol = Symbol();
 

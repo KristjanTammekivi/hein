@@ -1,4 +1,4 @@
-import { expect } from '../expect';
+import { expect } from '../expect.js';
 
 describe('expect/greaterThanEqual', () => {
     it('should not throw when expectation is smaller than actual', () => {

@@ -1,4 +1,4 @@
-import { isAfter, notAfter, throws } from '../assert';
+import { isAfter, notAfter, throws } from '../assert.js';
 
 describe('assert/is-after', () => {
     let earlierDate: Date;
