@@ -53,7 +53,7 @@
     "@types/mocha": "^10.0.9",
     "@types/mustache": "^4.2.1",
     "@types/node": "^24.5.0",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "eslint-config-hein": "^2.0.0-alpha.0",
     "mocha": "^11.7.1",
     "nyc": "^17.1.0",
