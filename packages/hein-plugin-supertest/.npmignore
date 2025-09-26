@@ -3,3 +3,5 @@ dist/*.test.*
 dist/tsconfig.tsbuildinfo
 .*
 tsconfig.json
+tsdown.config.ts
+eslint.config.mjs

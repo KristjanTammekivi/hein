@@ -38,7 +38,7 @@ export const [isEmpty, notIsEmpty] = createAssertion({
         notObject: 'Expected object to not be empty',
         notMap: 'Expected Map to not be empty',
         notSet: 'Expected Set to not be empty',
-        invalidArgument: 'Expected {{actual}} to be an array, object, Map, or Set'
+        invalidArgument: 'Expected {{= it.actual }} to be an array, object, Map, or Set'
     },
     test:
         (report): IsEmpty =>

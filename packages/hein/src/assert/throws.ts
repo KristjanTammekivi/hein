@@ -36,13 +36,13 @@ interface Throw {
 const messages = {
     nonError: 'Expected function to throw an instance of Error',
     throws: 'Expected function to throw',
-    invalidConstructor: 'Expected function to throw {{expected}}',
-    predicate: 'Expected {{actual}} to match predicate function',
-    regex: 'Expected function to throw an error matching {{expected}}',
+    invalidConstructor: 'Expected function to throw {{= it.expected }}',
+    predicate: 'Expected {{= it.actual }} to match predicate function',
+    regex: 'Expected function to throw an error matching {{= it.expected }}',
     not: 'Expected function to not throw',
-    notConstructor: 'Expected function to not throw a {{expected}}',
+    notConstructor: 'Expected function to not throw a {{= it.expected }}',
     notPredicate: 'Expected function to not throw an error matching the predicate',
-    notRegex: 'Expected function to not throw an error matching {{expected}}'
+    notRegex: 'Expected function to not throw an error matching {{= it.expected }}'
 };
 
 export const [throws, notThrows] = createAssertion({

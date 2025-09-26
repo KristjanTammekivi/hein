@@ -48,11 +48,11 @@ interface HasMembers {
 
 export const [hasMembers, notHasMembers] = createAssertion({
     messages: {
-        hasMembers: 'Expected {{actual}} to have members {{expected}}',
-        same: 'Expected {{actual}} to have same members as {{expected}}',
-        order: 'Expected {{actual}} to have ordered members {{expected}}',
-        not: 'Expected {{actual}} to not have members {{expected}}',
-        notSame: 'Expected {{actual}} to not have same members as {{expected}}'
+        hasMembers: 'Expected {{= it.actual }} to have members {{= it.expected }}',
+        same: 'Expected {{= it.actual }} to have same members as {{= it.expected }}',
+        order: 'Expected {{= it.actual }} to have ordered members {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not have members {{= it.expected }}',
+        notSame: 'Expected {{= it.actual }} to not have same members as {{= it.expected }}'
     },
     test:
         (report): HasMembers =>

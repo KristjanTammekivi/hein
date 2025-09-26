@@ -15,8 +15,8 @@ interface InstanceOf {
 
 export const [instanceOf, notInstanceOf] = createAssertion({
     messages: {
-        notInstanceOf: 'Expected {{actual}} to be an instance of {{expected}}',
-        not: 'Expected {{actual}} to not be an instance of {{expected}}'
+        notInstanceOf: 'Expected {{= it.actual }} to be an instance of {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not be an instance of {{= it.expected }}'
     },
     test:
         (report): InstanceOf =>

@@ -1,3 +1,8 @@
 .eslintrc
+.mocharc.json
+.vscode
+.tsbuildinfo
+eslint.config.mjs
 src
 tsconfig.json
+tsdown.config.ts

@@ -13,10 +13,10 @@ interface RoundTo {
 
 export const [roundTo, notRoundTo] = createAssertion({
     messages: {
-        miss: 'Expected {{actual}} to round to {{expected}}',
+        miss: 'Expected {{= it.actual }} to round to {{= it.expected }}',
         tooManyDecimals:
-            'Invalid argument for target, decimals for target ({{expected}}) cannot be less than rounding decimals ({{decimals}})',
-        not: 'Expected {{actual}} to not round to {{expected}}'
+            'Invalid argument for target, decimals for target ({{= it.expected }}) cannot be less than rounding decimals ({{= it.decimals }})',
+        not: 'Expected {{= it.actual }} to not round to {{= it.expected }}'
     },
     test:
         (report): RoundTo =>

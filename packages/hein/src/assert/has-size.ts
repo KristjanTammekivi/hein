@@ -41,17 +41,17 @@ interface HasSize {
 
 export const [hasSize, notHasSize] = createAssertion({
     messages: {
-        array: 'Expected array to have length of {{expected}}',
-        object: 'Expected object to have size of {{expected}}',
-        map: 'Expected Map to have size of {{expected}}',
-        set: 'Expected Set to have size of {{expected}}',
-        string: 'Expected string to have length of {{expected}}',
-        not: 'Expected array to not have length of {{expected}}',
-        notObject: 'Expected object to not have size of {{expected}}',
-        notMap: 'Expected Map to not have size of {{expected}}',
-        notSet: 'Expected Set to not have size of {{expected}}',
-        notString: 'Expected string to not have length of {{expected}}',
-        invalidValue: 'Expected {{actual}} to be an array, object, Map, Set or string'
+        array: 'Expected array to have length of {{= it.expected }}',
+        object: 'Expected object to have size of {{= it.expected }}',
+        map: 'Expected Map to have size of {{= it.expected }}',
+        set: 'Expected Set to have size of {{= it.expected }}',
+        string: 'Expected string to have length of {{= it.expected }}',
+        not: 'Expected array to not have length of {{= it.expected }}',
+        notObject: 'Expected object to not have size of {{= it.expected }}',
+        notMap: 'Expected Map to not have size of {{= it.expected }}',
+        notSet: 'Expected Set to not have size of {{= it.expected }}',
+        notString: 'Expected string to not have length of {{= it.expected }}',
+        invalidValue: 'Expected {{= it.actual }} to be an array, object, Map, Set or string'
     },
     test:
         (report): HasSize =>

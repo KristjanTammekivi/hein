@@ -1,5 +1,5 @@
 import { expect, use } from 'hein';
-import { supertestPlugin } from './index';
+import { supertestPlugin } from './index.js';
 
 use(supertestPlugin);
 

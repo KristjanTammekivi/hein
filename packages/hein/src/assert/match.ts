@@ -13,8 +13,8 @@ interface IsMatch {
 
 export const [match, notMatch] = createAssertion({
     messages: {
-        noMatch: 'Expected {{actual}} to match {{expected}}',
-        not: 'Expected {{actual}} to not match {{expected}}'
+        noMatch: 'Expected {{= it.actual }} to match {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not match {{= it.expected }}'
     },
     test:
         (report): IsMatch =>

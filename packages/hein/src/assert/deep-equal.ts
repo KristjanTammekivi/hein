@@ -4,8 +4,8 @@ import { match } from '../utils/match.js';
 
 export const [deepEqual, notDeepEqual] = createAssertion({
     messages: {
-        notEql: 'Expected {{actual}} to deep equal {{expected}}',
-        not: 'Expected {{actual}} to not deep equal {{expected}}'
+        notEql: 'Expected {{= it.actual }} to deep equal {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not deep equal {{= it.expected }}'
     },
     test:
         (report) =>

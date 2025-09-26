@@ -2,20 +2,6 @@ import { equal, notEqual } from '../assert.js';
 import { type State, use } from '../mixins.js';
 import { format } from 'hein-assertion-utils';
 
-declare module '../expect.types' {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface BooleanExpect<T> {
-        /**
-         * check if value is true
-         */
-        true(): this;
-        /**
-         * check if value is false
-         */
-        false(): this;
-    }
-}
-
 const values = {
     false: false,
     true: true
@@ -33,7 +19,7 @@ use(
                         () => {
                             if (inverted) {
                                 const message = format(
-                                    'Expected {{ value }} to not be {{ key }}',
+                                    'Expected {{= it.value }} to not be {{= it.key }}',
                                     {
                                         key,
                                         value
@@ -43,7 +29,7 @@ use(
                                 notEqual(value, expectValue, message);
                             } else {
                                 const message = format(
-                                    'Expected {{ value }} to be {{ key }}',
+                                    'Expected {{= it.value }} to be {{= it.key }}',
                                     {
                                         key,
                                         value

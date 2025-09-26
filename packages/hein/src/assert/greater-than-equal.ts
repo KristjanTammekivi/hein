@@ -10,8 +10,8 @@ interface GreaterThanEqual {
 
 export const [greaterThanEqual, notGreaterThanEqual] = createAssertion({
     messages: {
-        notGreaterThanEqual: 'Expected {{actual}} to not be greater than or equal to {{expected}}',
-        not: 'Expected {{actual}} to not be greater than or equal to {{expected}}'
+        notGreaterThanEqual: 'Expected {{= it.actual }} to not be greater than or equal to {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not be greater than or equal to {{= it.expected }}'
     },
     test:
         (report): GreaterThanEqual =>

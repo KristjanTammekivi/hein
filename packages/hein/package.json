@@ -1,6 +1,7 @@
 {
   "name": "hein",
-  "version": "1.5.0",
+  "description": "Assertion library written in TypeScript",
+  "version": "2.0.0-alpha.2",
   "type": "module",
   "engines": {
     "node": ">=14.0.0"
@@ -10,7 +11,6 @@
     "url": "https://github.com/KristjanTammekivi/hein"
   },
   "homepage": "https://heinjs.com",
-  "description": "Assertion library written in TypeScript",
   "keywords": [
     "typescript",
     "assertion",
@@ -18,11 +18,23 @@
     "test",
     "testing"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.cts",
   "exports": {
-    ".": "./dist/index.js",
-    "./assert": "./dist/assert.js",
-    "./expect.types": "./dist/expect.types.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./assert": {
+      "import": "./dist/assert.js",
+      "require": "./dist/assert.cjs"
+    },
+    "./expect.types": {
+      "import": "./dist/expect.types.js",
+      "require": "./dist/expect.types.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
@@ -35,7 +47,8 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc -b .",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
@@ -46,13 +59,12 @@
   "author": "Kristjan Tammekivi",
   "license": "MIT",
   "dependencies": {
-    "hein-assertion-utils": "^1.0.4",
+    "hein-assertion-utils": "^2.0.0-alpha.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.0",
     "@types/mocha": "^10.0.9",
-    "@types/mustache": "^4.2.1",
     "@types/node": "^24.5.0",
     "eslint": "^9.35.0",
     "eslint-config-hein": "^2.0.0-alpha.0",
@@ -61,6 +73,7 @@
     "rimraf": "^5.0.1",
     "source-map-support": "^0.5.21",
     "ts-node": "^10.9.1",
+    "tsdown": "^0.15.2",
     "typedoc": "^0.28.9",
     "typescript": "^5.9.2"
   }

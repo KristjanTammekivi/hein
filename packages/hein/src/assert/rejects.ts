@@ -33,16 +33,16 @@ interface Rejects {
 
 export const [rejects, notRejects] = createAssertion({
     messages: {
-        invalidArgument: 'Expected {{actual}} to be a Promise',
+        invalidArgument: 'Expected {{= it.actual }} to be a Promise',
         nonError: 'Expected Promise to reject with an instance of Error',
         throws: 'Expected Promise to reject',
-        invalidConstructor: 'Expected Promise to reject with {{expected}}',
-        predicate: 'Expected {{actual}} to match predicate function',
-        regex: 'Expected Promise to reject with an error matching {{expected}}',
+        invalidConstructor: 'Expected Promise to reject with {{= it.expected }}',
+        predicate: 'Expected {{= it.actual }} to match predicate function',
+        regex: 'Expected Promise to reject with an error matching {{= it.expected }}',
         not: 'Expected Promise to not reject',
-        notConstructor: 'Expected Promise to not reject with a {{expected}}',
-        notPredicate: 'Expected {{actual}} to not match predicate function',
-        notRegex: 'Expected Promise to not reject with an error matching {{expected}}'
+        notConstructor: 'Expected Promise to not reject with a {{= it.expected }}',
+        notPredicate: 'Expected {{= it.actual }} to not match predicate function',
+        notRegex: 'Expected Promise to not reject with an error matching {{= it.expected }}'
     },
     test:
         (report): Rejects =>

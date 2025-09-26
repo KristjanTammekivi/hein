@@ -1,8 +1,12 @@
-import * as mustache from 'mustache';
-import { mapValues } from 'lodash';
-import { stringify } from './stringify';
+import { Eta } from 'eta';
 
-const { render } = mustache;
+import mapValues from 'lodash/mapValues.js';
+import { stringify } from './stringify.js';
+
+const eta = new Eta({
+    autoEscape: false,
+    tags: ['{{', '}}']
+});
 
 export class AssertionError extends Error {
     public showDiff = true;
@@ -62,10 +66,9 @@ interface AssertionArguments<T extends string, U extends (...args: any[]) => voi
 }
 
 export const format = (message: string, data: Record<any, any>, noStringify: boolean) => {
-    const escape = mustache.escape;
-    (mustache as any).escape = (x: string) => x;
-    const result = noStringify ? render(message, data) : render(message, mapValues(data, stringify));
-    (mustache as any).escape = escape;
+    const result = noStringify
+        ? eta.renderString(message, data)
+        : eta.renderString(message, mapValues(data, stringify));
     return result;
 };
 

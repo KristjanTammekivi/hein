@@ -2,29 +2,29 @@ import type { Method, Property, State } from 'hein';
 
 import 'hein/expect.types';
 import type { SinonMatcher, SinonSpy } from 'sinon';
-import { called, notCalled } from './assert/called';
-import { calledAfter, notCalledAfter } from './assert/called-after';
-import { calledBefore, notCalledBefore } from './assert/called-before';
-import { calledTimes, notCalledTimes } from './assert/called-times';
-import { calledWith, notCalledWith } from './assert/called-with';
-import { calledWithMatch, notCalledWithMatch } from './assert/called-with-match';
+import { called, notCalled } from './assert/called.js';
+import { calledAfter, notCalledAfter } from './assert/called-after.js';
+import { calledBefore, notCalledBefore } from './assert/called-before.js';
+import { calledTimes, notCalledTimes } from './assert/called-times.js';
+import { calledWith, notCalledWith } from './assert/called-with.js';
+import { calledWithMatch, notCalledWithMatch } from './assert/called-with-match.js';
 type MaybeSinonMatch<T> = T extends SinonMatcher
     ? T
     : T extends (infer U)[]
-    ? {
-          [K in keyof T]: MaybeSinonMatch<U>;
-      }
-    : T extends object
-    ? {
-          [K in keyof T]: MaybeSinonMatch<T[K]>;
-      }
-    : T | SinonMatcher;
+      ? {
+            [K in keyof T]: MaybeSinonMatch<U>;
+        }
+      : T extends object
+        ? {
+              [K in keyof T]: MaybeSinonMatch<T[K]>;
+          }
+        : T | SinonMatcher;
 
 type PrefixContiguousSubsets<T extends any[]> = T extends []
     ? never
     : T extends [infer A, ...infer B]
-    ? [A] | [A, ...PrefixContiguousSubsets<B>]
-    : any;
+      ? [A] | [A, ...PrefixContiguousSubsets<B>]
+      : any;
 
 type TupleLength<T extends any[]> = T['length'];
 

@@ -1,5 +1,5 @@
-import { AssertionError } from './assertions';
-import { doesNotMatch } from 'node:assert/strict';
+import { AssertionError, format } from './assertions.js';
+import { doesNotMatch, equal } from 'node:assert/strict';
 
 describe('AssertionError', () => {
     it('should remove this module from stack', () => {
@@ -13,5 +13,10 @@ describe('AssertionError', () => {
             const error = new AssertionError(1, 2, 'TestError');
             doesNotMatch(error.stack, /hein-assertion-utils/);
         });
+    });
+
+    it('should not escape html characters', () => {
+        const error = format('TestError <div> {{= it.span }}', { span: '<span>' }, true);
+        equal(error, 'TestError <div> <span>');
     });
 });

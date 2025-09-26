@@ -13,8 +13,8 @@ interface EndsWith {
 
 export const [endsWith, notEndsWith] = createAssertion({
     messages: {
-        wrongEnd: 'Expected {{ actual }} to end with {{ expected }}',
-        not: 'Expected {{ actual }} to not end with {{ expected }}'
+        wrongEnd: 'Expected {{= it.actual }} to end with {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not end with {{= it.expected }}'
     },
     test:
         (report): EndsWith =>

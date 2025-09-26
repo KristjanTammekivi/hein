@@ -15,8 +15,8 @@ interface HasKeys {
 
 export const [hasKeys, notHasKeys] = createAssertion({
     messages: {
-        noKey: 'Expected {{object}} to have keys {{expected}}',
-        not: 'Expected {{object}} to not have keys {{expected}}'
+        noKey: 'Expected {{= it.object }} to have keys {{= it.expected }}',
+        not: 'Expected {{= it.object }} to not have keys {{= it.expected }}'
     },
     test:
         (report): HasKeys =>

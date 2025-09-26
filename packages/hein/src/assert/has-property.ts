@@ -20,10 +20,10 @@ interface HasProperty {
 
 export const [hasProperty, notHasProperty] = createAssertion({
     messages: {
-        noProperty: 'Expected {{actual}} to have property {{expected}}',
-        wrongValue: 'Expected {{obj}} to have property {{expected}} with value {{value}}',
-        not: 'Expected {{actual}} to not have property {{expected}}',
-        notWrongValue: 'Expected {{obj}} to not have property {{expected}} with value {{value}}'
+        noProperty: 'Expected {{= it.actual }} to have property {{= it.expected }}',
+        wrongValue: 'Expected {{= it.obj }} to have property {{= it.expected }} with value {{= it.value }}',
+        not: 'Expected {{= it.actual }} to not have property {{= it.expected }}',
+        notWrongValue: 'Expected {{= it.obj }} to not have property {{= it.expected }} with value {{= it.value }}'
     },
     test:
         (report): HasProperty =>

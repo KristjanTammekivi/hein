@@ -22,8 +22,8 @@ interface Includes {
 
 export const [includes, notIncludes] = createAssertion({
     messages: {
-        arrayMisses: 'Expected {{ actual }} to include {{ expected }}',
-        not: 'Expected {{ actual }} to not include {{ expected }}'
+        arrayMisses: 'Expected {{= it.actual }} to include {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not include {{= it.expected }}'
     },
     test:
         (report): Includes =>

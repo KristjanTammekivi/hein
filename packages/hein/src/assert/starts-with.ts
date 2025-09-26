@@ -12,8 +12,8 @@ interface StartsWith {
 
 export const [startsWith, notStartsWith] = createAssertion({
     messages: {
-        wrongStart: 'Expected {{ actual }} to start with {{ expected }}',
-        not: 'Expected {{ actual }} to not start with {{ expected }}'
+        wrongStart: 'Expected {{= it.actual }} to start with {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not start with {{= it.expected }}'
     },
     test:
         (report): StartsWith =>

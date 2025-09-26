@@ -14,8 +14,8 @@ interface IsBetween {
 
 export const [isBetween, notBetween] = createAssertion({
     messages: {
-        notBetween: 'Expected {{actual}} to be between {{lesser}} and {{greater}}',
-        not: 'Expected {{actual}} to not be between {{lesser}} and {{greater}}'
+        notBetween: 'Expected {{= it.actual }} to be between {{= it.lesser }} and {{= it.greater }}',
+        not: 'Expected {{= it.actual }} to not be between {{= it.lesser }} and {{= it.greater }}'
     },
     test:
         (report): IsBetween =>

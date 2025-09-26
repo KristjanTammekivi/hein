@@ -1,9 +1,12 @@
-src
-dist/**/*.test.*
-coverage
+.*
 .nyc_output
+.vscode
+coverage
+dist/**/*.test.*
 dist/tsconfig.tsbuildinfo
 docs
-.vscode
-.*
+eslint.config.mjs
+ESM_MIGRATION_NOTES.md
+src
 tsconfig.json
+tsdown.config.ts

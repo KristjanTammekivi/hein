@@ -1,2 +1,2 @@
-export * from './assertions';
-export { stringify } from './stringify';
+export * from './assertions.js';
+export { stringify } from './stringify.js';

@@ -6,6 +6,7 @@
   "version": "0.0.1",
   "description": "Node.js assertion library",
   "main": "index.js",
+  "files": ["dist"],
   "repository": "git@github.com:KristjanTammekivi/hein.git",
   "author": "Kristjan Tammekivi <kristjantammekivi@gmail.com>",
   "private": true,

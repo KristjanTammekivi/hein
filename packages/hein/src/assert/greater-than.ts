@@ -10,8 +10,8 @@ interface GreaterThan {
 
 export const [greaterThan, notGreaterThan] = createAssertion({
     messages: {
-        smaller: 'Expected {{actual}} to be greater than {{expected}}',
-        not: 'Expected {{actual}} to not be greater than {{expected}}'
+        smaller: 'Expected {{= it.actual }} to be greater than {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not be greater than {{= it.expected }}'
     },
     test:
         (report): GreaterThan =>

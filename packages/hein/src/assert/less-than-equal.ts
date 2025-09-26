@@ -10,8 +10,8 @@ interface LessThanEqual {
 
 export const [lessThanEqual, notLessThanEqual] = createAssertion({
     messages: {
-        lesserThanEqual: 'Expected {{actual}} to be less than or equal to {{expected}}',
-        not: 'Expected {{actual}} to not be less than or equal to {{expected}}'
+        lesserThanEqual: 'Expected {{= it.actual }} to be less than or equal to {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not be less than or equal to {{= it.expected }}'
     },
     test:
         (report): LessThanEqual =>

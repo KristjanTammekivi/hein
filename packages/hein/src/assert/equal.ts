@@ -9,8 +9,8 @@ interface Equal {
 
 export const [equal, notEqual] = createAssertion({
     messages: {
-        equal: 'Expected {{actual}} to equal {{expected}}',
-        not: 'Expected {{actual}} to not equal {{expected}}'
+        equal: 'Expected {{= it.actual }} to equal {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not equal {{= it.expected }}'
     },
     test:
         (report): Equal =>

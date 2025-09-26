@@ -1,28 +1,38 @@
 {
   "name": "hein-plugin-supertest",
-  "version": "1.0.2",
+  "version": "2.0.0-alpha.0",
   "description": "hein plugin for supertest assertions",
-  "main": "dist/index.js",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "author": "Kristjan Tammekivi",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && tsc -b .",
+    "build": "tsdown",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "npm run lint -- --fix",
-    "test": "node --trace-warnings node_modules/.bin/mocha 'src/**/*.test.ts'",
-    "test:watch": "node --trace-warnings node_modules/.bin/mocha --watch 'src/**/*.test.ts'",
+    "test": "mocha 'src/**/*.test.ts'",
+    "test:watch": "mocha --watch 'src/**/*.test.ts'",
     "coverage": "nyc npm run test"
   },
   "dependencies": {
-    "hein-assertion-utils": "^1.0.4"
+    "hein-assertion-utils": "^2.0.0-alpha.3"
   },
   "devDependencies": {
     "eslint": "^9.35.0",
-    "eslint-config-hein": "^2.0.0-alpha.0",
+    "eslint-config-hein": "^2.0.0",
     "hein": "*",
     "mocha": "^11.7.1",
     "nyc": "^17.1.0",
     "rimraf": "^5.0.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsdown": "^0.15.2"
   }
 }

@@ -9,8 +9,8 @@ interface IsBefore {
 
 export const [isBefore, notBefore] = createAssertion({
     messages: {
-        after: 'Expected {{actual}} to be before {{expected}}',
-        not: 'Expected {{actual}} to not be before {{expected}}'
+        after: 'Expected {{= it.actual }} to be before {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not be before {{= it.expected }}'
     },
     test:
         (report): IsBefore =>

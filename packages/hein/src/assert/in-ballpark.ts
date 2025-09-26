@@ -14,8 +14,8 @@ interface InBallpark {
 
 export const [inBallpark, notInBallpark] = createAssertion({
     messages: {
-        miss: 'Expected {{actual}} to be in ballpark of {{expected}}',
-        not: 'Expected {{actual}} to not be in ballpark of {{expected}}',
+        miss: 'Expected {{= it.actual }} to be in ballpark of {{= it.expected }}',
+        not: 'Expected {{= it.actual }} to not be in ballpark of {{= it.expected }}',
         invalidMultiplier: 'Expected multiplier to be between 0 and 1'
     },
     test:

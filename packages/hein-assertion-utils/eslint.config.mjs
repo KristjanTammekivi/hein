@@ -1,3 +1,4 @@
 import heinConfig from 'eslint-config-hein';
+import { globalIgnores } from 'eslint/config';
 
-export default [...heinConfig];
+export default [globalIgnores(['./tsdown.config.ts']), ...heinConfig];

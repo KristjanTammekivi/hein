@@ -95,8 +95,8 @@ interface IsType {
 
 export const [isType, notIsType] = createAssertion({
     messages: {
-        wrongType: 'Expected {{ actual }} to be a(n) {{ expected }}',
-        not: `Expected {{ actual }} to not be a(n) {{ expected }}`
+        wrongType: 'Expected {{= it.actual }} to be a(n) {{= it.expected }}',
+        not: `Expected {{= it.actual }} to not be a(n) {{= it.expected }}`
     },
     test:
         (report): IsType =>
