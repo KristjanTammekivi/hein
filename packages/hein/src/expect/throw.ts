@@ -1,5 +1,18 @@
 import { notThrows, throws } from '../assert.js';
 import { type State, use } from '../mixins.js';
+import { type Constructor, type ErrorPredicate } from '../utils/process-error.js';
+
+declare module '../expect.types' {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface FunctionExpect<T> {
+        /**
+         * check if function throws
+         * @param message
+         */
+        throw(message?: string): this;
+        throw(matcher: RegExp | Constructor<Error> | ErrorPredicate, message?: string): this;
+    }
+}
 
 use({
     throw: {

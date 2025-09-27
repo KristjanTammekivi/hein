@@ -1,5 +1,25 @@
 import { hasMembers, notHasMembers } from '../assert.js';
 import { use } from '../mixins.js';
+import { type DeepPartial } from '../utils/types.js';
+
+type InferArray<T> = T extends Array<infer U> ? U : any;
+
+declare module '../expect.types' {
+    interface ArrayExpect<T> {
+        /**
+         * check that the members in second array are present in the first one
+         */
+        members(value: InferArray<T>[], message?: string): this;
+        same: ArrayExpect<T>;
+        ordered: ArrayExpect<T>;
+        /**
+         * Use partial matching for objects
+         * @example
+         * expect({ a: 1, b: 2 }).to.partially.eql({ a: 1 });
+         */
+        partially: ArrayExpect<DeepPartial<T>>;
+    }
+}
 
 use({
     members: {

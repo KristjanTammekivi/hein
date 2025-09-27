@@ -5,5 +5,8 @@ export default defineConfig([{
     platform: 'node',
     format: ['esm', 'cjs'],
     sourcemap: true,
-    dts: true
+    dts: true,
+    outputOptions: {
+        preserveModules: true
+    }
 }]);

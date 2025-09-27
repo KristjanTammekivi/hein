@@ -31,23 +31,7 @@ import './expect/type-shorthand.js';
 import './expect/type.js';
 import mapValues from 'lodash/mapValues.js';
 import { fail } from './utils/fail.js';
-import { type ThrowsCallback } from './assert/throws.js';
-import {
-    type ValueExpect,
-    type ArrayExpect,
-    type BigIntExpect,
-    type BooleanExpect,
-    type DateExpect,
-    type FunctionExpect,
-    type NumberExpect,
-    type MapExpect,
-    type ObjectExpect,
-    type PromiseExpect,
-    type StringExpect,
-    type SymbolExpect,
-    type Loose,
-    type AllExpects
-} from './expect.types';
+import { type Expect } from './expect.types.js';
 
 use({
     to: { type: 'property', value: () => null },
@@ -107,20 +91,3 @@ export const expect = (<T>(actual: T) => {
 }) as Expect;
 
 expect.fail = fail;
-
-export interface Expect {
-    <T extends Loose>(actual: T): AllExpects<T>;
-    <T extends ThrowsCallback>(actual: T): FunctionExpect<T>;
-    <T extends Promise<any>>(actual: T): PromiseExpect<T>;
-    <T extends any[]>(actual: T): ArrayExpect<T>;
-    <T extends Date>(actual: T): DateExpect<T>;
-    <T extends Map<any, any>>(actual: T): MapExpect<T>;
-    <T extends Record<string, any>>(actual: T): ObjectExpect<T>;
-    <T extends number>(actual: T): NumberExpect;
-    <T extends bigint>(actual: T): BigIntExpect;
-    <T extends boolean>(actual: T): BooleanExpect;
-    <T extends string>(actual: T): StringExpect;
-    <T extends symbol>(actual: T): SymbolExpect<T>;
-    <T>(actual: T): ValueExpect<T>;
-    fail: typeof fail;
-}

@@ -1,6 +1,16 @@
 import { isBefore, notBefore } from '../assert.js';
 import { use } from '../mixins.js';
 
+declare module '../expect.types' {
+    interface DateExpect {
+        /**
+         * check if date is before other date
+         * @param date
+         */
+        before(date: Date): this;
+    }
+}
+
 use({
     before: {
         type: 'method',
