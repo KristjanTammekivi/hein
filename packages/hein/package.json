@@ -1,7 +1,7 @@
 {
   "name": "hein",
   "description": "Assertion library written in TypeScript",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "type": "module",
   "engines": {
     "node": ">=14.0.0"

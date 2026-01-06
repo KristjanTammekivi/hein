@@ -11,14 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
       - run: yarn
       - run: yarn --cwd packages/hein run lint
       - run: yarn build
-      - run: yarn --cwd packages/hein publish --non-interactive
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: yarn --cwd packages/hein publish --tag=alpha --non-interactive
